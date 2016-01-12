@@ -14,7 +14,7 @@
           <tr>
             <td data-title='名稱' width='150'><?php echo $tag->name;?></td>
             <td data-title='編輯' width='120'>
-              <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'products');?>' class='icon-images'></a>
+              <!-- <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'products');?>' class='icon-images'></a> -->
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
