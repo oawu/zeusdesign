@@ -18,7 +18,7 @@
       </tr>
 
       <tr>
-        <th>角色：</th>
+        <th>角 色：</th>
         <td>
           <select name='role'>
       <?php foreach (Cfg::setting ('role', 'roles') as $key => $name) { ?>
