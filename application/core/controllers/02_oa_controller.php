@@ -18,6 +18,7 @@ class Oa_controller extends Root_controller {
   private $js_list     = array ();
   private $css_list    = array ();
 
+  private $tabs        = array ();
   private $append_js_list     = array ();
   private $append_css_list    = array ();
 
@@ -28,6 +29,20 @@ class Oa_controller extends Root_controller {
     ;
   }
 
+  protected function set_tab_index ($tab_index = null) {
+    $this->add_param ('tab_index', $tab_index);
+    return $this;
+  }
+  protected function add_tab ($key, $val) {
+    if (is_string ($key))
+      $this->tabs[$key] = $val;
+    return $this;
+  }
+  protected function set_subtitle ($subtitle) {
+    if (is_string ($subtitle))
+      $this->add_param ('subtitle', $subtitle);
+    return $this;
+  }
   protected function set_componemt_path () {
     $this->componemt_path = array_filter (func_get_args ());
     return $this;
@@ -205,7 +220,8 @@ class Oa_controller extends Root_controller {
          ->add_css (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.css')))))
          ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_public_path (), array ('public.js')))))
          ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_frame_path (), array ('frame.js')))))
-         ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.js')))));
+         ->add_js (base_url (implode ('/', array_merge ($this->get_views_path (), $this->get_content_path (), array ($this->get_class (), $this->get_method (), 'content.js')))))
+         ->add_param ('tabs', $this->tabs);
 
     if ($this->append_js_list)
       foreach ($this->append_js_list as $append_js)

@@ -41,7 +41,7 @@
         z-index: 1;
         padding: 10px 5px;
         background-color: rgba(255, 255, 255, 1);
-        @include text-shadow(0 0 5px rgba(9, 140, 122, 1));
+        // @include text-shadow(0 0 5px rgba(9, 140, 122, 1));
         @include background-image(linear-gradient(top, rgba(0, 172, 151, .8) 0%, rgba(0, 172, 151, 1) 100%));
 
         &:after {
@@ -116,7 +116,7 @@
         border-top: 1px solid rgba(39, 40, 34, .15);
         border-bottom: 1px solid rgba(39, 40, 34, .25);
         padding: 5px 0;
-        @include box-shadow(0 1px 1px rgba(39, 40, 34, .1));
+        // @include box-shadow(0 1px 1px rgba(39, 40, 34, .1));
 
         @media screen and (min-width: $mainWidth) {
           border-left: 1px solid rgba(39, 40, 34, .15);
@@ -178,7 +178,7 @@
     > div {
       > div:nth-child(1) {
         left: 0;
-        @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
+        // @include box-shadow(0 0 5px 1px rgba(39, 40, 34, .3), 1px 0 1px rgba(39, 40, 34, .3));
         @include opacity(1);
       }
     }

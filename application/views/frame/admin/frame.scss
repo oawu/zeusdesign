@@ -43,7 +43,7 @@ $mobileVerticalPadding: 15px;
         border-bottom: 1px solid rgba(39, 40, 34, .25);
         overflow: hidden;
         font-size: 13px;
-        @include box-shadow(0 0 3px 1px rgba(39, 40, 34, .2));
+        // @include box-shadow(0 0 3px 1px rgba(39, 40, 34, .2));
         display: table-cell;
 
         @media screen and (min-width: 0px) and (max-width: #{$mediaTabletWidth - 1px}) {
@@ -395,7 +395,7 @@ table.table-form {
   }
 }
 ._m {
-  @include alert('info');
+  @include alert('info', false);
   position: absolute;
   top: -$msgHeight;
   left: 0;

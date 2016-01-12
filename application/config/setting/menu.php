@@ -8,8 +8,8 @@
 $menu['admin'] = array (
     '權限' => array (
         '首頁' => array ('icon' => 'icon-home', 'href' => base_url ('admin'), 'class' => 'main', 'method' => 'index', 'target' => '_self'),
-        '角色設定' => array ('icon' => 'icon-user', 'href' => base_url ('admin'), 'class' => 'roles', 'method' => '', 'target' => '_self'),
-        '使用者設定' => array ('icon' => 'icon-user2', 'href' => base_url ('admin'), 'class' => 'users', 'method' => '', 'target' => '_self'),
+        // '角色設定' => array ('icon' => 'icon-user', 'href' => base_url ('admin'), 'class' => 'roles', 'method' => '', 'target' => '_self'),
+        '使用者設定' => array ('icon' => 'icon-user2', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self'),
       ),
     '首頁上搞' => array (
         '分類' => array ('icon' => 'icon-tags', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),

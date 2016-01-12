@@ -5,5 +5,10 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-$role['roles'] = array ('login', 'member', 'admin', 'root');
+$role['roles'] = array (
+  'login' => '未驗證',
+  'member' => '會員',
+  'admin' => '管理者', 
+  'root' => '權限最高者');
+
 $role['admins'] = array ('member', 'admin', 'root');
