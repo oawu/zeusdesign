@@ -12,12 +12,15 @@ application/logs/*
 !application/logs/.htaccess
 
 application/config/database.php
+application/config/setting/facebook.php
 
 temp/*
 
 upload/*
 
 assets/*
+
+vendor/*
 
 /cmd
 
