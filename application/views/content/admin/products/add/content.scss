@@ -83,10 +83,12 @@
       &.sub {
         display: inline-block;
         width: 100%;
+        margin-top: 10px;
 
         &:before {
           content: '-';
           margin: 0 5px;
+          margin-left: 30px;
         }
 
         + .main {
