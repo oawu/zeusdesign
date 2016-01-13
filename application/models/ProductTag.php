@@ -10,11 +10,13 @@ class ProductTag extends OaModel {
   static $table_name = 'product_tags';
 
   static $has_one = array (
+    array ('products_count', 'class_name' => 'ProductTagMapping', 'select' => 'COUNT(*) AS value')
   );
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'ProductTagMapping'),
-    array ('products', 'class_name' => 'Product', 'through' => 'mappings', 'order' => 'product_tag_mappings.sort DESC')
+    array ('products', 'class_name' => 'Product', 'through' => 'mappings'),
+    array ('tags', 'class_name' => 'ProductTag', 'order' => 'sort ASC')
   );
 
   static $belongs_to = array (
@@ -27,6 +29,11 @@ class ProductTag extends OaModel {
     if ($this->mappings)
       foreach ($this->mappings as $mapping)
         if (!$mapping->destroy ())
+          return false;
+    
+    if ($this->tags)
+      foreach ($this->tags as $tag)
+        if (!$tag->destroy ())
           return false;
 
     return $this->delete ();

@@ -292,8 +292,11 @@ table.table-form {
       }
     }
 
-    input[type='text'] {
+    input[type='text'], input[type='file'] {
       @include material-input;
+    }
+    input[type='file'] {
+      border-bottom: 0;
     }
 
     label {

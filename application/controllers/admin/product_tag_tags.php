@@ -5,28 +5,36 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Product_tags extends Admin_controller {
+class Product_tag_tags extends Admin_controller {
+  private $parent_tag = null;
   private $tag = null;
 
   public function __construct () {
     parent::__construct ();
 
+    if (!(($id = $this->uri->rsegments (3, 0)) && ($this->parent_tag = ProductTag::find_by_id ($id))))
+      return redirect_message (array ('admin', 'product_tags'), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->tag = ProductTag::find_by_id ($id, array ('conditions' => array ('product_tag_id = ?', 0))))))
-        return redirect_message (array ('admin', $this->get_class ()), array (
+      if (!(($id = $this->uri->rsegments (4, 0)) && ($this->tag = ProductTag::find_by_id ($id))))
+        return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
             '_flash_message' => '找不到該筆資料。'
           ));
 
-    $this->add_tab ('標籤列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
-         ->add_tab ('新增標籤', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
+    $this->add_param ('class', 'product_tags')
+         ->add_tab ('上層列表', array ('href' => base_url ('admin', 'product_tags'), 'index' => 1))
+         ->add_tab ('標籤列表', array ('href' => base_url ('admin', 'product_tags', $this->parent_tag->id, 'tags'), 'index' => 2))
+         ->add_tab ('新增標籤', array ('href' => base_url ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'add'), 'index' => 3));
+         ;
   }
-
-  public function index ($offset = 0) {
-    $columns = array ('name' => 'string');
-    $configs = array ('admin', $this->get_class (), '%s');
+  public function index  ($id, $offset = 0) {
+    $columns = array ('title' => 'string');
+    $configs = array ('admin', 'product_tags', $this->parent_tag->id, 'tags', '%s');
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'ProductTag', OAInput::get ())));
-    ProductTag::addConditions ($conditions, 'product_tag_id = ?', 0);
+    ProductTag::addConditions ($conditions, 'product_tag_id = ?', $this->parent_tag->id);
 
     $limit = 25;
     $total = ProductTag::count (array ('conditions' => $conditions));
@@ -42,9 +50,10 @@ class Product_tags extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    return $this->set_tab_index (1)
-                ->set_subtitle ('作品標籤列表')
+    return $this->set_tab_index (2)
+                ->set_subtitle ($this->parent_tag->name . ' 內標籤列表')
                 ->load_view (array (
+                    'parent_tag' => $this->parent_tag,
                     'tags' => $tags,
                     'pagination' => $pagination,
                     'has_search' => array_filter ($columns),
@@ -54,63 +63,65 @@ class Product_tags extends Admin_controller {
   public function add () {
     $posts = Session::getData ('posts', true);
     
-    return $this->set_tab_index (2)
-                ->set_subtitle ('新增作品標籤')
+    return $this->set_tab_index (3)
+                ->set_subtitle ('新增 ' . $this->parent_tag->name . ' 內標籤 ')
                 ->load_view (array (
+                    'parent_tag' => $this->parent_tag,
                     'posts' => $posts
                   ));
   }
   public function create () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
     $posts = OAInput::post ();
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
 
-    $posts['product_tag_id'] = 0;
-    $posts['sort'] = ProductTag::count (array ('conditions' => array ('product_tag_id = ?', 0)));
+    $posts['product_tag_id'] = $this->parent_tag->id;
+    $posts['sort'] = ProductTag::count (array ('conditions' => array ('product_tag_id = ?', $this->parent_tag->id)));
 
     $create = ProductTag::transaction (function () use ($posts) {
       return verifyCreateOrm ($tag = ProductTag::create (array_intersect_key ($posts, ProductTag::table ()->columns)));
     });
 
     if (!$create)
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'add'), array (
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
         '_flash_message' => '新增成功！'
       ));
   }
   public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $this->tag->id), 'index' => 3))
-                ->set_tab_index (3)
-                ->set_subtitle ('編輯作品標籤')
+    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $this->tag->id), 'index' => 4))
+                ->set_tab_index (4)
+                ->set_subtitle ('編輯 ' . $this->parent_tag->name . ' 內標籤 ')
                 ->load_view (array (
                     'posts' => $posts,
+                    'parent_tag' => $this->parent_tag,
                     'tag' => $this->tag
                   ));
   }
   public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
     $posts = OAInput::post ();
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -125,37 +136,35 @@ class Product_tags extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags', 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
         '_flash_message' => '更新成功！'
       ));
   }
   public function destroy () {
-    
     $tag = $this->tag;
-    
     $delete = ProductTag::transaction (function () use ($tag) {
       return $tag->destroy ();
     });
 
     if (!$delete)
-      return redirect_message (array ('admin', $this->get_class ()), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
           '_flash_message' => '刪除失敗！',
         ));
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
         '_flash_message' => '刪除成功！'
       ));
   }
-  public function sort ($id, $sort) {
+  public function sort ($id, $tag_id, $sort) {
     if (!in_array ($sort, array ('up', 'down')))
-      return redirect_message (array ('admin', $this->get_class ()), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
           '_flash_message' => '排序失敗！'
         ));
 
-    $total = ProductTag::count (array ('conditions' => array ('product_tag_id = ?', 0)));
+    $total = ProductTag::count (array ('conditions' => array ('product_tag_id = ?', $this->parent_tag->id)));
 
     switch ($sort) {
       case 'up':
@@ -169,7 +178,7 @@ class Product_tags extends Admin_controller {
         break;
     }
 
-    ProductTag::addConditions ($conditions, 'sort = ? AND product_tag_id = ?', $this->tag->sort, 0);
+    ProductTag::addConditions ($conditions, 'sort = ? AND product_tag_id = ?', $this->tag->sort, $this->parent_tag->id);
 
     $tag = $this->tag;
     
@@ -182,11 +191,11 @@ class Product_tags extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class ()), array (
+      return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
           '_flash_message' => '排序失敗！',
           'posts' => $posts
         ));
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->parent_tag->id, 'tags'), array (
         '_flash_message' => '排序成功！'
       ));
   }

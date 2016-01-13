@@ -48,6 +48,8 @@ class Admin_controller extends Oa_controller {
                 ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
                 ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+                ->add_js (base_url ('resource', 'javascript', 'autosize_v3.0.8', 'autosize.min.js'))
+                ->add_js (base_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.js'))
                 ->add_js (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.js'))
                 ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.js'))

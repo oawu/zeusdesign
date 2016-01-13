@@ -6,14 +6,14 @@
       <tr>
         <th>名 稱：</th>
         <td>
-          <input type='text' name='name' value='<?php echo $posts['name'] ? $posts['name'] : $user->name;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入名稱!' />
+          <input type='text' name='name' value='<?php echo isset ($posts['name']) ? $posts['name'] : $user->name;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入名稱!' />
         </td>
       </tr>
       
       <tr>
         <th>電子郵件：</th>
         <td>
-          <input type='text' name='email' value='<?php echo $posts['email'] ? $posts['email'] : $user->email;?>' placeholder='請輸入電子郵件..' maxlength='200' pattern='.{1,200}' required title='輸入電子郵件!' />
+          <input type='text' name='email' value='<?php echo isset ($posts['email']) ? $posts['email'] : $user->email;?>' placeholder='請輸入電子郵件..' maxlength='200' pattern='.{1,200}' required title='輸入電子郵件!' />
         </td>
       </tr>
 
@@ -22,7 +22,7 @@
         <td>
           <select name='role'>
       <?php foreach (Cfg::setting ('role', 'roles') as $key => $name) { ?>
-              <option value='<?php echo $key;?>'<?php echo ($posts['role'] ? $posts['role'] : $user->role) == $key ? ' selected': '';?>><?php echo $name;?></option>
+              <option value='<?php echo $key;?>'<?php echo (isset ($posts['role']) ? $posts['role'] : $user->role) == $key ? ' selected': '';?>><?php echo $name;?></option>
       <?php } ?>
           </select>
         </td>

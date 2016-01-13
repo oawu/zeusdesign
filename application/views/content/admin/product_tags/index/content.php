@@ -12,9 +12,16 @@
 <?php if ($tags) {
         foreach ($tags as $tag) { ?>
           <tr>
-            <td data-title='名稱' width='150'><?php echo $tag->name;?></td>
-            <td data-title='編輯' width='120'>
+            <td data-title='名稱' ><?php echo $tag->name;?></td>
+            <td data-title='子標籤'width='200'>
+              <?php echo implode(', ', column_array ($tag->tags, 'name'));?>
+            </td>
+            <td data-title='作品數量' width='100'>
+              <?php echo $tag->products_count->value;?> 個
+            </td>
+            <td data-title='編輯' width='150'>
               <!-- <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'products');?>' class='icon-images'></a> -->
+              <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'tags');?>' class='icon-tags'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
