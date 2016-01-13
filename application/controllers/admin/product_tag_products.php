@@ -5,27 +5,41 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Products extends Admin_controller {
+class Product_tag_products extends Admin_controller {
+  private $tag = null;
   private $product = null;
 
   public function __construct () {
     parent::__construct ();
 
+    if (!(($id = $this->uri->rsegments (3, 0)) && ($this->tag = ProductTag::find_by_id ($id))))
+      return redirect_message (array ('admin', 'product_tags'), array (
+          '_flash_message' => '找不到該筆資料。'
+        ));
+
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->product = Product::find_by_id ($id))))
-        return redirect_message (array ('admin', $this->get_class ()), array (
+      if (!(($id = $this->uri->rsegments (4, 0)) && ($this->product = Product::find_by_id ($id))))
+        return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products'), array (
             '_flash_message' => '找不到該筆資料。'
           ));
 
-    $this->add_tab ('作品列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
-         ->add_tab ('新增作品', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
+    $this->add_param ('class', 'product_tags')
+         ->add_tab ('標籤列表', array ('href' => base_url ($this->tag->product_tag_id ? array ('admin', 'product_tags', $this->tag->product_tag_id, 'tags') : array ('admin', 'product_tags')), 'index' => 1))
+         ->add_tab ('作品列表', array ('href' => base_url ('admin', 'products'), 'index' => 2))
+         ->add_tab ('新增作品', array ('href' => base_url ('admin', 'product_tags', $this->tag->id, 'products', 'add'), 'index' => 3));
+         ;
   }
 
-  public function index ($offset = 0) {
+  public function index ($tag_id, $offset = 0) {
     $columns = array ('title' => 'string', 'content' => 'string');
-    $configs = array ('admin', $this->get_class (), '%s');
+    $configs = array ('admin', 'product_tags', '%s');
 
     $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Product', OAInput::get ())));
+
+    if ($product_id = column_array (ProductTagMapping::find ('all', array ('select' => 'product_id', 'conditions' => array ('product_tag_id = ?', $this->tag->id))), 'product_id'))
+      Product::addConditions ($conditions, 'id IN (?)', $product_id);
+    else
+      Product::addConditions ($conditions, 'id = ?', -1);
 
     $limit = 25;
     $total = Product::count (array ('conditions' => $conditions));
@@ -41,9 +55,10 @@ class Products extends Admin_controller {
         'conditions' => $conditions
       ));
 
-    return $this->set_tab_index (1)
-                ->set_subtitle ('作品列表')
+    return $this->set_tab_index (2)
+                ->set_subtitle ($this->tag->name . '內的作品列表')
                 ->load_view (array (
+                    'tag' => $this->tag,
                     'products' => $products,
                     'pagination' => $pagination,
                     'has_search' => array_filter ($columns),
@@ -53,15 +68,16 @@ class Products extends Admin_controller {
   public function add () {
     $posts = Session::getData ('posts', true);
 
-    return $this->set_tab_index (2)
+    return $this->set_tab_index (3)
                 ->set_subtitle ('新增作品')
                 ->load_view (array (
+                    'tag' => $this->tag,
                     'posts' => $posts
                   ));
   }
   public function create () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -70,13 +86,13 @@ class Products extends Admin_controller {
     $pictures = OAInput::file ('pictures[]');
 
     if (!$cover)
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', 'add'), array (
           '_flash_message' => '請選擇照片(gif、jpg、png)檔案，或提供照片網址!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', 'add'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -87,16 +103,15 @@ class Products extends Admin_controller {
     });
 
     if (!($create && $product))
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', 'add'), array (
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
 
-    if ($posts['tag_ids'] && ($tag_ids = column_array (ProductTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $posts['tag_ids']))), 'id')))
-      foreach ($tag_ids as $tag_id)
-        ProductTagMapping::transaction (function () use ($tag_id, $product) {
-          return verifyCreateOrm (ProductTagMapping::create (array_intersect_key (array ('product_tag_id' => $tag_id, 'product_id' => $product->id), ProductTagMapping::table ()->columns)));
-        });
+    $tag = $this->tag;
+    ProductTagMapping::transaction (function () use ($tag, $product) {
+      return verifyCreateOrm (ProductTagMapping::create (array_intersect_key (array ('product_tag_id' => $tag->id, 'product_id' => $product->id), ProductTagMapping::table ()->columns)));
+    });
 
     if ($blocks = $posts['blocks'])
       foreach ($blocks as $block)
@@ -113,24 +128,25 @@ class Products extends Admin_controller {
           return verifyCreateOrm ($pic = ProductPicture::create (array_intersect_key (array_merge ($picture, array ('product_id' => $product->id)), ProductPicture::table ()->columns))) && $pic->name->put ($picture);
         });
 
-    return redirect_message (array ('admin', $this->get_class ()), array (
-        '_flash_message' => '新增成功！'
-      ));
+    return redirect_message (array ('admin', 'product_tags', $tag->id, 'products'), array (
+      '_flash_message' => '新增成功！'
+    ));
   }
   public function edit () {
     $posts = Session::getData ('posts', true);
 
-    return $this->add_tab ('編輯作品', array ('href' => base_url ('admin', $this->get_class (), $this->product->id, 'edit'), 'index' => 3))
-                ->set_tab_index (3)
+    return $this->add_tab ('編輯作品', array ('href' => base_url ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), 'index' => 4))
+                ->set_tab_index (4)
                 ->set_subtitle ('編輯作品')
                 ->load_view (array (
                     'posts' => $posts,
+                    'tag' => $this->tag,
                     'product' => $this->product
                   ));
   }
   public function update () {
     if (!$this->has_post ())
-      return redirect_message (array ('admin', $this->get_class (), $this->product->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
         ));
 
@@ -138,13 +154,13 @@ class Products extends Admin_controller {
     $cover = OAInput::file ('cover');
 
     if (!((string)$this->product->cover || $cover))
-      return redirect_message (array ('admin', $this->get_class (), $this->product->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), array (
           '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
           'posts' => $posts
         ));
 
     if ($msg = $this->_validation_posts ($posts))
-      return redirect_message (array ('admin', $this->get_class (), $this->product->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), array (
           '_flash_message' => $msg,
           'posts' => $posts
         ));
@@ -165,7 +181,7 @@ class Products extends Admin_controller {
     });
 
     if (!$update)
-      return redirect_message (array ('admin', $this->get_class (), $this->product->id, 'edit'), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), array (
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
@@ -180,20 +196,6 @@ class Products extends Admin_controller {
       foreach ($pictures as $picture)
         ProductPicture::transaction (function () use ($picture, $product) {
           return verifyCreateOrm ($pic = ProductPicture::create (array_intersect_key (array_merge ($picture, array ('product_id' => $product->id)), ProductPicture::table ()->columns))) && $pic->name->put ($picture);
-        });
-
-    $ori_ids = column_array ($product->mappings, 'product_tag_id');
-
-    if (($del_ids = array_diff ($ori_ids, $posts['tag_ids'])) && ($mappings = ProductTagMapping::find ('all', array ('select' => 'id, product_tag_id', 'conditions' => array ('product_id = ? AND product_tag_id IN (?)', $product->id, $del_ids)))))
-      foreach ($mappings as $mapping)
-        ProductTagMapping::transaction (function () use ($mapping) {
-          return $mapping->destroy ();
-        });
-
-    if (($add_ids = array_diff ($posts['tag_ids'], $ori_ids)) && ($tags = ProductTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $add_ids)))))
-      foreach ($tags as $tag)
-        ProductTagMapping::transaction (function () use ($tag, $product) {
-          return verifyCreateOrm (ProductTagMapping::create (array_intersect_key (array ('product_tag_id' => $tag->id, 'product_id' => $product->id), ProductTagMapping::table ()->columns)));
         });
     
     $clean_blocks = ProductBlock::transaction (function () use ($product) {
@@ -210,7 +212,7 @@ class Products extends Admin_controller {
                 return verifyCreateOrm (ProductBlockItem::create (array_intersect_key (array_merge ($item, array ('product_block_id' => $b->id)), ProductBlockItem::table ()->columns)));
               });
 
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products', $this->product->id, 'edit'), array (
         '_flash_message' => '更新成功！'
       ));
   }
@@ -221,15 +223,14 @@ class Products extends Admin_controller {
     });
 
     if (!$delete)
-      return redirect_message (array ('admin', $this->get_class ()), array (
+      return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products'), array (
           '_flash_message' => '刪除失敗！',
         ));
 
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (array ('admin', 'product_tags', $this->tag->id, 'products'), array (
         '_flash_message' => '刪除成功！'
       ));
   }
-
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))
       return '沒有填寫標題！';
@@ -238,7 +239,6 @@ class Products extends Admin_controller {
       return '沒有填寫內容！';
 
     if (!isset ($posts['pic_ids'])) $posts['pic_ids'] = array ();
-    if (!isset ($posts['tag_ids'])) $posts['tag_ids'] = array ();
 
     if (isset ($posts['blocks']))
       $posts['blocks'] = array_filter ($posts['blocks'], function (&$blocks) {

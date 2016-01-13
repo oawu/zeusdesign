@@ -11,4 +11,5 @@ Route::group ('admin', function () {
   Route::resourcePagination (array ('products'), 'products');
   Route::resourcePagination (array ('product_tags'), 'product_tags');
   Route::resourcePagination (array ('product_tags', 'tags'), 'product_tag_tags');
+  Route::resourcePagination (array ('product_tags', 'products'), 'product_tag_products');
 });

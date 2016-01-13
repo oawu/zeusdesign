@@ -13,19 +13,15 @@
         foreach ($tags as $tag) { ?>
           <tr>
             <td data-title='名稱' ><?php echo $tag->name;?></td>
-            <td data-title='子標籤'width='200'>
-              <?php echo implode(', ', column_array ($tag->tags, 'name'));?>
-            </td>
-            <td data-title='作品數量' width='100'>
-              <?php echo $tag->products_count->value;?> 個
-            </td>
-            <td data-title='編輯' width='150'>
-              <!-- <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'products');?>' class='icon-images'></a> -->
+            <td data-title='子標籤'width='230'><?php echo implode('<br/>', column_array ($tag->tags, 'name'));?></td>
+            <td data-title='作品數量' width='100'><?php echo count ($tag->mappings);?> 個</td>
+            <td data-title='編輯' width='140'>
+              <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'products');?>' class='icon-images'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'tags');?>' class='icon-tags'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>
             </td>
-            <td data-title='排序' width='60' class='sort'>
+            <td data-title='排序' width='50' class='sort'>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'sort', 'up');?>' data-method='post' class='icon-triangle-up'></a>
               <a href='<?php echo base_url ('admin', 'product_tags', $tag->id, 'sort', 'down');?>' data-method='post' class='icon-triangle-down'></a>
             </td>

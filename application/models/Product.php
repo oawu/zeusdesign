@@ -14,7 +14,7 @@ class Product extends OaModel {
 
   static $has_many = array (
     array ('mappings', 'class_name' => 'ProductTagMapping'),
-    array ('picturs', 'class_name' => 'ProductPicture'),
+    array ('pictures', 'class_name' => 'ProductPicture'),
     array ('tags', 'class_name' => 'ProductTag', 'through' => 'mappings'),
     array ('blocks', 'class_name' => 'ProductBlock'),
   );
@@ -35,6 +35,10 @@ class Product extends OaModel {
     OrmImageUploader::bind ('cover', 'ProductCoverImageUploader');
   }
 
+  public function mini_content ($length = 100) {
+    if (!isset ($this->content)) return '';
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
+  }
   public function destroy () {
     if (!(isset ($this->cover) && isset ($this->id)))
       return false;
@@ -44,9 +48,9 @@ class Product extends OaModel {
         if (!$block->destroy ())
           return false;
 
-    if ($this->picturs)
-      foreach ($this->picturs as $pictur)
-        if (!$pictur->destroy ())
+    if ($this->pictures)
+      foreach ($this->pictures as $picture)
+        if (!$picture->destroy ())
           return false;
 
     if ($this->mappings)

@@ -38,7 +38,7 @@ class Product_tags extends Admin_controller {
         'offset' => $offset,
         'limit' => $limit,
         'order' => 'sort ASC',
-        'include' => array ('mappings'),
+        'include' => array ('mappings', 'tags'),
         'conditions' => $conditions
       ));
 

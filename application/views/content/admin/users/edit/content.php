@@ -6,7 +6,7 @@
       <tr>
         <th>名 稱：</th>
         <td>
-          <input type='text' name='name' value='<?php echo isset ($posts['name']) ? $posts['name'] : $user->name;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入名稱!' />
+          <input type='text' name='name' value='<?php echo isset ($posts['name']) ? $posts['name'] : $user->name;?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入名稱!' autofocus />
         </td>
       </tr>
       

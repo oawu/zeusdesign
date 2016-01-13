@@ -10,7 +10,6 @@ class ProductTag extends OaModel {
   static $table_name = 'product_tags';
 
   static $has_one = array (
-    array ('products_count', 'class_name' => 'ProductTagMapping', 'select' => 'COUNT(*) AS value')
   );
 
   static $has_many = array (

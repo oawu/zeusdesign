@@ -103,7 +103,7 @@ class Product_tag_tags extends Admin_controller {
   public function edit () {
     $posts = Session::getData ('posts', true);
     
-    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', $this->get_class (), 'edit', $this->tag->id), 'index' => 4))
+    return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', 'product_tags', $this->parent_tag->id, 'tags', $this->tag->id, 'edit'), 'index' => 4))
                 ->set_tab_index (4)
                 ->set_subtitle ('編輯 ' . $this->parent_tag->name . ' 內標籤 ')
                 ->load_view (array (

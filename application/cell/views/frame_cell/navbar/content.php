@@ -1,7 +1,7 @@
 <nav>
   <div>
-    <a href='<?php echo base_url ();?>' class='o'><div></div><div><div></div><div></div></div></a>
-    <!-- <a href='<?php echo base_url ();?>' class='o'><div>宙思</div><div><div>設計有限公司</div><div>ZEUS Design</div></div></a> -->
+    <!-- <a href='<?php echo base_url ();?>' class='o'><div></div><div><div></div><div></div></div></a> -->
+    <a href='<?php echo base_url ();?>' class='o'><div>宙思</div><div><div>設計有限公司</div><div>ZEUS Design</div></div></a>
 
     <div>
 <?php if ($back_link) { ?>
@@ -9,8 +9,8 @@
 <?php } else { ?>
         <div class='l icon-menu'></div>
 <?php }?>
-      <h1></h1>
-      <!-- <h1><?php echo $subtitle;?></h1> -->
+      <!-- <h1></h1> -->
+      <h1><?php echo $subtitle;?></h1>
     </div>
 
     <div>

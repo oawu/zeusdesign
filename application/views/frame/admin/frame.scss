@@ -244,9 +244,13 @@ table.table-list-rwd {
       cursor: pointer;
     }
   }
-  .i_30 {
-    width: 30px;
-    @include border-radius(2px);
+  @for $i from 1 through 10 {
+    .i_#{$i * 10} {
+      width: $i * 10px;
+      border: 1px solid rgba(190, 191, 189, 1);
+      @include border-radius(2px);
+      @include border-radius(2px);
+    }
   }
   a {
     @include a;

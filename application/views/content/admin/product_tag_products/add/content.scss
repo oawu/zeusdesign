@@ -1,0 +1,56 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+.ps, .p {
+  + .ps, + .p {
+    margin-top: 5px;
+  }
+  @include clearfix();
+
+  input[type='file'] {
+    float: left;
+    width: calc(100% - 50px - 10px) !important;
+  }
+  button {
+    float: right;
+    width: 50px;
+    @include button('mazu2');
+    font-weight: normal;
+  }
+}
+.bt, .bi, .bb {
+  + .bt, + .bi, + .bb {
+    margin-top: 5px;
+  }
+  @include clearfix();
+
+  input[type='text'] {
+    float: left;
+    width: calc(100% - 50px - 10px) !important;
+  }
+  &.bi {
+    input[type='text'] {
+      margin-right: 10px;
+      &:nth-child(1) {
+        width: calc(35% - 25px - 5px - 5px) !important;
+      }
+      &:nth-child(2) {
+        width: calc(65% - 25px - 5px - 5px) !important;
+      }
+    }
+  }
+  button {
+    float: right;
+    width: 50px;
+    @include button('mazu2');
+    font-weight: normal;
+  }
+}
+.add_block {
+  @include button('mazu2');
+  font-weight: normal;
+}

@@ -1,4 +1,4 @@
-<form action='<?php echo base_url (array ('admin', 'products'));?>' method='post' enctype='multipart/form-data'>
+<form action='<?php echo base_url (array ('admin', 'product_tags', $tag->id, 'products'));?>' method='post' enctype='multipart/form-data'>
   <table class='table-form'>
     <tbody>
 
@@ -33,23 +33,8 @@
       </tr>
 
       <tr>
-        <th class='tst'>分 類：</th>
-        <td class='ts'>
-    <?php if ($tags = ProductTag::find ('all', array ('include' => array ('tags'), 'conditions' => array ('product_tag_id = ?', 0)))) {
-            foreach ($tags as $i => $tag) {?>
-              <div class='t'>
-                <label class='main'><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>'<?php echo isset ($posts['tag_ids']) && $posts['tag_ids'] && in_array ($tag->id, $posts['tag_ids']) ? ' checked' : '';?> /> <?php echo $tag->name;?></label>
-          <?php if ($tag->tags) {
-                  foreach ($tag->tags as $sub_tag) { ?>
-                    <label class='sub'><input type='checkbox' class='l' name='tag_ids[]' value='<?php echo $sub_tag->id;?>'<?php echo isset ($posts['tag_ids']) && $posts['tag_ids'] && in_array ($sub_tag->id, $posts['tag_ids']) ? ' checked' : '';?> /> <?php echo $sub_tag->name;?></label>
-            <?php }
-                } ?>
-              </div>
-      <?php }
-          } else { ?>
-            目前尚未新增任何分類。
-    <?php } ?>
-        </td>
+        <th>分 類：</th>
+        <td><?php echo $tag->name;?></td>
       </tr>
 
       <tr>
