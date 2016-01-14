@@ -12,7 +12,11 @@
   </head>
   <body lang="zh-tw">
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
-
-    <?php echo isset ($content) ? $content : ''; ?>
+    
+    <div id='container'>
+      <?php echo render_cell ('site_frame_cell', 'header');?>
+      <?php echo isset ($content) ? $content : ''; ?>
+      <?php echo render_cell ('site_frame_cell', 'footer');?>
+    </div>
   </body>
 </html>

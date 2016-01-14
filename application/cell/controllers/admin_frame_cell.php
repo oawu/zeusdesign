@@ -5,9 +5,9 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Frame_cell extends Cell_Controller {
+class Admin_frame_cell extends Cell_Controller {
 
-  /* render_cell ('frame_cell', 'wrapper_left', var1, ..); */
+  /* render_cell ('admin_frame_cell', 'wrapper_left', var1, ..); */
   // public function _cache_wrapper_left ($type, $class = null, $method = null) {
   //   $class = $class ? $class : $this->CI->get_class ();
   //   $method = $method ? $method : $this->CI->get_method ();
@@ -26,7 +26,7 @@ class Frame_cell extends Cell_Controller {
       ));
   }
 
-  /* render_cell ('frame_cell', 'navbar', var1, ..); */
+  /* render_cell ('admin_frame_cell', 'navbar', var1, ..); */
   // public function _cache_nav ($type, $subtitle = '', $back_link = '') {
   //   return array ('time' => 60 * 60, 'key' => $type . '_' . $subtitle);
   // }
@@ -38,7 +38,7 @@ class Frame_cell extends Cell_Controller {
       ));
   }
 
-  /* render_cell ('frame_cell', 'footer', var1, ..); */
+  /* render_cell ('admin_frame_cell', 'footer', var1, ..); */
   // public function footer ($type) {
   //   return array ('time' => 60 * 60, 'key' => $type);
   // }
@@ -46,7 +46,7 @@ class Frame_cell extends Cell_Controller {
     return $this->load_view ();
   }
 
-  /* render_cell ('frame_cell', 'tabs', var1, ..); */
+  /* render_cell ('admin_frame_cell', 'tabs', var1, ..); */
   // public function tabs ($type, $tabs = array (), $index = null) {
   //   return array ('time' => 60 * 60, 'key' => $type . '_' . implode ('|', array_keys ($tabs)) . ($index !== null ? '_' . $index : ''));
   // }
@@ -58,7 +58,7 @@ class Frame_cell extends Cell_Controller {
       ));
   }
 
-  /* render_cell ('frame_cell', 'pagination', $pagination); */
+  /* render_cell ('admin_frame_cell', 'pagination', $pagination); */
   // public function _cache_pagination () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }

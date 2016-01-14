@@ -22,7 +22,7 @@ class Admin_controller extends Oa_controller {
          ->set_content_path ('content', 'admin')
          ->set_public_path ('public')
 
-         ->set_title ("OA's CI")
+         ->set_title (Cfg::setting ('site', 'admin', 'title'))
 
          ->_add_meta ()
          ->_add_css ()
@@ -35,24 +35,24 @@ class Admin_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.css'))
-                ->add_css (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.css'))
-                ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.css'))
-                ->append_css (base_url ('application', 'cell', 'views', 'frame_cell', 'footer', 'content.css'))
+    return $this->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'navbar', 'content.css'))
+                ->add_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'wrapper_left', 'content.css'))
+                ->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'tabs', 'content.css'))
+                ->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'footer', 'content.css'))
                 ;
   }
 
   private function _add_js () {
-    return $this->add_js (base_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-rails_d2015_03_09', 'jquery_ujs.js'))
-                ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
-                ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
-                ->add_js (base_url ('resource', 'javascript', 'autosize_v3.0.8', 'autosize.min.js'))
-                ->add_js (base_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
-                ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'navbar', 'content.js'))
-                ->add_js (base_url ('application', 'cell', 'views', 'frame_cell', 'wrapper_left', 'content.js'))
-                ->append_js (base_url ('application', 'cell', 'views', 'frame_cell', 'tabs', 'content.js'))
+    return $this->add_js (resource_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'jquery-rails_d2015_03_09', 'jquery_ujs.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'autosize_v3.0.8', 'autosize.min.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
+                ->append_js (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'navbar', 'content.js'))
+                ->add_js (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'wrapper_left', 'content.js'))
+                ->append_js (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'tabs', 'content.js'))
                 ;
   }
 }

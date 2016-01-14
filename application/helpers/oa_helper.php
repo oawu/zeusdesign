@@ -5,6 +5,13 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
+if (!function_exists ('resource_url')) {
+  function resource_url () {
+    $uris = array_filter (func_get_args ());
+    return base_url ($uris);
+  }
+}
+
 if (!function_exists ('remove_ckedit_tag')) {
   function remove_ckedit_tag ($text) {
     return preg_replace ("/\s+/", " ", preg_replace ("/&#?[a-z0-9]+;/i", "", (trim (strip_tags ($text)))));

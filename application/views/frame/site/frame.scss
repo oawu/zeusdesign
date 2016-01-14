@@ -7,6 +7,40 @@
 
 html {
   body {
+    position: relative;
+    background-color: #fff;
+    background-image: none;
+    font-family: "微軟正黑體","Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    padding-top: 65px;
 
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 28%;
+      width: 260px;
+      height: 2px;
+      background-color: rgba(149, 226, 213, .5);
+      z-index: -1;
+      @include transform(rotate(60deg) scale(1));
+    }
+    &:after {
+      left: calc(28% - 10px);
+      top: -10px;
+      width: 260px - 5px;
+    }
+    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+      padding: 10px;
+      padding-top: 20px;
+      &:before {
+        left: 5%;
+      }
+      &:after {
+        left: calc(5% - 10px);
+      }
+    }
   }
+}
+#container {
+  max-width: $mainWidth;
 }

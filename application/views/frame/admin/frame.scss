@@ -16,7 +16,7 @@ $mobileVerticalPadding: 15px;
     display: table;
     min-height: 100%;
   }
-  max-width: $mainWidth;
+  max-width: $mainAdminWidth;
 
   &.show {
     > div {
@@ -61,7 +61,7 @@ $mobileVerticalPadding: 15px;
           padding: 20px;
           @include border-bottom-left-radius(3px);
         }
-        @media screen and (min-width: #{$mainWidth + 40px}) {
+        @media screen and (min-width: #{$mainAdminWidth + 40px}) {
           @include border-bottom-right-radius(3px);
           border-right: 1px solid rgba(39, 40, 34, .25);
         }
@@ -107,14 +107,14 @@ $mobileVerticalPadding: 15px;
     line-height: 40px;
     @include box-shadow(0 3px 4px 1px rgba(39, 40, 34, .25), inset 0 1px 2px rgba(255, 255, 255, .4));
   }
-  @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mainWidth - 1px}) {
+  @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$mainAdminWidth - 1px}) {
     right: 40px;
     bottom: 40px;
     width: 50px;
     height: 50px;
     line-height: 50px;
   }
-  @media screen and (min-width: #{$mainWidth + 40px}) {
+  @media screen and (min-width: #{$mainAdminWidth + 40px}) {
     right: 50px;
     bottom: 50px;
     width: 60px;
