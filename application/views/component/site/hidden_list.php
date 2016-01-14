@@ -5,4 +5,4 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-if ($hidden_list) foreach ($hidden_list as $hidden) echo oa_hidden ($hidden) . (ENVIRONMENT !== 'production' ? "\n" : '');
+if ($hidden_list) foreach ($hidden_list as $hidden) echo oa_hidden ($hidden) . (ENVIRONMENT !== 'workion' ? "\n" : '');

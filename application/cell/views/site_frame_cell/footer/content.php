@@ -4,7 +4,7 @@
   <div>
   Home
   About ZEUS
-  Products
+  Works
   Contact
 </div>
 </footer>

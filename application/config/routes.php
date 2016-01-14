@@ -8,8 +8,8 @@ Route::get ('/platform', 'platform@login');
 Route::group ('admin', function () {
   Route::get ('/', 'main');
   Route::resourcePagination (array ('users'), 'users');
-  Route::resourcePagination (array ('products'), 'products');
-  Route::resourcePagination (array ('product_tags'), 'product_tags');
-  Route::resourcePagination (array ('product_tags', 'tags'), 'product_tag_tags');
-  Route::resourcePagination (array ('product_tags', 'products'), 'product_tag_products');
+  Route::resourcePagination (array ('works'), 'works');
+  Route::resourcePagination (array ('work_tags'), 'work_tags');
+  Route::resourcePagination (array ('work_tags', 'tags'), 'work_tag_tags');
+  Route::resourcePagination (array ('work_tags', 'works'), 'work_tag_works');
 });

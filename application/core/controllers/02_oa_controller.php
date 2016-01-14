@@ -177,7 +177,7 @@ class Oa_controller extends Root_controller {
     return base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
   }
   private function _combine_static_files () {
-    if ((ENVIRONMENT !== 'production') && Cfg::system ('static', 'enable'))
+    if ((ENVIRONMENT !== 'workion') && Cfg::system ('static', 'enable'))
       return $this;
 
     if (!is_writable ($folder_path = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('static', 'assets_folder')) . DIRECTORY_SEPARATOR))

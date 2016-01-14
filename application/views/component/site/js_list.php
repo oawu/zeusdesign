@@ -5,4 +5,4 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-if ($js_list) foreach ($js_list as $js) echo script_tag ($js) . (ENVIRONMENT !== 'production' ? "\n" : '');
+if ($js_list) foreach ($js_list as $js) echo script_tag ($js) . (ENVIRONMENT !== 'workion' ? "\n" : '');
