@@ -7,32 +7,9 @@
 
 header {
   @include clearfix();
-  div {
-    float: left;
-    display: inline-block;
-    width: 100%;
-    margin-top: 80px;
-    margin-bottom: 40px;
-    padding-top: 15px;
-    border-top: 1px solid rgba(153, 153, 153, 1);
-    font-size: 13px;
-    @include clearfix();
-    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
-      margin-top: 30px;
-      margin-bottom: 20px;
-      padding-left: 5px;
-      padding-right: 5px;
-    }
-    span {
-      float: left;
-      color: rgba(85, 85, 85, 1);
-    }
-    a {
-      float: right;
-      color: rgba(153, 153, 153, 1);
-      font-style: italic;
-      @include opacity(.9);
-    }
+  padding-bottom: 60px;
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    padding-bottom: 30px;
   }
   a {
     float: left;
@@ -66,6 +43,7 @@ header {
     }
     @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
       float: left;
+      width: 100%;
       margin-top: 30px;
       a {
         margin: 0 12px;

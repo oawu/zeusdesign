@@ -4,4 +4,8 @@
  */
 
 $(function () {
+  $('.i_c').imgLiquid ({verticalAlign: 'center'});
+  $('footer').click (function () {
+    $('html, body').animate ({ scrollTop: 0 }, 'slow');
+  });
 });

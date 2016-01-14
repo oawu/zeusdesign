@@ -10,9 +10,4 @@
     <a href='<?php echo base_url ('contacts');?>'>聯絡我們</a>
   </nav>
 
-  <div>
-    <span>Home</span>
-    <a href=''>更多關於宙思 »</a>
-  </div>
-
 </header>

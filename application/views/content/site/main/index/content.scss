@@ -4,3 +4,136 @@
  */
 
 @import "_oa";
+
+section {
+  display: inline-block;
+  width: 100%;
+
+  &.b1 {
+    @media screen and (min-width: $changeWidth) {
+      @include split-right(50%);
+    }
+    .r, .l {
+    }
+    .r {
+      @media screen and (min-width: $changeWidth) {
+        padding-left: 20px;
+      }
+      @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+        margin-top: 30px;
+      }
+      height: 350px;
+
+      > div {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        figure {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          @include transition(all 1s);
+          @include opacity(0);
+          z-index: 1;
+
+          &.s {
+            @include opacity(1);
+            z-index: 2;
+          }
+
+          img {
+            width: 100%;
+          }
+          figcaption {
+            position: absolute;
+            right: 0;
+            top: 20%;
+            display: inline-block;
+            width: 340px;
+            height: 90px;
+            background-color: rgba(255, 255, 255, 1);
+            text-align: right;
+            padding-right: 100px;
+            @include border-top-left-radius(2px);
+            @include border-bottom-left-radius(2px);
+            @include box-shadow(0 0 10px rgba(39, 40, 34, .1));
+            @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+              width: 300px;
+            }
+            h3 {
+              color: rgba(85, 85, 85, 1);
+              font-size: 15.21px;
+              line-height: 24.336px;
+              margin: 0;
+              margin-top: 15px;
+              padding-left: 5px;
+              @include overflow-docx3();
+            }
+            p {
+              margin: 0;
+              font-size: 13px;
+              padding-left: 5px;
+              @include overflow-docx3();
+            }
+            a {
+              @include a;
+              font-size: 13px;
+            }
+            > a {
+              position: absolute;
+              right: 45px;
+              top: 20%;
+              color: rgba(153, 153, 153, 1);
+              cursor: pointer;
+              &:last-child {
+                right: 15px;
+              }
+            }
+            &:before {
+              content: '';
+              position: absolute;
+              right: 80px;
+              top: 15px;
+              display: inline-block;
+              width: 1px;
+              height: calc(100% - 15px * 2);
+              background-color: rgba(221, 221, 221, 1);
+            }
+          }
+        }
+      }
+    }
+    .l {
+      color: rgb(85, 85, 85);
+      @include text-shadow(1px 1px 1px rgba(0, 0, 0, 0.00392157));
+
+      div {        
+        font-size: 53px;
+        letter-spacing: -4px;
+        text-transform: uppercase;
+        line-height: 47.97px;
+        @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+          font-size: 40px;
+          letter-spacing: -3px;
+          line-height: 36.27px;
+        }
+        &:first-child {
+          margin-top: 10px;
+        }
+
+        + p {
+          margin-top: 35px;
+        }
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}

@@ -30,6 +30,7 @@ class Site_controller extends Oa_controller {
 
   private function _add_css () {
     return $this
+                ->add_css ('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700', false)
                 ->append_css (base_url ('application', 'cell', 'views', 'site_frame_cell', 'header', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'site_frame_cell', 'footer', 'content.css'))
     ;
@@ -37,6 +38,7 @@ class Site_controller extends Oa_controller {
 
   private function _add_js () {
     return $this->add_js (resource_url ('resource', 'javascript', 'jquery_v1.10.2', 'jquery-1.10.2.min.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
                 ;
   }
 }

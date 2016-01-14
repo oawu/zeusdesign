@@ -12,6 +12,7 @@ html {
     background-image: none;
     font-family: "微軟正黑體","Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
     padding-top: 65px;
+    height: auto;
 
     &:before, &:after {
       content: '';
@@ -29,9 +30,11 @@ html {
       top: -10px;
       width: 260px - 5px;
     }
+
     @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
-      padding: 10px;
+      padding: 20px;
       padding-top: 20px;
+
       &:before {
         left: 5%;
       }
@@ -39,8 +42,38 @@ html {
         left: calc(5% - 10px);
       }
     }
+    @media screen and (min-width: $changeWidth) and (max-width: #{$mainWidth + 100px - 1px}) {
+      padding: 10px;
+      padding-top: 65px;
+    }
   }
 }
 #container {
   max-width: $mainWidth;
+  text-align: left;
+  
+  ._t {
+    float: left;
+    display: inline-block;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: 1px solid rgba(153, 153, 153, 1);
+    font-size: 13px;
+    @include clearfix();
+    
+    span {
+      float: left;
+      color: rgba(85, 85, 85, 1);
+    }
+    a {
+      float: right;
+      color: rgba(153, 153, 153, 1);
+      font-style: italic;
+      @include opacity(.9);
+    }
+  }
 }

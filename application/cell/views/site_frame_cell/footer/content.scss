@@ -5,8 +5,140 @@
 
 @import "_oa";
 
-footer {
-  border: 1px solid rgba(204, 204, 204, 1);
-  margin-top: 20px;
-  padding-top: 25px;
+@media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+  footer {
+    $n: 2;
+    $h: 25px;
+    $s: 10px;
+    border-top: 1px solid rgba(204, 204, 204, 1);
+    margin-top: 35px;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: $h * $n + ($n - 1) * $s + 10px;
+    
+    > * {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: inline-block;
+      width: 100%;
+      height: $h;
+      line-height: $h;
+      text-align: center;
+
+      &:first-child {
+        top: 10px + 0 * ($h + $s) + 14px;
+        color: rgba(85, 85, 85, 1);
+        font-size: 12px;
+      }
+      &:not(:first-child):not(:last-child) {
+        top: 10px;
+        @include a;
+        color: rgba(153, 153, 153, 1);
+        font-size: 13px;
+        cursor: pointer;
+        border: 1px solid rgba(204, 204, 204, 1);
+        width: 26px;
+        height: 26px;
+        line-height: 21px;
+        left: calc(50% - 14px);
+        top: -14px;
+        background-color: rgba(255, 255, 255, 1);
+        @include border-radius(2px);
+        
+      }
+      &:last-child {
+        top: 10px + 1 * ($h + $s) + 8px;
+        font-size: 12px;
+
+        > div {
+          display: inline-block;
+          margin: 0 auto;
+          @include clearfix();
+          a {
+            position: relative;
+            float: left;
+            @include a;
+            color: rgba(153, 153, 153, 1);
+            margin: 0 10px;
+            &:first-child {
+              &:before {
+                display: none;
+              }
+            }
+            &:before {
+              content: '';
+              position: absolute;
+              left: -10px;
+              top: 0;
+              display: inline-block;
+              width: 1px;
+              height: 100%;
+              background-color: rgba(221, 221, 221, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: $changeWidth) {
+  footer {
+    border-top: 1px solid rgba(204, 204, 204, 1);
+    margin-top: 20px;
+    padding: 25px 5px;
+    padding-bottom: 30px;
+    @include clearfix();
+    
+    > * {
+      float: left;
+
+      &:first-child {
+        width: 40%;
+        text-align: left;
+        color: rgba(85, 85, 85, 1);
+        font-size: 12px;
+      }
+      &:not(:first-child):not(:last-child) {
+        @include a;
+        width: 20%;
+        color: rgba(153, 153, 153, 1);
+        font-size: 13px;
+        cursor: pointer;
+      }
+      &:last-child {
+        width: 40%;
+        text-align: right;
+        font-size: 12px;
+        > div {
+          display: inline-block;
+          @include clearfix();
+          a {
+            position: relative;
+            float: left;
+            @include a;
+            color: rgba(153, 153, 153, 1);
+            margin: 0 10px;
+            &:first-child {
+              &:before {
+                display: none;
+              }
+            }
+            &:before {
+              content: '';
+              position: absolute;
+              left: -10px;
+              top: -2px;
+              display: inline-block;
+              width: 1px;
+              height: calc(100% + 2px * 2);
+              background-color: rgba(221, 221, 221, 1);
+            }
+          }
+        }
+      }
+    }
+  }
 }
