@@ -43,7 +43,7 @@ html {
       }
     }
     @media screen and (min-width: $changeWidth) and (max-width: #{$mainWidth + 100px - 1px}) {
-      padding: 10px;
+      padding: 20px;
       padding-top: 65px;
     }
   }
@@ -53,7 +53,6 @@ html {
   text-align: left;
   
   ._t {
-    float: left;
     display: inline-block;
     width: 100%;
     margin-top: 20px;

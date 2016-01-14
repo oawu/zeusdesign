@@ -46,9 +46,11 @@ header {
       width: 100%;
       margin-top: 30px;
       a {
-        margin: 0 12px;
+        margin: 0 8px;
         &:before {
-          left: -12px;
+          left: -8px;
+          top: 0;
+          height: 100%;
         }
         &:first-child {
           &:before {

@@ -72,10 +72,10 @@
               content: '';
               position: absolute;
               left: -10px;
-              top: 0;
+              top: 3px;
               display: inline-block;
               width: 1px;
-              height: 100%;
+              height: calc(100% - 6px);
               background-color: rgba(221, 221, 221, 1);
             }
           }
@@ -107,6 +107,7 @@
         color: rgba(153, 153, 153, 1);
         font-size: 13px;
         cursor: pointer;
+        text-align: center;
       }
       &:last-child {
         width: 40%;

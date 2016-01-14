@@ -4,6 +4,7 @@
  */
 
 $(function () {
+  $('.b3 figure').imgLiquid ({verticalAlign: 'center'});
   var $figures = $('#banners figure').imgLiquid ({verticalAlign: 'center'});
 
   $figures.find ('figcaption > a').click (function () {
