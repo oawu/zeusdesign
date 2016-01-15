@@ -1,6 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 Route::root ('main');
+Route::get ('/abouts', 'main@abouts');
+
 Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');
 Route::get ('/platform', 'platform@login');

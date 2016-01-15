@@ -7,6 +7,9 @@
 
 class Main extends Site_controller {
 
+  public function abouts () {
+    $this->load_view ();
+  }
   public function index () {
     $this->load_view ();
   }
