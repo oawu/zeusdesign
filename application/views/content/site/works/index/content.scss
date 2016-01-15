@@ -90,12 +90,15 @@
       margin: 0;
       padding-top: 12px;
       border-top: 1px solid rgba(221, 221, 221, 1);
-
+      
       > a {
         position: relative;
         display: inline-block;
         width: 100%;
-
+        img {
+          width: 100%;
+          @include opacity(0);
+        }
         @media screen and (min-width: $changeWidth) {
           position: relative;
           &:hover {
