@@ -7,7 +7,7 @@
 
 header {
   @include clearfix();
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
     padding-bottom: 30px;
   }
@@ -16,8 +16,14 @@ header {
     @include a;
     padding: 0;
     margin: 0;
+    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+      margin-top: 10px;
+    }
   }
   nav {
+    @media screen and (min-width: $changeWidth) {
+      padding-top: 20px;
+    }
     float: right;
     @include clearfix();
 

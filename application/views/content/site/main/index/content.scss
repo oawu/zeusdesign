@@ -71,7 +71,6 @@ article {
               width: 300px;
             }
             h3 {
-              color: rgba(85, 85, 85, 1);
               font-size: 15.21px;
               line-height: 24.336px;
               margin: 0;
@@ -196,7 +195,6 @@ article {
         }
       }
       h2 {
-        color: rgba(85, 85, 85, 1);
         font-size: 15px;
         margin-top: 0;
         margin-bottom: 0;
@@ -219,7 +217,6 @@ article {
       }
       h3 {
         position: relative;
-        color: rgba(85, 85, 85, 1);
         font-size: 15px;
         font-weight: normal;
         margin-top: 4px;
@@ -243,7 +240,6 @@ article {
 
       p {
         word-break: break-all;
-        color: rgba(85, 85, 85, 1);
         font-size: 13px;
       }
     }
@@ -332,12 +328,10 @@ article {
         margin-top: 10px;
         height: 50px;
         font-size: 13px;
-        color: rgba(85, 85, 85, 1);
 
         a {
           @include a;
           font-weight: bold;
-          color: rgba(85, 85, 85, 1);
           @include overflow-docx3();
         }
         p {

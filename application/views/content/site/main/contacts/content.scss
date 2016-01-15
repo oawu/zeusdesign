@@ -17,7 +17,6 @@
   aside, section {
   }
   aside {
-    color: rgba(85, 85, 85, 1);
     font-size: 13px;
     p {
       width: 100%;
@@ -54,7 +53,6 @@
     @media screen and (min-width: $changeWidth) {
       padding-left: 30px;
     }
-    color: rgba(85, 85, 85, 1);
     @include clearfix();
 
     h2 {
