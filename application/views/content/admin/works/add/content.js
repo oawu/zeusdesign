@@ -4,7 +4,6 @@
  */
 
 $(function () {
-  autosize ($('.autosize'));
   var $ps = $('.ps');
   new Masonry ($('.ts').selector, { itemSelector: '.t', columnWidth: 1, transitionDuration: '0.3s', visibleStyle: { opacity: 1, transform: 'none' }});
 

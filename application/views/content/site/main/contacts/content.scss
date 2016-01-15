@@ -1,0 +1,152 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.b1 {
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    margin-bottom: 20px;
+  }
+  @media screen and (min-width: $changeWidth) {
+    padding: 0 10px;
+    @include split-left(280px, 'aside', 'section');
+  }
+
+  aside, section {
+  }
+  aside {
+    color: rgba(85, 85, 85, 1);
+    font-size: 13px;
+    p {
+      width: 100%;
+      margin: 0;
+
+      + p {
+        margin-top: 2px;
+      }
+    }
+    br {
+      line-height: 40px;
+      @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+        line-height: 20px;
+      }
+    }
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+
+      + h3 {
+        margin-top: 2px;
+      }
+      + p {
+        margin-top: 5px;
+      }
+    }
+  }
+  section {
+    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+      margin-top: 30px;
+    }
+    @media screen and (min-width: $changeWidth) {
+      padding-left: 30px;
+    }
+    color: rgba(85, 85, 85, 1);
+    @include clearfix();
+
+    h2 {
+      margin: 0;
+      margin-bottom: 20px;
+      font-size: 32px;
+      font-weight: normal;
+      @media screen and (min-width: $changeWidth) {
+        display: none;
+      }
+    }
+    form {
+      label {
+        display: inline-block;
+        width: 100%;
+        font-size: 13px;
+        font-weight: bold;
+        @include overflow-docx3();
+      }
+      input, textarea {
+        border: 1px solid rgba(221, 221, 221, 1);
+        padding: 13px;
+        color: rgba(119, 119, 119, 1);
+
+        display: inline-block;
+        width: 100%;
+        margin-top: 10px;
+        @include transition(all .3s);
+
+        &:focus {
+          outline: 0;
+          border: 1px solid rgba(153, 153, 153, 1);
+        }
+        + label.error {
+          margin-top: 0;
+          color: red;
+          font-weight: normal;
+          font-style: italic;
+          padding-left: 5px;
+
+          &:before {
+            content: '*';
+          }
+          + label {
+            margin-top: 10px;
+          }
+        }
+      }
+      input {
+        + label {
+          margin-top: 30px;
+        }
+      }
+      textarea {
+        resize: none;
+      }
+      
+      button {
+        border: 1px solid rgba(221, 221, 221, 1);
+        float: right;
+        color: rgba(102, 102, 102, 1);
+        margin-top: 20px;
+        cursor: pointer;
+        padding: 8.5px 17px;
+        @include border-radius(2px);
+        @include transition(all .1s);
+
+        background: #efefef;
+        @include background-image(
+          linear-gradient(top, 
+                  rgba(246, 246, 246, 1) 0%,
+                  rgba(239, 239, 239, 1) 100%
+          ));
+        @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+          width: 100%;
+        }
+        &:hover {
+          color: #333;
+          border-color: #BBB;
+          @include box-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+        &:focus {
+          color: #333;
+          border-color: #BBB;
+          outline: 0;
+        }
+        &:active {  color: #000;
+          background: #F5F5F5;
+          border-color: #444;
+          position: relative; top:1px;
+        }
+      }
+    }
+  }
+}

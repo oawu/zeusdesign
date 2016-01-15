@@ -21,4 +21,5 @@ window.ajaxError = function (result) {
 };
 
 $(function () {
+  autosize ($('.autosize'));
 });

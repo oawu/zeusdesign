@@ -1,5 +1,5 @@
 <div class='_t'>
-  <span>About</span>
+  <span>關於宙思</span>
 </div>
 
 <div class='b1'>

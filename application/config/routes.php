@@ -2,6 +2,7 @@
 
 Route::root ('main');
 Route::get ('/abouts', 'main@abouts');
+Route::get ('/contacts', 'main@contacts');
 
 Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');
