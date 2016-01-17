@@ -4,10 +4,10 @@
   </a>
 
   <nav>
-    <a href='<?php echo base_url ();?>' class='a'>Home</a>
-    <a href='<?php echo base_url ('abouts');?>'>關於宙思</a>
-    <a href='<?php echo base_url ('works', '48');?>'>設計作品</a>
-    <a href='<?php echo base_url ('contacts');?>'>聯絡我們</a>
+    <a href='<?php echo base_url ();?>'<?php echo $key == 'index' ? 'class="a"': '';?>>Home</a>
+    <a href='<?php echo base_url ('abouts');?>'<?php echo $key == 'abouts' ? 'class="a"': '';?>>關於宙思</a>
+    <a href='<?php echo base_url ('works');?>'<?php echo $key == 'works' ? 'class="a"': '';?>>設計作品</a>
+    <a href='<?php echo base_url ('contacts');?>'<?php echo $key == 'contacts' ? 'class="a"': '';?>>聯絡我們</a>
   </nav>
 
 </header>

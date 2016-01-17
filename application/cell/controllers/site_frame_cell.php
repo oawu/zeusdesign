@@ -11,8 +11,10 @@ class Site_frame_cell extends Cell_Controller {
   // public function _cache_header () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function header () {
-    return $this->load_view ();
+  public function header ($key = '') {
+    return $this->load_view (array (
+        'key' => $key
+      ));
   }
 
   /* render_cell ('site_frame_cell', 'footer', var1, ..); */

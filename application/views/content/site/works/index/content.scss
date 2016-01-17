@@ -147,11 +147,13 @@
           font-weight: bold;
           margin-top: 10px;
           padding: 0;
+          @include overflow-docx3();
         }
         p {
           margin: 0;
           margin-top: 5px;
           color: rgba(138, 138, 138, 1);
+          @include overflow-docx3();
         }
       }
 

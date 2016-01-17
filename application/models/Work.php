@@ -73,4 +73,7 @@ class Work extends OaModel {
         );
     }, $this->blocks);
   }
+  public function site_show_page_last_uri () {
+    return $this->id . '-' . oa_url_encode ($this->title);
+  }
 }

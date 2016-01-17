@@ -5,6 +5,12 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
+if (!function_exists ('oa_url_encode')) {
+  function oa_url_encode ($str) {
+    return rawurlencode (preg_replace ('/[\/%]/', ' ', $str));
+  }
+}
+
 if (!function_exists ('resource_url')) {
   function resource_url () {
     $uris = array_filter (func_get_args ());
