@@ -23,7 +23,6 @@ class Main extends Site_controller {
       }
     }
     echo "Tag OK!";
-    exit();
 
     $url = 'http://www.zeusdesign.com.tw/main/api';
     $str = download_web_file ($url);
