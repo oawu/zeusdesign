@@ -11,7 +11,7 @@ class WorkPictureNameImageUploader extends OrmImageUploader {
     return array (
         '' => array (),
         '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
-        '120x80c' => array ('adaptiveResizeQuadrant', 120, 80, 'c')
+        '800w' => array ('resize', 800, 800, 'width')
       );
   }
 }

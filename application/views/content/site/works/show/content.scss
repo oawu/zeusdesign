@@ -8,15 +8,15 @@
 .b1 {
   @media screen and (min-width: $changeWidth) {
     padding: 0 10px;
-    @include split-left(250px, 'article:first-child', 'article:last-child');
+    @include split-left(260px, 'article:first-child', 'article:last-child');
   }
 
   article:first-child, article:last-child {
   }
   article:first-child {
     font-size: 13px;
-    @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
-      
+    @media screen and (min-width: $changeWidth) {
+      padding-right: 10px;
     }
     div {
       @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
@@ -62,7 +62,7 @@
       margin-top: 20px;
     }
     @media screen and (min-width: $changeWidth) {
-      padding-left: 10px;
+      padding-left: 20px;
     }
     div {
       @media screen and (min-width: $changeWidth) {
@@ -154,7 +154,6 @@
       margin: 0;
       padding: 0;
       width: 100%;
-
       img {
         width: 100%;
       }
