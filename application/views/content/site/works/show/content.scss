@@ -15,6 +15,7 @@
   }
   article:first-child {
     font-size: 13px;
+
     @media screen and (min-width: $changeWidth) {
       padding-right: 10px;
     }

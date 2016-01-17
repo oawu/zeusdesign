@@ -8,6 +8,23 @@
 class Main extends Site_controller {
 
   public function cmd () {
+    $i = 0;
+    foreach (array ('網頁設計 • Web Design' => array ('官方網站設計', '活動網站設計', 'Banner', 'EDM', 'UI & APP Design', 'RWD'), '平面設計 • Graphic Design' => array ('廣告設計', '書籍設計', '包裝設計'), '商業攝影 • Photography' => array ('商品攝影', '人像攝影', '婚禮紀錄/自助婚紗'), '專案設計 • Design Project' => array ()) as $key => $val) {
+      if (!verifyCreateOrm ($tag = WorkTag::create (array ('work_tag_id' => 0, 'name' => $key, 'sort' => $i++)))) {
+        echo "Tag Error!\n";
+        exit ();
+      }
+
+      foreach ($val as $j => $value) {
+        if (!verifyCreateOrm (WorkTag::create (array ('work_tag_id' => $tag->id, 'name' => $value, 'sort' => $j)))) {
+          echo "Tag2 Error!\n";
+          exit ();
+        }
+      }
+    }
+    echo "Tag OK!";
+    exit();
+
     $url = 'http://www.zeusdesign.com.tw/main/api';
     $str = download_web_file ($url);
     foreach (json_decode ($str, true) as $json) {
