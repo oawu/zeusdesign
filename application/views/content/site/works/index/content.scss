@@ -8,10 +8,10 @@
 .b1 {
   @media screen and (min-width: $changeWidth) {
     padding: 0 10px;
-    @include split-left(250px, 'aside', '.pics');
+    @include split-left(250px, 'aside', 'article');
   }
 
-  aside, .pics {
+  aside, article {
   }
   aside {
     @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
@@ -67,7 +67,7 @@
       }
     }
   }
-  .pics {
+  article {
     @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
       &:before {
         content: '宙思作品';

@@ -33,7 +33,7 @@ html {
     }
 
     @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
-      padding: 20px;
+      padding: 15px;
       padding-top: 20px;
 
       &:before {
@@ -68,8 +68,11 @@ html {
     span {
       float: left;
       color: rgba(85, 85, 85, 1);
+      a {
+        @include a;
+      }
     }
-    a {
+    > a {
       float: right;
       color: rgba(153, 153, 153, 1);
       font-style: italic;

@@ -3,6 +3,9 @@
 Route::root ('main');
 Route::get ('/abouts', 'main@abouts');
 Route::get ('/contacts', 'main@contacts');
+Route::get ('/works', 'works@index');
+Route::get ('/works/(:id)', 'works@index($1)');
+Route::get ('/work/(:id)', 'works@show($1)');
 
 Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');

@@ -4,5 +4,5 @@
  */
 
 $(function () {
-  $('.pics figure a').imgLiquid ({verticalAlign: 'center'});
+  $('.b1 article figure a').imgLiquid ({verticalAlign: 'center'});
 });

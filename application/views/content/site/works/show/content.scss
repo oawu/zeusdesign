@@ -1,0 +1,171 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.b1 {
+  @media screen and (min-width: $changeWidth) {
+    padding: 0 10px;
+    @include split-left(250px, 'article:first-child', 'article:last-child');
+  }
+
+  article:first-child, article:last-child {
+  }
+  article:first-child {
+    font-size: 13px;
+    @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+      
+    }
+    div {
+      @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+        display: none;
+      }
+    }
+    section {
+      display: inline-block;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 30px;
+
+      h3 {
+        margin: 0;
+        font-size: 13px;
+      }
+      p {
+        margin: 0;
+        margin-top: 3px;
+        &:not(:first-child) {
+          padding-left: 5px;
+        }
+        // @include overflow-docx3();
+
+        a {
+          @include a;
+          cursor: pointer;
+        }
+        i {
+          font-size: 10px;
+          margin: 0;
+          width: 100%;
+          &:before {
+            content: '-';
+            margin-right: 3px;
+          }
+        }
+      }
+    }
+  }
+  article:last-child {
+    @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+      margin-top: 20px;
+    }
+    @media screen and (min-width: $changeWidth) {
+      padding-left: 10px;
+    }
+    div {
+      @media screen and (min-width: $changeWidth) {
+        display: none;
+      }
+      @include clearfix();
+      margin-top: 20px;
+      
+      // $ds: ((321px, 100%), (368px, 136px), (469px, 159px), (500px, 209px), (610px, 225px), (664px, 280px), ($changeWidth, 201px));
+
+      @media screen and (min-width: 0) and (max-width: #{321px - 1px}) {
+        width: 100%;
+      }
+      @media screen and (min-width: 321px) and (max-width: #{368px - 1px}) {
+        width: (136px + 10px) * 2;
+      }
+      @media screen and (min-width: 368px) and (max-width: #{469px - 1px}) {
+        width: (159px + 10px) * 2;
+      }
+      @media screen and (min-width: 469px) and (max-width: #{500px - 1px}) {
+        width: (209px + 10px) * 2;
+      }
+      @media screen and (min-width: 500px) and (max-width: #{610px - 1px}) {
+        width: (225px + 10px) * 2;
+      }
+      @media screen and (min-width: 610px) and (max-width: #{664px - 1px}) {
+        width: (280px + 10px) * 2;
+      }
+      @media screen and (min-width: 664px) and (max-width: #{$changeWidth - 1px}) {
+        width: (201px + 10px) * 3;
+      }
+      section {
+        float: left;
+        display: inline-block;
+        margin: 15px 5px;
+        padding: 0;
+
+        @media screen and (min-width: 0) and (max-width: #{321px - 1px}) {
+          width: calc(100% - 10px);
+        }
+        @media screen and (min-width: 321px) and (max-width: #{368px - 1px}) {
+          width: 136px;
+        }
+        @media screen and (min-width: 368px) and (max-width: #{469px - 1px}) {
+          width: 159px;
+        }
+        @media screen and (min-width: 469px) and (max-width: #{500px - 1px}) {
+          width: 209px;
+        }
+        @media screen and (min-width: 500px) and (max-width: #{610px - 1px}) {
+          width: 225px;
+        }
+        @media screen and (min-width: 610px) and (max-width: #{664px - 1px}) {
+          width: 280px;
+        }
+        @media screen and (min-width: 664px) and (max-width: #{$changeWidth - 1px}) {
+          width: 201px;
+        }
+
+        h3 {
+          margin: 0;
+          font-size: 13px;
+        }
+        p {
+          margin: 0;
+          margin-top: 3px;
+          &:not(:first-child) {
+            padding-left: 5px;
+          }
+          @include overflow-docx3();
+
+          a {
+            @include a;
+            cursor: pointer;
+          }
+          i {
+            font-size: 10px;
+            margin: 0;
+            width: 100%;
+            &:before {
+              content: '-';
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+    }
+    figure {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+      + figure {
+        @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+          margin-top: 20px;
+        }
+        @media screen and (min-width: $changeWidth) {
+          margin-top: 50px;
+        }
+      }
+    }
+  }
+}

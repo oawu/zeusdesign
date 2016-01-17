@@ -3,7 +3,7 @@
 </div>
 
 <div class='b1'>
-  <div class='pics'>
+  <article>
     <figure>
       <a href=''>
         <img src="http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg" alt="網頁設計" style="opacity: 1;">
@@ -74,7 +74,7 @@
         <p>EDM, 活動網站, 官網</p>
       </figcaption>
     </figure>
-  </div>
+  </article>
   
   <aside>
     <a class='m'>網頁設計 • Web Design</a>
