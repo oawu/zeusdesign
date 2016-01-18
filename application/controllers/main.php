@@ -8,6 +8,51 @@
 class Main extends Site_controller {
 
   public function cmd () {
+    $promos = array (array ('http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg', '網頁設計', 'EDM, 活動網站, 官網'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web02.jpg', '平面設計', '包裝, 書籍, DM, CIS (名片,信紙,logo...等)'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web03.jpg', '攝影', '商業攝影,婚禮攝影'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web04.jpg', '設計專案', '平面＋網頁'));
+
+    foreach (array_reverse ($promos) as $i => $p) {
+      if (!verifyCreateOrm ($promo = Promo::create (array (
+          'title' => $p[1],
+          'content' => $p[2],
+          'link' => 'http://www.zeusdesign.com.tw/works',
+          'sort' => $i
+        ))))
+        continue;
+
+      if (!$promo->cover->put_url ($p[0]))
+        $promo->destroy ();
+    }
+
+    $banners = array (array ('http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg',
+              '網頁設計',
+              '德國Bywp-嘉豪光學台灣總代理',
+              'http://www.zeusdesign.com.tw/works'),
+        array ('http://www.zeusdesign.com.tw/resource/site/images/works/web02.jpg',
+              '平面設計',
+              '台灣紡拓會國外展主視覺設計',
+              'http://www.zeusdesign.com.tw/works'),
+        array ('http://www.zeusdesign.com.tw/resource/site/images/works/web03.jpg',
+              '商業攝影',
+              '台灣紡拓會國外展主視覺設計',
+              'http://www.zeusdesign.com.tw/works'),
+        array ('http://www.zeusdesign.com.tw/resource/site/images/works/web04.jpg',
+              '設計專案',
+              'MySpotcam',
+              ''));
+    foreach (array_reverse ($banners) as $i => $b) {
+      if (!verifyCreateOrm ($banner = Banner::create (array (
+          'title' => $b[1],
+          'content' => $b[2],
+          'link' => $b[3],
+          'sort' => $i
+        ))))
+        continue;
+
+      if (!$banner->cover->put_url ($b[0]))
+        $banner->destroy ();
+    }
+
+    // exit();
     $i = 0;
     foreach (array ('網頁設計 • Web Design' => array ('官方網站設計', '活動網站設計', 'Banner', 'EDM', 'UI & APP Design', 'RWD'), '平面設計 • Graphic Design' => array ('廣告設計', '書籍設計', '包裝設計'), '商業攝影 • Photography' => array ('商品攝影', '人像攝影', '婚禮紀錄/自助婚紗'), '專案設計 • Design Project' => array ()) as $key => $val) {
       if (!verifyCreateOrm ($tag = WorkTag::create (array ('work_tag_id' => 0, 'name' => $key, 'sort' => $i++)))) {
