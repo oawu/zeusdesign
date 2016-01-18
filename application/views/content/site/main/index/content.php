@@ -14,25 +14,18 @@
   </div>
   <div class='r'>
     <div id='banners'>
-      <figure>
-        <img alt='' src='http://img00.deviantart.net/ae17/i/2013/118/4/6/rainbow_flower_by_i_is_kitty-d5l8o1g.jpg' />
-        <figcaption>
-          <h3>1網頁設計</h3>
-          <p>4德國Bywp-嘉豪光學台灣總代理4德國Bywp-嘉豪光學台灣總代理</p>
-          <p><a href=''>more</a></p>
-          <a>←</a><a>→</a>
-        </figcaption>
-      </figure>
-      <figure>
-        <img alt='' src='http://media02.hongkiat.com/ww-flower-wallpapers/roundflower.jpg' />
-        <figcaption>
-          <h3>2網頁設計</h3>
-          <p>3德國Bywp-嘉豪光學台灣總代理</p>
-          <p><a href=''>more</a></p>
-          <a>←</a><a>→</a>
-        </figcaption>
-      </figure>
-
+<?php foreach (Banner::all (array ('order' => 'sort DESC', 'conditions' => array ('is_enabled = ?', Banner::ENABLE_YES))) as $banner) { ?>
+        <figure>
+          <img src='<?php echo $banner->cover->url ('800w');?>' alt='<?php echo $banner->title;?>' />
+          <figcaption>
+            <h3><?php echo $banner->title;?></h3>
+            <p><?php echo $banner->content;?></p>
+            <p><a href='<?php echo $banner->link;?>'<?php echo $banner->target == Banner::TARGET_BLANK ? ' target="_blank"' : '';?>>more</a></p>
+            <a>←</a><a>→</a>
+          </figcaption>
+        </figure>
+<?php } ?>
+      
     </div>
   </div>
 </article>
@@ -79,49 +72,19 @@
 </div>
 
 <article class='b3'>
-  <figure>
-    <a href=''>
-      <img src="http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg" alt="網頁設計" style="opacity: 1;">
-    </a>
+  <?php 
+  foreach (Promo::all (array ('order' => 'sort DESC', 'limit' => 4)) as $promo) { ?>
+    <figure>
+      <a href='<?php echo $promo->link;?>'<?php echo $promo->target == Promo::TARGET_BLANK ? ' target="_blank"' : '';?>>
+        <img src='<?php echo $promo->cover->url ('500w');?>' alt='<?php echo $promo->title;?>'>
+      </a>
 
-    <figcaption>
-      <a href=''>網頁設計</a>
-      <p>EDM, 活動網站, 官網</p>
-    </figcaption>
-  </figure>
-  
-  <figure>
-    <a href=''>
-      <img src="http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg" alt="網頁設計" style="opacity: 1;">
-    </a>
-
-    <figcaption>
-      <a href=''>網頁設計</a>
-      <p>EDM, 活動網站, 官網</p>
-    </figcaption>
-  </figure>
-  
-  <figure>
-    <a href=''>
-      <img src="http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg" alt="網頁設計" style="opacity: 1;">
-    </a>
-
-    <figcaption>
-      <a href=''>網頁設計</a>
-      <p>EDM, 活動網站, 官網</p>
-    </figcaption>
-  </figure>
-  
-  <figure>
-    <a href=''>
-      <img src="http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg" alt="網頁設計" style="opacity: 1;">
-    </a>
-
-    <figcaption>
-      <a href=''>網頁設計</a>
-      <p>EDM, 活動網站, 官網</p>
-    </figcaption>
-  </figure>
-  
-  
+      <figcaption>
+        <a href=''><?php echo $promo->title;?></a>
+        <p><?php echo $promo->content;?></p>
+      </figcaption>
+    </figure>
+    
+  <?php 
+  } ?>
 </article>

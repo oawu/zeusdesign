@@ -39,6 +39,10 @@ class Promo extends OaModel {
 
     OrmImageUploader::bind ('cover', 'PromoCoverImageUploader');
   }
+  public function mini_content ($length = 100) {
+    if (!isset ($this->content)) return '';
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
+  }
   public function destroy () {
     if (!(isset ($this->cover) && isset ($this->id)))
       return false;
