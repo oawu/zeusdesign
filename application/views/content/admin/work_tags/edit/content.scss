@@ -4,3 +4,11 @@
  */
 
 @import "_oa";
+
+.cover {
+  height: 100px;
+  width: 100px;
+  display: block;
+  border: 1px solid rgba(190, 191, 189, 1);
+  @include border-radius(2px);
+}

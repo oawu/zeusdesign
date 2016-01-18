@@ -14,7 +14,7 @@
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
     
     <div id='container'>
-      <?php echo render_cell ('site_frame_cell', 'header', $_method);?>
+      <?php echo render_cell ('site_frame_cell', 'header', isset ($_method) ? $_method : '');?>
       <?php echo isset ($content) ? $content : ''; ?>
       <?php echo render_cell ('site_frame_cell', 'footer');?>
     </div>

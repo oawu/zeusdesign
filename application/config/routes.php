@@ -22,4 +22,7 @@ Route::group ('admin', function () {
   Route::resourcePagination (array ('work_tags'), 'work_tags');
   Route::resourcePagination (array ('work_tags', 'tags'), 'work_tag_tags');
   Route::resourcePagination (array ('work_tags', 'works'), 'work_tag_works');
+  
+  Route::resourcePagination (array ('banners'), 'banners');
+  Route::resourcePagination (array ('promos'), 'promos');
 });

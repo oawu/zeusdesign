@@ -13,7 +13,7 @@ class Works extends Site_controller {
   }
 
   public function show ($id) {
-    if (!($id && ($work = Work::find_by_id ($id))))
+    if (!($id && ($work = Work::find_by_id ($id, array ('conditions' => array ('is_enabled = ?', Work::ENABLE_YES))))))
       return redirect_message (array ('works'), array (
           '_flash_message' => '找不到該筆資料。'
         ));
