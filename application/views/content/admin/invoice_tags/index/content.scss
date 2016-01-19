@@ -4,14 +4,3 @@
  */
 
 @import "_oa";
-
-.pics {
-  @include clearfix();
-  img {
-    float: right;
-    margin: 0 3px;
-  }
-}
-.red {
-  color: red;
-}

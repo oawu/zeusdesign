@@ -17,8 +17,8 @@ $menu['admin'] = array (
         'Promo管理' => array ('icon' => 'icon-images', 'href' => base_url ('admin', 'promos'), 'class' => 'promos', 'method' => '', 'target' => '_self'),
       ),
     '帳務' => array (
-        '華碩帳務' => array ('icon' => 'icon-grid', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),
-        '發票紀錄' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),
+        '帳務類別' => array ('icon' => 'icon-tags', 'href' => base_url ('admin', 'invoice_tags'), 'class' => 'invoice_tags', 'method' => '', 'target' => '_self'),
+        '帳務管理' => array ('icon' => 'icon-file-text2', 'href' => base_url ('admin', 'invoices'), 'class' => 'invoices', 'method' => '', 'target' => '_self'),
       ),
     '樣板產生器' => array (
         '分類' => array ('icon' => 'icon-tags', 'href' => base_url ('admin'), 'class' => '', 'method' => '', 'target' => '_self'),

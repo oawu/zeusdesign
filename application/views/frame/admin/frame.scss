@@ -296,7 +296,7 @@ table.table-form {
       }
     }
 
-    input[type='text'], input[type='file'] {
+    input[type='text'], input[type='number'], input[type='file'] {
       @include material-input;
     }
     input[type='file'] {

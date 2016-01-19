@@ -1,0 +1,24 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2015 OA Wu Design
+ */
+
+@import "_oa";
+
+.ps, .p {
+  + .ps, + .p {
+    margin-top: 5px;
+  }
+  @include clearfix();
+
+  input[type='file'] {
+    float: left;
+    width: calc(100% - 50px - 10px) !important;
+  }
+  button {
+    float: right;
+    width: 50px;
+    @include button('mazu2');
+    font-weight: normal;
+  }
+}

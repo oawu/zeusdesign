@@ -25,4 +25,7 @@ Route::group ('admin', function () {
   
   Route::resourcePagination (array ('banners'), 'banners');
   Route::resourcePagination (array ('promos'), 'promos');
+  
+  Route::resourcePagination (array ('invoice_tags'), 'invoice_tags');
+  Route::resourcePagination (array ('invoices'), 'invoices');
 });

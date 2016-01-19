@@ -5,47 +5,38 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Promo extends OaModel {
+class Invoice extends OaModel {
 
-  static $table_name = 'promos';
+  static $table_name = 'invoices';
 
   static $has_one = array (
   );
 
   static $has_many = array (
+    array ('pictures', 'class_name' => 'InvoicePicture'),
   );
 
   static $belongs_to = array (
-  );
-  
-  const ENABLE_NO  = 0;
-  const ENABLE_YES = 1;
-
-  static $enableName = array(
-    self::ENABLE_NO  => '停用',
-    self::ENABLE_YES => '啟用',
-  );
-
-  const TARGET_BLANK = 0;
-  const TARGET_SELF  = 1;
-
-  static $targetName = array(
-    self::TARGET_BLANK => '分頁',
-    self::TARGET_SELF  => '本頁',
+    array ('tag', 'class_name' => 'InvoiceTag'),
   );
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
     parent::__construct ($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 
-    OrmImageUploader::bind ('cover', 'PromoCoverImageUploader');
+    OrmImageUploader::bind ('cover', 'InvoiceCoverImageUploader');
   }
-  public function mini_content ($length = 100) {
-    if (!isset ($this->content)) return '';
-    return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
+  public function mini_memo ($length = 100) {
+    if (!isset ($this->memo)) return '';
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->memo), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->memo);
   }
   public function destroy () {
     if (!(isset ($this->cover) && isset ($this->id)))
       return false;
+
+    if ($this->pictures)
+      foreach ($this->pictures as $picture)
+        if (!$picture->destroy ())
+          return false;
 
     return $this->cover->cleanAllFiles () && $this->delete ();
   }

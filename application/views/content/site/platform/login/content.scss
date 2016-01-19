@@ -4,7 +4,9 @@
  */
 
 @import "_oa";
-
+#container {
+  text-align: center;
+}
 .login {
   display: inline-block;
   width: 300px;

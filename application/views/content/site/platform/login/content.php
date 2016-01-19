@@ -1,7 +1,4 @@
 <div class='login'>
-  <div class='logo'>
-    <img src='<?php echo base_url ('resource', 'image', 'logo', 'L1024.png');?>' />
-  </div>
 <?php 
   if (User::current () && !in_array (User::current ()->role, Cfg::setting ('role', 'admins'))) { ?>
     <div class='m'>您已經登入成功，<br/>請管理員為您確認權限！</div>
