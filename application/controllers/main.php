@@ -7,6 +7,20 @@
 
 class Main extends Site_controller {
 
+  public function x () {
+    $this->load->library ('OAMail');
+    
+    OAMail::create ()->setFrom ('comdan66@gmail.com', 'COMDAN66')
+                     ->addTo ('oa_wu@hiiir.com', 'OA')
+                     ->setSubject ('dd')
+                     ->setBody ('wwqe')
+                     ->send ();
+
+    // OAMail::sendMail (array (
+    //     'mail' => 'comdan66@gmail.com',
+    //     'name' => 'COMDAN66'
+    //   ), 'xxxxxx', '222222', array ('oa_wu@hiiir.com'));
+  }
   public function cmd () {
     $promos = array (array ('http://www.zeusdesign.com.tw/resource/site/images/works/web.jpg', '網頁設計', 'EDM, 活動網站, 官網'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web02.jpg', '平面設計', '包裝, 書籍, DM, CIS (名片,信紙,logo...等)'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web03.jpg', '攝影', '商業攝影,婚禮攝影'), array ('http://www.zeusdesign.com.tw/resource/site/images/works/web04.jpg', '設計專案', '平面＋網頁'));
 
