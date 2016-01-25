@@ -14,11 +14,12 @@
 <?php if ($invoices) {
         foreach ($invoices as $invoice) { ?>
           <tr>
-            <td data-title='名稱' width='100'><?php echo $invoice->name;?></td>
-            <td data-title='窗口' width='120'><?php echo $invoice->contact;?></td>
-            <td data-title='金額' width='100'>NT$<?php echo $invoice->money;?></td>
             <td data-title='封面' width='50'><?php echo img ($invoice->cover->url ('100x100c'), false, 'class="i_30"');?></td>
-            <td data-title='圖片' width='140' class='pics'><?php echo $invoice->pictures ? implode ('', array_map (function ($picture) { return img ($picture->name->url ('100x100c'), false, 'class="i_30"'); }, $invoice->pictures)) : '-';?></td>
+            <td data-title='名稱' width='100'><?php echo $invoice->name;?></td>
+            <td data-title='負責人' width='100'><?php echo $invoice->user->name;?></td>
+            <td data-title='窗口' width='100'><?php echo $invoice->contact;?></td>
+            <td data-title='金額' width='100'>NT$<?php echo $invoice->money;?></td>
+            <td data-title='圖片' width='100' class='pics'><?php echo $invoice->pictures ? implode ('', array_map (function ($picture) { return img ($picture->name->url ('100x100c'), false, 'class="i_30"'); }, $invoice->pictures)) : '-';?></td>
             <td data-title='分類' width='100'><?php echo $invoice->tag ? $invoice->tag->name : '其他';?></td>
             <td data-title='結案日期' width='175'><?php echo $invoice->closing_at ? $invoice->closing_at->format ('Y-m-d H:i:s') : '-';?></td>
             <td data-title='備註' ><?php echo $invoice->mini_memo ();?></td>

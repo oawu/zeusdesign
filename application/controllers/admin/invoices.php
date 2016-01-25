@@ -18,7 +18,11 @@ class Invoices extends Admin_controller {
           ));
 
     $this->add_tab ('帳務列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
-         ->add_tab ('新增帳務', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
+         ->add_tab ('新增帳務', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2))
+         ->add_css (resource_url ('resource', 'css', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.css'))
+         ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.js'))
+         ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'datepicker.lang', 'jquery.ui.datepicker-zh-TW.js'))
+         ;
   }
 
   public function index ($offset = 0) {
@@ -37,7 +41,7 @@ class Invoices extends Admin_controller {
         'offset' => $offset,
         'limit' => $limit,
         'order' => 'id DESC',
-        'include' => array ('pictures'),
+        'include' => array ('pictures', 'user'),
         'conditions' => $conditions
       ));
 
@@ -188,17 +192,25 @@ class Invoices extends Admin_controller {
   }
 
   private function _validation_posts (&$posts) {
+    if (!(isset ($posts['invoice_tag_id']) && is_numeric ($posts['invoice_tag_id'] = trim ($posts['invoice_tag_id'])) && ($posts['invoice_tag_id'] >= 0) && (!$posts['invoice_tag_id'] || InvoiceTag::find_by_id ($posts['invoice_tag_id']))))
+      return '沒有選擇類別 或 類別錯誤！';
+
+    if (!(isset ($posts['user_id']) && is_numeric ($posts['user_id'] = trim ($posts['user_id'])) && ($posts['user_id'] >= 0) && (!$posts['user_id'] || User::find_by_id ($posts['user_id']))))
+      return '沒有選擇負責人 或 負責人錯誤！';
+
     if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))
       return '沒有填寫名稱！';
     
     if (!(isset ($posts['contact']) && ($posts['contact'] = trim ($posts['contact']))))
       return '沒有填寫窗口！';
-
+    
     if (!(isset ($posts['money']) && is_numeric ($posts['money'] = trim ($posts['money'])) && ($posts['money'] > 0) && ($posts['money'] < 4294967296)))
       return '沒有填寫金額 或 金額錯誤！';
 
     if (!(isset ($posts['closing_at']) && ($posts['closing_at'] = trim ($posts['closing_at']))))
       return '沒有選擇結案日期！';
+
+    if (!isset ($posts['pic_ids'])) $posts['pic_ids'] = array ();
 
     return '';
   }

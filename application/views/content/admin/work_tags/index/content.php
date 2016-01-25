@@ -15,8 +15,8 @@
             <td data-title='名稱' ><?php echo $tag->name;?></td>
             <td data-title='子標籤'width='230'><?php echo implode('<br/>', column_array ($tag->tags, 'name'));?></td>
             <td data-title='作品數量' width='100'><?php echo count ($tag->mappings);?> 個</td>
-            <td data-title='編輯' width='140'>
-              <a href='<?php echo base_url ('admin', 'work_tags', $tag->id, 'works');?>' class='icon-images'></a>
+            <td data-title='編輯' width='100'>
+              <!-- <a href='<?php echo base_url ('admin', 'work_tags', $tag->id, 'works');?>' class='icon-images'></a> -->
               <a href='<?php echo base_url ('admin', 'work_tags', $tag->id, 'tags');?>' class='icon-tags'></a>
               <a href='<?php echo base_url ('admin', 'work_tags', $tag->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'work_tags', $tag->id);?>' data-method='delete' class='icon-bin destroy'></a>

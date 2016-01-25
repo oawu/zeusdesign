@@ -3,13 +3,26 @@
     <tbody>
 
       <tr>
-        <th class='tst'>類 別：</th>
-        <td class='ts'>
+        <th>類 別：</th>
+        <td>
           <select name='invoice_tag_id'>
             <option value='0'<?php echo (isset ($posts['invoice_tag_id']) ? $posts['invoice_tag_id'] : 0) == 0 ? ' selected': '';?>>其他</option>
       <?php if ($tags = InvoiceTag::all ()) {
-              foreach (InvoiceTag::all () as $tag) { ?>
+              foreach ($tags as $tag) { ?>
                 <option value='<?php echo $tag->id;?>'<?php echo (isset ($posts['invoice_tag_id']) ? $posts['invoice_tag_id'] : 0) == $tag->id ? ' selected': '';?>><?php echo $tag->name;?></option>
+        <?php }
+            }?>
+          </select>
+        </td>
+      </tr>
+
+      <tr>
+        <th>負責人：</th>
+        <td>
+          <select name='user_id'>
+      <?php if ($users = User::all (array ('select' => 'id, name'))) {
+              foreach ($users as $user) { ?>
+                <option value='<?php echo $user->id;?>'<?php echo (isset ($posts['user_id']) ? $posts['user_id'] : 0) == $user->id ? ' selected': '';?>><?php echo $user->name;?></option>
         <?php }
             }?>
           </select>

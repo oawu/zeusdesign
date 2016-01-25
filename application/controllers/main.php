@@ -10,10 +10,10 @@ class Main extends Site_controller {
   public function x () {
     $this->load->library ('OAMail');
     
-    OAMail::create ()->setFrom ('comdan66@gmail.com', 'COMDAN66')
-                     ->addTo ('oa_wu@hiiir.com', 'OA')
-                     ->setSubject ('dd')
-                     ->setBody ('wwqe')
+    OAMail::create ()->addTo ('comdan66@gmail.com', 'OA')
+                     ->setSubject ('11111')
+                     ->setBody ('222222')
+                     // ->addFile (FCPATH . 'temp/01.jpg', '3333333')
                      ->send ();
 
     // OAMail::sendMail (array (

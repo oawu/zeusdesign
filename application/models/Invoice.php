@@ -18,6 +18,7 @@ class Invoice extends OaModel {
 
   static $belongs_to = array (
     array ('tag', 'class_name' => 'InvoiceTag'),
+    array ('user', 'class_name' => 'User'),
   );
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
