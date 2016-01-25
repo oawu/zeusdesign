@@ -247,9 +247,13 @@ table.table-list-rwd {
   @for $i from 1 through 10 {
     .i_#{$i * 10} {
       width: $i * 10px;
-      border: 1px solid rgba(190, 191, 189, 1);
+      @include box-shadow(0 0 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .2));
       @include border-radius(2px);
-      @include border-radius(2px);
+      @include transition(all .3s);
+
+      &:hover {
+        @include box-shadow(0 0 5px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .3));
+      }
     }
   }
   a {

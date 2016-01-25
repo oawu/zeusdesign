@@ -30,10 +30,10 @@ class Work_tag_tags extends Admin_controller {
          ;
   }
   public function index  ($id, $offset = 0) {
-    $columns = array ('title' => 'string');
-    $configs = array ('admin', 'work_tags', $this->parent_tag->id, 'tags', '%s');
+    $columns = array ('title' => 'title LIKE ?');
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'WorkTag', OAInput::get ())));
     WorkTag::addConditions ($conditions, 'work_tag_id = ?', $this->parent_tag->id);
 
     $limit = 25;
@@ -56,7 +56,6 @@ class Work_tag_tags extends Admin_controller {
                     'parent_tag' => $this->parent_tag,
                     'tags' => $tags,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

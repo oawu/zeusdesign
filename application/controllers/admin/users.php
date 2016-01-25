@@ -78,9 +78,9 @@ class Users extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('id' => 'int', 'name' => 'string', 'email' => 'string');
-    $configs = array ('admin', 'users', '%s');
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'User', OAInput::get ())));
+    $columns = array ('id' => 'id = ?', 'name' => 'name LIKE ?', 'email' => 'email LIKE ?');
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = User::count (array ('conditions' => $conditions));
@@ -100,7 +100,6 @@ class Users extends Admin_controller {
          ->load_view (array (
         'users' => $users,
         'pagination' => $pagination,
-        'has_search' => array_filter ($columns),
         'columns' => $columns
       ));
   }

@@ -1,4 +1,4 @@
-<form action='<?php echo base_url ('admin', 'banners');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
+<form action='<?php echo base_url ('admin', 'banners');?>' method='get' class="search<?php echo $has_search = array_filter ($columns) ? ' show' : '';?>">
   <div class='l i2 n1'>
     <input type='text' name='title' value='<?php echo @$columns['title'];?>' placeholder='請輸入 標題..' />
     <input type='text' name='content' value='<?php echo @$columns['content'];?>' placeholder='請輸入 內容..' />

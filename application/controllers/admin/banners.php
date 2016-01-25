@@ -21,10 +21,9 @@ class Banners extends Admin_controller {
          ->add_tab ('新增Banner', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
   }
   public function index ($offset = 0) {
-    $columns = array ('title' => 'string', 'content' => 'string');
+    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
     $configs = array ('admin', $this->get_class (), '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Banner', OAInput::get ())));
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Banner::count (array ('conditions' => $conditions));
@@ -44,7 +43,6 @@ class Banners extends Admin_controller {
                 ->load_view (array (
                     'banners' => $banners,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

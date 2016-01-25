@@ -31,10 +31,9 @@ class Work_tag_works extends Admin_controller {
   }
 
   public function index ($tag_id, $offset = 0) {
-    $columns = array ('title' => 'string', 'content' => 'string');
-    $configs = array ('admin', 'work_tags', '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Work', OAInput::get ())));
+    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     if ($work_id = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $this->tag->id))), 'work_id'))
       Work::addConditions ($conditions, 'id IN (?)', $work_id);
@@ -61,7 +60,6 @@ class Work_tag_works extends Admin_controller {
                     'tag' => $this->tag,
                     'works' => $works,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

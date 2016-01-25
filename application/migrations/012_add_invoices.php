@@ -22,6 +22,7 @@ class Migration_Add_invoices extends CI_Migration {
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
         PRIMARY KEY (`id`),
         KEY `user_id_index` (`user_id`),
+        KEY `closing_at_index` (`closing_at`),
         KEY `invoice_tag_id_index` (`invoice_tag_id`),
         FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"

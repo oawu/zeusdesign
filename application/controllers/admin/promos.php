@@ -21,10 +21,9 @@ class Promos extends Admin_controller {
          ->add_tab ('新增Promo', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
   }
   public function index ($offset = 0) {
-    $columns = array ('title' => 'string', 'content' => 'string');
+    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
     $configs = array ('admin', $this->get_class (), '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Promo', OAInput::get ())));
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Promo::count (array ('conditions' => $conditions));
@@ -44,7 +43,6 @@ class Promos extends Admin_controller {
                 ->load_view (array (
                     'promos' => $promos,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

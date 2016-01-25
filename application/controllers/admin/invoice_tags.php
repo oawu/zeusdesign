@@ -22,10 +22,9 @@ class Invoice_tags extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('name' => 'string');
+    $columns = array ('name' => 'name LIKE ?');
     $configs = array ('admin', $this->get_class (), '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'InvoiceTag', OAInput::get ())));
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = InvoiceTag::count (array ('conditions' => $conditions));
@@ -45,7 +44,6 @@ class Invoice_tags extends Admin_controller {
                 ->load_view (array (
                     'tags' => $tags,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

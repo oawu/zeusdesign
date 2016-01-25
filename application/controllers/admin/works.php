@@ -22,10 +22,9 @@ class Works extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('title' => 'string', 'content' => 'string');
+    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
     $configs = array ('admin', $this->get_class (), '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Work', OAInput::get ())));
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Work::count (array ('conditions' => $conditions));
@@ -46,7 +45,6 @@ class Works extends Admin_controller {
                 ->load_view (array (
                     'works' => $works,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }

@@ -26,4 +26,12 @@ $(function () {
     $(this).data ('i', i + 1);
   }).click ();
 
+  $('input[name="closing_at"]').datepicker({
+      changeMonth: true,
+      changeYear: true,
+      firstDay: 0,
+      dateFormat: 'yy-mm-dd',
+      showOtherMonths: true,
+      selectOtherMonths: true,
+    });
 });

@@ -1,4 +1,4 @@
-<form action='<?php echo base_url ('admin', 'invoice_tags');?>' method='get' class="search<?php echo $has_search ? ' show' : '';?>">
+<form action='<?php echo base_url ('admin', 'invoice_tags');?>' method='get' class="search<?php echo $has_search = array_filter ($columns) ? ' show' : '';?>">
   <div class='l i1 n1'>
     <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 名稱..' />
   </div>

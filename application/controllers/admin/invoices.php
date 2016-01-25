@@ -20,16 +20,16 @@ class Invoices extends Admin_controller {
     $this->add_tab ('帳務列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增帳務', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2))
          ->add_css (resource_url ('resource', 'css', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.css'))
+         // ->add_css (base_url ('application', 'views', 'content', 'admin', 'invoices', 'add', 'a.css'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.js'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'datepicker.lang', 'jquery.ui.datepicker-zh-TW.js'))
          ;
   }
 
   public function index ($offset = 0) {
-    $columns = array ('name' => 'string', 'contact' => 'string', 'memo' => 'string');
+    $columns = array ('name' => 'name LIKE ?', 'contact' => 'contact LIKE ?', 'memo' => 'memo LIKE ?', 'start' => 'closing_at >= ?', 'end' => 'closing_at <= ?');
     $configs = array ('admin', $this->get_class (), '%s');
-
-    $conditions = array (implode (' AND ', conditions ($columns, $configs, 'Invoice', OAInput::get ())));
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Invoice::count (array ('conditions' => $conditions));
@@ -50,7 +50,6 @@ class Invoices extends Admin_controller {
                 ->load_view (array (
                     'invoices' => $invoices,
                     'pagination' => $pagination,
-                    'has_search' => array_filter ($columns),
                     'columns' => $columns
                   ));
   }
@@ -207,8 +206,8 @@ class Invoices extends Admin_controller {
     if (!(isset ($posts['money']) && is_numeric ($posts['money'] = trim ($posts['money'])) && ($posts['money'] > 0) && ($posts['money'] < 4294967296)))
       return '沒有填寫金額 或 金額錯誤！';
 
-    if (!(isset ($posts['closing_at']) && ($posts['closing_at'] = trim ($posts['closing_at']))))
-      return '沒有選擇結案日期！';
+    if (!(isset ($posts['closing_at']) && ($posts['closing_at'] = trim ($posts['closing_at'])) && (DateTime::createFromFormat ('Y-m-d', $posts['closing_at']) !== false)))
+      return '沒有選擇結案日期 或 格式錯誤！';
 
     if (!isset ($posts['pic_ids'])) $posts['pic_ids'] = array ();
 
