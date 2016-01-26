@@ -14,6 +14,7 @@
           <input type='text' name='<?php echo $column['key'];?>' value='<?php echo $column['value'];?>' placeholder='請輸入 <?php echo $column['title'];?>..' />
 <?php   }
       }?>
+    </div>
     <button type='submit'>尋找</button>
 <?php 
   } else { ?>
