@@ -89,7 +89,7 @@
       <tr>
         <th>結案日期：</th>
         <td>
-          <input type='text' name='closing_at' value='<?php echo isset ($posts['closing_at']) ? $posts['closing_at'] : $invoice->closing_at;?>' placeholder='請選擇結案日期..' maxlength='200' pattern='.{1,200}' required title='輸入窗口!'/>
+          <input type='text' name='closing_at' value='<?php echo isset ($posts['closing_at']) ? $posts['closing_at'] : ($invoice->closing_at ? $invoice->closing_at->format ('Y-m-d') : date ('Y-m-d'));?>' placeholder='請選擇結案日期..' maxlength='200' pattern='.{1,200}' required title='輸入窗口!'/>
         </td>
       </tr>
 

@@ -22,9 +22,11 @@ class Works extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
-    $configs = array ('admin', $this->get_class (), '%s');
-    $conditions = conditions ($columns, $configs);
+    $columns = array (array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
+                      array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
+                      );
+
+    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
     $limit = 25;
     $total = Work::count (array ('conditions' => $conditions));

@@ -24,4 +24,9 @@ $(function () {
     // onClose: function (dateText, inst) { if ($start.val () !== '') { var testStartDate = $start.datepicker ('getDate'); var testEndDate = $end.datepicker ('getDate'); if (testStartDate > testEndDate) $start.datepicker ('setDate', testEndDate); } else { $start.val (dateText); }},
     onSelect: function (selectedDate, instance) { var date = $.datepicker.parseDate(instance.settings.dateFormat, selectedDate, instance.settings); date.setMonth (date.getMonth() - 6); $start.datepicker ('option', 'maxDate', $end.datepicker ('getDate') ); $start.datepicker ('option', 'minDate', date ); }
   });
+
+  $('#export').click (function () {
+    $(this).parent ().attr ('action', $(this).attr ('href')).submit ();
+    return false;
+  });
 });

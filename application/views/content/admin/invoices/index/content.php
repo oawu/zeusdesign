@@ -1,12 +1,27 @@
 <form action='<?php echo base_url ('admin', 'invoices');?>' method='get' class="search<?php echo $has_search = array_filter ($columns) ? ' show' : '';?>">
-  <div class='l i5 n1'>
-    <input type='text' name='name' value='<?php echo @$columns['name'];?>' placeholder='請輸入 專案名稱..' />
-    <input type='text' name='contact' value='<?php echo @$columns['contact'];?>' placeholder='請輸入 窗口..' />
-    <input type='text' name='memo' value='<?php echo @$columns['memo'];?>' placeholder='請輸入 備註..' />
-    <input type='text' name='start' value='<?php echo @$columns['start'];?>' placeholder='請輸入 開始時間..' />
-    <input type='text' name='end' value='<?php echo @$columns['end'];?>' placeholder='請輸入 結束時間..' />
-  </div>
-  <button type='submit'>尋找</button>
+<?php 
+  if ($columns) { ?>
+    <div class='l i<?php echo count ($columns);?> n2'>
+<?php foreach ($columns as $column) {
+        if (isset ($column['select']) && $column['select']) { ?>
+          <select name='<?php echo $column['key'];?>'>
+            <option value=''>請選擇 <?php echo $column['title'];?>..</option>
+      <?php foreach ($column['select'] as $option) { ?>
+              <option value='<?php echo $option['value'];?>'<?php echo $option['value'] == $column['value'] ? ' selected' : '';?>><?php echo $option['text'];?></option>
+      <?php } ?>
+          </select>
+  <?php } else { ?>
+          <input type='text' name='<?php echo $column['key'];?>' value='<?php echo $column['value'];?>' placeholder='請輸入 <?php echo $column['title'];?>..' />
+<?php   }
+      }?>
+    </div>
+    <button type='submit'>尋找</button>
+<?php 
+  } else { ?>
+    <div class='l i0 n2'></div>
+<?php 
+  }?>
+  <a id='export' href='<?php echo base_url ('admin', 'invoices', 'export');?>'>匯出</a>
   <a href='<?php echo base_url ('admin', 'invoices', 'add');?>'>新增</a>
 </form>
 <button type='button' onClick="if (!$(this).prev ().is (':visible')) $(this).attr ('class', 'icon-chevron-left').prev ().addClass ('show'); else $(this).attr ('class', 'icon-chevron-right').prev ().removeClass ('show');" class='icon-chevron-<?php echo $has_search ? 'left' : 'right';?>'></button>

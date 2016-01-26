@@ -78,9 +78,12 @@ class Users extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('id' => 'id = ?', 'name' => 'name LIKE ?', 'email' => 'email LIKE ?');
-    $configs = array ('admin', $this->get_class (), '%s');
-    $conditions = conditions ($columns, $configs);
+    $columns = array (array ('key' => 'id',    'title' => 'ID',  'sql' => 'id = ?'), 
+                      array ('key' => 'name',  'title' => '名稱', 'sql' => 'name LIKE ?'), 
+                      array ('key' => 'email', 'title' => '信箱', 'sql' => 'email LIKE ?'), 
+                      );
+    
+    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
     $limit = 25;
     $total = User::count (array ('conditions' => $conditions));

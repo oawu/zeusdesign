@@ -31,9 +31,11 @@ class Work_tag_works extends Admin_controller {
   }
 
   public function index ($tag_id, $offset = 0) {
-    $columns = array ('title' => 'title LIKE ?', 'content' => 'content LIKE ?');
-    $configs = array ('admin', $this->get_class (), '%s');
-    $conditions = conditions ($columns, $configs);
+    $columns = array (array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
+                      array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
+                      );
+    
+    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
     if ($work_id = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $this->tag->id))), 'work_id'))
       Work::addConditions ($conditions, 'id IN (?)', $work_id);
