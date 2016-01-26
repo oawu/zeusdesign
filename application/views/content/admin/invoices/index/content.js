@@ -29,4 +29,7 @@ $(function () {
     $(this).parent ().attr ('action', $(this).attr ('href')).submit ();
     return false;
   });
+  $('.search button').click (function () {
+    $(this).parent ().attr ('action', $(this).attr ('href')).submit ();
+  });
 });

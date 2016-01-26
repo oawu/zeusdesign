@@ -15,7 +15,7 @@
 <?php   }
       }?>
     </div>
-    <button type='submit'>尋找</button>
+    <button type='submit' href='<?php echo base_url ('admin', 'invoices');?>'>尋找</button>
 <?php 
   } else { ?>
     <div class='l i0 n2'></div>
