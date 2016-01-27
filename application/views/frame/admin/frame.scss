@@ -203,6 +203,7 @@ form.search {
   > button[type='submit'] {
     width: $submitWidth;
     @include button('blue-gray');
+    font-weight: normal;
     height: 30px;
     @media screen and (min-width: 0px) and (max-width: #{$mediaMobileWidth - 1px}) {
       width: 100%;
@@ -211,6 +212,7 @@ form.search {
   }
   > a {
     @include button();
+    font-weight: normal;
     width: $newWidth;
     margin-left: 10px;
     display: none;
@@ -224,6 +226,7 @@ form.search {
   }
   ~ button {
     @include button('indigo');
+    font-weight: normal;
     @media screen and (min-width: #{$mediaMobileWidth}) {
       display: none;
     }
