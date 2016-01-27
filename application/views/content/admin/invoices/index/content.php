@@ -31,7 +31,7 @@
 <?php if ($invoices) {
         foreach ($invoices as $invoice) { ?>
           <tr>
-            <td data-title='封面' width='50'><?php echo img ($invoice->cover->url ('100x100c'), false, 'class="i_30"');?></td>
+            <td data-title='封面' width='50'><?php echo (string)$invoice->cover ? img ($invoice->cover->url ('100x100c'), false, 'class="i_30"') : '-';?></td>
             <td data-title='名稱' width='100'><?php echo $invoice->name;?></td>
             <td data-title='負責人' width='100'><?php echo $invoice->user->name;?></td>
             <td data-title='窗口' width='100'><?php echo $invoice->contact;?></td>

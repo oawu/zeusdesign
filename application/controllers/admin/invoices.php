@@ -81,15 +81,16 @@ class Invoices extends Admin_controller {
    //      $p->name->put_url ($p->name->url ());
    //  }
    // }
-  private function _excel_add_image ($sheet, $image, $i) {
+  private function _excel_add_image ($sheet, $image, &$i) {
+    if (!(string)$image) return --$i ? '' : '';
+
     download_web_file ($image->url ('350x230p'), $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$image))));
 
     $objDrawing = new PHPExcel_Worksheet_Drawing ();
     $objDrawing->setPath ($filepath);
 
     $j = ($j = (ceil ($i / 3) - 1) * 7 + 1);
-    $i = ($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D');
-    $objDrawing->setCoordinates ($i . $j);
+    $objDrawing->setCoordinates (($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D') . $j);
     $objDrawing->setOffsetX (20);
     $objDrawing->setOffsetY (8);
     $objDrawing->setWidth (175);
@@ -139,12 +140,13 @@ class Invoices extends Admin_controller {
     $excel->setActiveSheetIndex (1)->setTitle ('圖片列表');
 
     $that = $this;
-    $filepaths = $this->_array_2d_to_1d (array_map (function ($invoice) use ($that, $excel, &$i) {
-      return array_merge (array ($that->_excel_add_image ($excel->getActiveSheet (), $invoice->cover, isset ($i) ? ++$i : ($i = 1))),
+
+    $filepaths = array_filter ($this->_array_2d_to_1d (array_map (function ($invoice) use ($that, $excel, &$i) {
+      return array_merge (array ($that->_excel_add_image ($excel->getActiveSheet (), $invoice->cover, ($i = isset ($i) ? $i + 1 : 1))),
         array_map (function ($picture) use ($that, $excel, &$i) {
           return $that->_excel_add_image ($excel->getActiveSheet (), $picture->name, ++$i);
         }, $invoice->pictures));
-    }, $invoices));
+    }, $invoices)));
 
     $excel->setActiveSheetIndex (0);
 

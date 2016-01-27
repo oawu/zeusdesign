@@ -54,7 +54,7 @@
       <tr>
         <th>封 面：</th>
         <td>
-          <?php echo img ($invoice->cover->url ('100x100c'), false, 'class="cover"');?>
+          <?php echo (string)$invoice->cover ? img ($invoice->cover->url ('100x100c'), false, 'class="cover"') : '';?>
           <input type='file' name='cover' value='' />
         </td>
       </tr>
