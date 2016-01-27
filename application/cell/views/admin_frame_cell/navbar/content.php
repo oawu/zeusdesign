@@ -14,16 +14,13 @@
     </div>
 
     <div>
-      <div class='r icon-more' data-type='<?php echo $type;?>'>
+      <div class='r icon-more'>
         <div class='c'></div>
         <div class='l'>
           <div><svg class="svg" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>
         </div>
       </div>
 
-<?php if ($type == 'site') { ?>
-        <a class='icon-share2 b share'></a>
-<?php } ?>
     </div>
   </div>
 </nav>

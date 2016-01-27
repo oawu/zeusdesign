@@ -22,16 +22,15 @@ $(function () {
     $(this).toggleClass ('show');
 
     clearTimeout (navTimer);
-    
+        
     navTimer = setTimeout (function () {
       $.ajax ({
           url: $('#ajax_navbar_url').val (),
-          data: {
-            type: $(this).data ('type')
-          },
+          data: {},
           async: true, cache: false, dataType: 'json', type: 'GET',
       })
       .done (function (result) {
+        
         if (!result.status) $(this).remove ();
 
         $(this).parent ().empty ().html (result.content).find ('.r').addClass ('show').click (function () {

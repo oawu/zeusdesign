@@ -16,6 +16,27 @@ class Admin_controller extends Oa_controller {
           '_flash_message' => '請先登入，或者您沒有後台權限！'
         ));
     }
+    
+    // 
+
+    $class  = $this->get_class ();
+    $method = $this->get_method ();
+
+    $menus_list = array_map (function ($menus) use ($class, $method, &$has_active) {
+      return array_map (function ($item) use ($class, $method, &$has_active) {
+        $has_active |= ($a = ((isset ($item['class']) && $item['class']) && ($class == $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])) || (((isset ($item['class']) && $item['class'])) && ($class == $item['class']) && !((isset ($item['method']) && $item['method']))) || (!(isset ($item['class']) && $item['class']) && (isset ($item['method']) && $item['method']) && ($method == $item['method'])));
+        return array_merge ($item, array ('active' => $a));
+      }, $menus);
+    }, array_filter (array_map (function ($group) {
+      return array_filter ($group, function ($item) {
+        return isset ($item['role']) && Cfg::setting ('role', $item['role']) &&  in_array (User::current ()->role, Cfg::setting ('role', $item['role']));
+      });
+    }, Cfg::setting ('menu', 'admin'))));
+
+    if (!$has_active)
+      return redirect_message (array ('admin'), array (
+          '_flash_message' => '您沒有管理使用者的權限。'
+        ));
 
     $this->set_componemt_path ('component', 'admin')
          ->set_frame_path ('frame', 'admin')
@@ -27,6 +48,7 @@ class Admin_controller extends Oa_controller {
          ->_add_meta ()
          ->_add_css ()
          ->_add_js ()
+         ->add_param ('_menus_list', $menus_list)
          ;
   }
 

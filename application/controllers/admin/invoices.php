@@ -151,7 +151,7 @@ class Invoices extends Admin_controller {
     $excel->setActiveSheetIndex (0);
 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf8');
-    header('Content-Disposition: attachment; filename=dasda.xlsx');
+    header('Content-Disposition: attachment; filename=宙思_帳務_' . date ('Ymd') . '.xlsx');
 
     $objWriter = new PHPExcel_Writer_Excel2007 ($excel);
     $objWriter->save ("php://output");

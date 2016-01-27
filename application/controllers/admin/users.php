@@ -10,10 +10,10 @@ class Users extends Admin_controller {
   public function __construct () {
     parent::__construct ();
 
-    if (!in_array (User::current ()->role, Cfg::setting ('role', 'admins')))
-      return redirect_message (array ('admin'), array (
-              '_flash_message' => '您沒有管理使用者的權限。'
-            ));
+    // if (!in_array (User::current ()->role, Cfg::setting ('role', 'admins')))
+    //   return redirect_message (array ('admin'), array (
+    //           '_flash_message' => '您沒有管理使用者的權限。'
+    //         ));
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
       if (!(($id = $this->uri->rsegments (3, 0)) && ($this->user = User::find_by_id ($id))))

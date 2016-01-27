@@ -8,50 +8,39 @@
 class Admin_frame_cell extends Cell_Controller {
 
   /* render_cell ('admin_frame_cell', 'wrapper_left', var1, ..); */
-  // public function _cache_wrapper_left ($type, $class = null, $method = null) {
-  //   $class = $class ? $class : $this->CI->get_class ();
-  //   $method = $method ? $method : $this->CI->get_method ();
-
-  //   return array ('time' => 60 * 60, 'key' => $type . '_' . $class . '_' . $method);
+  // public function _cache_wrapper_left ($menus_list) {
+  //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function wrapper_left ($type, $class = null, $method = null) {
-    $class = $class ? $class : $this->CI->get_class ();
-    $method = $method ? $method : $this->CI->get_method ();
-    $menus_list = Cfg::setting ('menu', $type);
-
+  public function wrapper_left ($menus_list) {
     return $this->load_view (array (
-        'menus_list' => $menus_list,
-        'class' => $class,
-        'method' => $method
+        'menus_list' => $menus_list
       ));
   }
 
   /* render_cell ('admin_frame_cell', 'navbar', var1, ..); */
-  // public function _cache_nav ($type, $subtitle = '', $back_link = '') {
-  //   return array ('time' => 60 * 60, 'key' => $type . '_' . $subtitle);
+  // public function _cache_nav ($subtitle = '', $back_link = '') {
+  //   return array ('time' => 60 * 60, 'key' => $subtitle);
   // }
-  public function navbar ($type, $subtitle = '', $back_link = '') {
+  public function navbar ($subtitle = '', $back_link = '') {
     return $this->load_view (array (
-        'type' => $type,
         'subtitle' => $subtitle,
         'back_link' => $back_link,
       ));
   }
 
   /* render_cell ('admin_frame_cell', 'footer', var1, ..); */
-  // public function footer ($type) {
-  //   return array ('time' => 60 * 60, 'key' => $type);
+  // public function footer () {
+  //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function footer ($type) {
+  public function footer () {
     return $this->load_view ();
   }
 
   /* render_cell ('admin_frame_cell', 'tabs', var1, ..); */
-  // public function tabs ($type, $tabs = array (), $index = null) {
-  //   return array ('time' => 60 * 60, 'key' => $type . '_' . implode ('|', array_keys ($tabs)) . ($index !== null ? '_' . $index : ''));
+  // public function tabs ($tabs = array (), $index = null) {
+  //   return array ('time' => 60 * 60, 'key' =>  implode ('|', array_keys ($tabs)) . ($index !== null ? '_' . $index : ''));
   // }
-  public function tabs ($type, $tabs = array (), $index = null) {
-
+  public function tabs ($tabs = array (), $index = null) {
     return $this->load_view (array (
         'tabs' => $tabs,
         'index' => $index

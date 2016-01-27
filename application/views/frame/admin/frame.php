@@ -13,13 +13,13 @@
   <body lang="zh-tw">
     <?php echo isset ($hidden_list) ? $hidden_list : ''; ?>
 
-    <?php echo render_cell ('admin_frame_cell', 'navbar', 'admin', isset ($subtitle) ? $subtitle : '', isset ($back_link) ? $back_link : '');?>
+    <?php echo render_cell ('admin_frame_cell', 'navbar', isset ($subtitle) ? $subtitle : '', isset ($back_link) ? $back_link : '');?>
 
     <div id='container'>
       <div>
-        <?php echo render_cell ('admin_frame_cell', 'wrapper_left', 'admin', isset ($class) && $class ? $class : null, isset ($method) && $method ? $method : null);?>
+        <?php echo render_cell ('admin_frame_cell', 'wrapper_left', $_menus_list);?>
         <div>
-          <?php echo render_cell ('admin_frame_cell', 'tabs', 'admin', isset ($tabs) ? $tabs : array (), isset ($tab_index) ? $tab_index : null);?>
+          <?php echo render_cell ('admin_frame_cell', 'tabs', isset ($tabs) ? $tabs : array (), isset ($tab_index) ? $tab_index : null);?>
 
           <div class='_c'>
             <?php echo isset ($content) ? $content : ''; ?>
@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <?php echo render_cell ('admin_frame_cell', 'footer', 'admin');?>
+    <?php echo render_cell ('admin_frame_cell', 'footer');?>
 
     <div id='action' class='icon-plus'></div>
     <div id='loading' class='hide'><svg class="svg" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>
