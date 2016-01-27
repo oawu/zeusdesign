@@ -35,7 +35,8 @@ class Admin_controller extends Oa_controller {
   }
 
   private function _add_css () {
-    return $this->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'navbar', 'content.css'))
+    return $this->add_css ('http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700', false)
+                ->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'navbar', 'content.css'))
                 ->add_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'wrapper_left', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'tabs', 'content.css'))
                 ->append_css (base_url ('application', 'cell', 'views', 'admin_frame_cell', 'footer', 'content.css'))

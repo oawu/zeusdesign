@@ -70,17 +70,17 @@ class Invoices extends Admin_controller {
     }
     return $excel;
   }
-   function x () {
-    // for ($i=1; $i < 100; $i++) { 
-    //   $j = ($j = (ceil ($i / 3) - 1) * 7 + 1);
-    //   echo (($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D') . $j) . "<br/>";
-    // }
-    foreach (Invoice::all () as $i) {
-      $i->cover->put_url ($i->cover->url ());
-      foreach ($i->pictures as $p)
-        $p->name->put_url ($p->name->url ());
-    }
-   }
+   // function x () {
+   //  // for ($i=1; $i < 100; $i++) { 
+   //  //   $j = ($j = (ceil ($i / 3) - 1) * 7 + 1);
+   //  //   echo (($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D') . $j) . "<br/>";
+   //  // }
+   //  foreach (Invoice::all () as $i) {
+   //    $i->cover->put_url ($i->cover->url ());
+   //    foreach ($i->pictures as $p)
+   //      $p->name->put_url ($p->name->url ());
+   //  }
+   // }
   private function _excel_add_image ($sheet, $image, $i) {
     download_web_file ($image->url ('350x230p'), $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$image))));
 
