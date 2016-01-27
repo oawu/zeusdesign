@@ -202,11 +202,11 @@ class Invoices extends Admin_controller {
     $cover = OAInput::file ('cover');
     $pictures = OAInput::file ('pictures[]');
 
-    if (!$cover)
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
-          '_flash_message' => '請選擇照片(gif、jpg、png)檔案，或提供照片網址!',
-          'posts' => $posts
-        ));
+    // if (!$cover)
+    //   return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+    //       '_flash_message' => '請選擇照片(gif、jpg、png)檔案，或提供照片網址!',
+    //       'posts' => $posts
+    //     ));
 
     if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
@@ -216,7 +216,13 @@ class Invoices extends Admin_controller {
 
     $invoice = null;
     $create = Invoice::transaction (function () use ($posts, $cover, &$invoice) {
-      return verifyCreateOrm ($invoice = Invoice::create (array_intersect_key ($posts, Invoice::table ()->columns))) && $invoice->cover->put ($cover);
+      if (!verifyCreateOrm ($invoice = Invoice::create (array_intersect_key ($posts, Invoice::table ()->columns))))
+        return false;
+      
+      if ($cover && !$invoice->cover->put ($cover))
+        return false;
+
+      return true;
     });
 
     if (!($create && $invoice))
@@ -255,11 +261,11 @@ class Invoices extends Admin_controller {
     $posts = OAInput::post ();
     $cover = OAInput::file ('cover');
 
-    if (!((string)$this->invoice->cover || $cover))
-      return redirect_message (array ('admin', $this->get_class (), $this->invoice->id, 'edit'), array (
-          '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
-          'posts' => $posts
-        ));
+    // if (!((string)$this->invoice->cover || $cover))
+    //   return redirect_message (array ('admin', $this->get_class (), $this->invoice->id, 'edit'), array (
+    //       '_flash_message' => '請選擇圖片(gif、jpg、png)檔案!',
+    //       'posts' => $posts
+    //     ));
 
     if ($msg = $this->_validation_posts ($posts))
       return redirect_message (array ('admin', $this->get_class (), $this->invoice->id, 'edit'), array (
