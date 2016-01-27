@@ -26,50 +26,80 @@ class Invoices extends Admin_controller {
          ;
   }
 
-    private function _build_excel ($invoices, $infos) {
-        $excel = new OAExcel ();
-        
-        $excel->getActiveSheet ()->getRowDimension (1)->setRowHeight (25);
-        $excel->getActiveSheet ()->getColumnDimension ('A')->setWidth (15);
-        $excel->getActiveSheet ()->getColumnDimension ('B')->setWidth (10);
-        $excel->getActiveSheet ()->getColumnDimension ('C')->setWidth (10);
-        $excel->getActiveSheet ()->getColumnDimension ('D')->setWidth (8);
-        $excel->getActiveSheet ()->getColumnDimension ('E')->setWidth (8);
-        $excel->getActiveSheet ()->getColumnDimension ('F')->setWidth (11);
-        $excel->getActiveSheet ()->getColumnDimension ('G')->setWidth (15);
-        $excel->getActiveSheet ()->freezePaneByColumnAndRow (0, 2);
+  private function _build_excel ($invoices, $infos) {
+    $excel = new OAExcel ();
+    
+    $excel->getActiveSheet ()->getRowDimension (1)->setRowHeight (25);
+    $excel->getActiveSheet ()->getColumnDimension ('A')->setWidth (15);
+    $excel->getActiveSheet ()->getColumnDimension ('B')->setWidth (10);
+    $excel->getActiveSheet ()->getColumnDimension ('C')->setWidth (10);
+    $excel->getActiveSheet ()->getColumnDimension ('D')->setWidth (8);
+    $excel->getActiveSheet ()->getColumnDimension ('E')->setWidth (8);
+    $excel->getActiveSheet ()->getColumnDimension ('F')->setWidth (11);
+    $excel->getActiveSheet ()->getColumnDimension ('G')->setWidth (15);
+    $excel->getActiveSheet ()->freezePaneByColumnAndRow (0, 2);
 
-        $excel->getActiveSheet ()->getStyle ('A1:G1')->applyFromArray (array (
-          'fill' => array (
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'fff3ca')
-          ),
-          'borders' => array (
-            'allborders' => array (
-              'style' => PHPExcel_Style_Border::BORDER_THIN,
-              'color' => array('rgb' => '888888')))));
+    $excel->getActiveSheet ()->getStyle ('A1:G1')->applyFromArray (array (
+      'fill' => array (
+        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        'color' => array('rgb' => 'fff3ca')
+      ),
+      'borders' => array (
+        'allborders' => array (
+          'style' => PHPExcel_Style_Border::BORDER_THIN,
+          'color' => array('rgb' => '888888')))));
 
-        foreach ($invoices as $i => $invoice) {
-            $j = 0;
-            foreach ($infos as $info) {
-                if ($i == 0) {
-                    $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
-                    $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                    $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getFont ()->setName ('新細明體');
-                    $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 1), $info['title']);
-                }
-                eval ('$val = ' . $info['exp'] . ';');
-                
-                $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
-                $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-                $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getFont ()->setName ("新細明體");
-                $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 2), $val);
-                $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getNumberFormat ()->setFormatCode ($info['format']);
-                $j++;
-            }
+    foreach ($invoices as $i => $invoice) {
+      $j = 0;
+      foreach ($infos as $info) {
+        if ($i == 0) {
+          $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
+          $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+          $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getFont ()->setName ('新細明體');
+          $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 1), $info['title']);
         }
-        return $excel;
+        eval ('$val = ' . $info['exp'] . ';');
+        
+        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getFont ()->setName ("新細明體");
+        $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 2), $val);
+        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getNumberFormat ()->setFormatCode ($info['format']);
+        $j++;
+      }
     }
+    return $excel;
+  }
+  private function _excel_add_image ($sheet, $image, $i) {
+    $objDrawing = new PHPExcel_Worksheet_Drawing ();
+    
+    download_web_file (
+      $image->url ('280x190p'),
+      $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$image))));
+    
+    $objDrawing->setPath ($filepath);
+
+    $j = ($j = (round ($i / 2) - 1) * 12 + 2) + (int)(($j + 1) / 49);
+    $objDrawing->setCoordinates (($i % 2 ? 'A' : 'E') . $j);
+    $objDrawing->setOffsetX ($i % 2 ? 25 : 50);
+    $objDrawing->setOffsetY (5);
+    $objDrawing->setWorksheet ($sheet); 
+
+    return $filepath;
+  }
+  private function _array_2d_to_1d ($a) {
+    $o = array ();
+    foreach ($a as $b) foreach ($b as $c) array_push($o, $c);
+    return $o;
+  }
+  public function x () {
+    foreach (Invoice::all () as $invoice) {
+      $invoice->cover->put_url ($invoice->cover->url ());
+
+      foreach ($invoice->pictures as $picture)
+        $picture->name->put_url ($picture->name->url ());
+    }
+  }
   public function export () {
     $columns = array (array ('key' => 'name',    'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
                       array ('key' => 'user_id', 'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
@@ -89,57 +119,27 @@ class Invoices extends Admin_controller {
 
     $this->load->library ('OAExcel');
 
-    $infos = array (
-            array ('title' => '專案名稱', 'exp' => '$invoice->name', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT),
-            array ('title' => '負責人',   'exp' => '$invoice->user->name', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT),
-            array ('title' => '窗口',     'exp' => '$invoice->contact', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT),
-            array ('title' => '金額',     'exp' => '$invoice->money', 'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER),
-            array ('title' => '分類',     'exp' => '$invoice->tag ? $invoice->tag->name : "其他"', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT),
-            array ('title' => '結案日期',  'exp' => '$invoice->closing_at ? $invoice->closing_at->format ("Y-m-d") : ""', 'format' => PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2),
-            array ('title' => '備註',     'exp' => '$invoice->memo', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT),
-        );
+    $infos = array (array ('title' => '專案名稱', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->name'),
+                    array ('title' => '負責人',   'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->user->name'),
+                    array ('title' => '窗口',     'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->contact'),
+                    array ('title' => '金額',     'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER,        'exp' => '$invoice->money'),
+                    array ('title' => '分類',     'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->tag ? $invoice->tag->name : "其他"'),
+                    array ('title' => '結案日期', 'format' => PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2, 'exp' => '$invoice->closing_at ? $invoice->closing_at->format ("Y-m-d") : ""'),
+                    array ('title' => '備註',    'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,           'exp' => '$invoice->memo'));
 
     $excel = $this->_build_excel ($invoices, $infos);
     $excel->getActiveSheet ()->setTitle ('帳務列表');
-    $filepaths = array ();
 
-    if ($invoices) {
-      foreach ($invoices as $i => $invoice) {
-        $excel->createSheet ($i + 1);
-        $excel->setActiveSheetIndex ($i + 1)->setTitle ($invoice->name);
+    $excel->createSheet (1);
+    $excel->setActiveSheetIndex (1)->setTitle ('圖片列表');
 
-        $objDrawing = new PHPExcel_Worksheet_Drawing ();
-        $objDrawing->setName ($invoice->name . '_cover');
-        $objDrawing->setDescription ($invoice->name . '_cover');
-        
-        download_web_file ($invoice->cover->url ('600x400p'), $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ('cover_' . $invoice->cover))));
-        
-        $objDrawing->setPath ($filepath);
-        // $objDrawing->setOffsetX ($i * 605);
-        $objDrawing->setCoordinates ('A1');
-        $objDrawing->setWidth (600);
-        $objDrawing->setWorksheet ($excel->getActiveSheet ()); 
-
-        array_push ($filepaths, $filepath);
-
-        if ($invoice->pictures) {
-          foreach ($invoice->pictures as $j => $picture) {
-            $objDrawing = new PHPExcel_Worksheet_Drawing ();
-            $objDrawing->setName ($invoice->name . '_picture_' . ($j + 1));
-            $objDrawing->setDescription ($invoice->name . '_picture_' . ($j + 1));
-            
-            download_web_file ($picture->name->url ('600x400p'), $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ('cover_' . $picture->name))));
-            
-            $objDrawing->setPath ($filepath);
-            $objDrawing->setCoordinates ('A' . (25 * ($j + 1) + 1));
-            $objDrawing->setWidth (600);
-            $objDrawing->setWorksheet ($excel->getActiveSheet ()); 
-
-            array_push ($filepaths, $filepath);
-          }
-        }
-      }
-    }
+    $that = $this;
+    $filepaths = $this->_array_2d_to_1d (array_map (function ($invoice) use ($that, $excel, &$i) {
+      return array_merge (array ($that->_excel_add_image ($excel->getActiveSheet (), $invoice->cover, isset ($i) ? ++$i : ($i = 1))),
+        array_map (function ($picture) use ($that, $excel, &$i) {
+          return $that->_excel_add_image ($excel->getActiveSheet (), $picture->name, ++$i);
+        }, $invoice->pictures));
+    }, $invoices));
 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf8');
     header('Content-Disposition: attachment; filename=dasda.xlsx');
@@ -155,8 +155,7 @@ class Invoices extends Admin_controller {
                       array ('key' => 'contact', 'title' => '窗口',    'sql' => 'contact LIKE ?'),
                       array ('key' => 'memo',    'title' => '備註',    'sql' => 'memo LIKE ?'),
                       array ('key' => 'start',   'title' => '開始時間', 'sql' => 'closing_at >= ?'),
-                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'),
-                      );
+                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'));
     
     $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
