@@ -1,9 +1,24 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 $(function () {
+  function updateIsFinished (id, status, callback) {
+    if ($('#is_finished_url').val ())
+      $.ajax ({
+        url: $('#is_finished_url').val () + '/' + id,
+        data: {
+          is_finished: status ? 1 : 0,
+        },
+        async: true, cache: false, dataType: 'json', type: 'post',
+        beforeSend: function () { }
+      })
+      .done (callback ? callback : function (result) { })
+      .fail (function (result) { ajaxError (result); })
+      .complete (function (result) { });
+  }
+
   var $start = $('input[type="text"][name="start"]');
   var $end = $('input[type="text"][name="end"]');
 
@@ -29,7 +44,18 @@ $(function () {
     $(this).parent ().attr ('action', $(this).attr ('href')).submit ();
     return false;
   });
+
   $('.search button').click (function () {
     $(this).parent ().attr ('action', $(this).attr ('href')).submit ();
+  });
+
+  $('.checkbox input').change (function () {
+    $(this).prop ('disabled', true).nextAll ('div').text ('設定中');
+
+    updateIsFinished (
+      $(this).data ('id'),
+      $(this).prop ('checked') === true,
+      function (result) { $(this).prop ('disabled', false); if (result.content) $(this).nextAll ('div').text (result.content);
+    }.bind ($(this)));
   });
 });

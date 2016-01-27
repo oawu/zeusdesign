@@ -1,6 +1,6 @@
 /**
  * @author      OA Wu <comdan66@gmail.com>
- * @copyright   Copyright (c) 2015 OA Wu Design
+ * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
 $(function () {
@@ -24,14 +24,18 @@ $(function () {
     var i = $(this).data ('i');
     $psfm (i).insertBefore ($ps);
     $(this).data ('i', i + 1);
-  }).click ();
+  });
 
   $('input[name="closing_at"]').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      firstDay: 0,
-      dateFormat: 'yy-mm-dd',
-      showOtherMonths: true,
-      selectOtherMonths: true,
-    });
+    changeMonth: true,
+    changeYear: true,
+    firstDay: 0,
+    dateFormat: 'yy-mm-dd',
+    showOtherMonths: true,
+    selectOtherMonths: true,
+  });
+
+  $('#is_finished').click (function () {
+    $(this).nextAll ('label').text ($(this).prop ('checked') === true ? $(this).data ('is_finished_name') : $(this).data ('no_finished_name'));
+  });
 });

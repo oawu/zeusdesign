@@ -67,16 +67,26 @@
       </tr>
 
       <tr>
-        <th>備 註：</th>
+        <th>結案日期：</th>
         <td>
-          <textarea name='memo' class='pure autosize' placeholder='請輸入備註..'><?php echo isset ($posts['memo']) ? $posts['memo'] : '';?></textarea>
+          <input type='text' name='closing_at' value='<?php echo isset ($posts['closing_at']) ? $posts['closing_at'] : date ('Y-m-d');?>' placeholder='請選擇結案日期(yyyy-mm-dd)..' maxlength='200' pattern='.{1,200}' required title='輸入窗口!'/>
         </td>
       </tr>
 
       <tr>
-        <th>結案日期：</th>
+        <th>是否完成：</th>
         <td>
-          <input type='text' name='closing_at' value='<?php echo isset ($posts['closing_at']) ? $posts['closing_at'] : date ('Y-m-d');?>' placeholder='請選擇結案日期(yyyy-mm-dd)..' maxlength='200' pattern='.{1,200}' required title='輸入窗口!'/>
+          <div class='checkbox'>
+            <input type='checkbox' id='is_finished' name='is_finished'<?php echo isset ($posts['is_finished']) && $posts['is_finished'] ? ' checked' : '';?> data-is_finished_name='<?php echo Invoice::$finishName[Invoice::IS_FINISHED];?>' data-no_finished_name='<?php echo Invoice::$finishName[Invoice::NO_FINISHED];?>'><span></span>
+            <label for='is_finished'><?php echo Invoice::$finishName[isset ($posts['is_finished']) && $posts['is_finished'] ? Invoice::IS_FINISHED : Invoice::NO_FINISHED];?></label>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th>備 註：</th>
+        <td>
+          <textarea name='memo' class='pure autosize' placeholder='請輸入備註..'><?php echo isset ($posts['memo']) ? $posts['memo'] : '';?></textarea>
         </td>
       </tr>
 

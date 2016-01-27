@@ -20,7 +20,6 @@ class Invoices extends Admin_controller {
     $this->add_tab ('帳務列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增帳務', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2))
          ->add_css (resource_url ('resource', 'css', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.css'))
-         // ->add_css (base_url ('application', 'views', 'content', 'admin', 'invoices', 'add', 'a.css'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'jquery-ui-1.10.3.custom.min.js'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-ui_v1.10.3', 'datepicker.lang', 'jquery.ui.datepicker-zh-TW.js'))
          ;
@@ -93,14 +92,7 @@ class Invoices extends Admin_controller {
     foreach ($a as $b) foreach ($b as $c) array_push($o, $c);
     return $o;
   }
-  public function x () {
-    foreach (Invoice::all () as $invoice) {
-      $invoice->cover->put_url ($invoice->cover->url ());
 
-      foreach ($invoice->pictures as $picture)
-        $picture->name->put_url ($picture->name->url ());
-    }
-  }
   public function export () {
     $columns = array (array ('key' => 'name',    'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
                       array ('key' => 'user_id', 'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
@@ -177,6 +169,7 @@ class Invoices extends Admin_controller {
 
     return $this->set_tab_index (1)
                 ->set_subtitle ('帳務列表')
+                ->add_hidden (array ('id' => 'is_finished_url', 'value' => base_url ('admin', $this->get_class (), 'is_finished')))
                 ->load_view (array (
                     'invoices' => $invoices,
                     'pagination' => $pagination,
@@ -320,6 +313,24 @@ class Invoices extends Admin_controller {
       ));
   }
 
+  public function is_finished ($id = 0) {
+    if (!($id && ($invoice = Invoice::find_by_id ($id, array ('select' => 'id, is_finished, updated_at')))))
+      return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
+
+    $posts = OAInput::post ();
+
+    if ($msg = $this->_validation_is_finished_posts ($posts))
+      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Invoice::$finishName[$invoice->is_finished]));
+
+    if ($columns = array_intersect_key ($posts, $invoice->table ()->columns))
+      foreach ($columns as $column => $value)
+        $invoice->$column = $value;
+
+    $update = Invoice::transaction (function () use ($invoice) { return $invoice->save (); });
+
+    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Invoice::$finishName[$invoice->is_finished]));
+    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Invoice::$finishName[$invoice->is_finished]));
+  }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['invoice_tag_id']) && is_numeric ($posts['invoice_tag_id'] = trim ($posts['invoice_tag_id'])) && ($posts['invoice_tag_id'] >= 0) && (!$posts['invoice_tag_id'] || InvoiceTag::find_by_id ($posts['invoice_tag_id']))))
       return '沒有選擇類別 或 類別錯誤！';
@@ -341,6 +352,15 @@ class Invoices extends Admin_controller {
 
     if (!isset ($posts['pic_ids'])) $posts['pic_ids'] = array ();
 
+    if (!(isset ($posts['is_finished']) && ($posts['is_finished'] = trim ($posts['is_finished']))))
+      $posts['is_finished'] = 0;
+    else
+      $posts['is_finished'] = 1;
+
+    return '';
+  }
+  private function _validation_is_finished_posts (&$posts) {
+    if (!(isset ($posts['is_finished']) && is_numeric ($posts['is_finished']) && in_array ($posts['is_finished'], array_keys (Invoice::$finishName)))) return '參數錯誤！';
     return '';
   }
 }
