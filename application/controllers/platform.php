@@ -8,7 +8,7 @@
 class Platform extends Site_controller {
 
   public function login () {
-    if (User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'admins')))
+    if (User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'members')))
       return redirect_message (array ('admin'), array ());
     else
       $this->load_view ();

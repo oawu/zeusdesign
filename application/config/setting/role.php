@@ -11,4 +11,5 @@ $role['roles'] = array (
   'admin' => '管理者', 
   'root' => '權限最高者');
 
-$role['admins'] = array ('member', 'admin', 'root');
+$role['members'] = array ('member', 'admin', 'root');
+$role['admins'] = array ('admin', 'root');

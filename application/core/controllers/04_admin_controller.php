@@ -10,7 +10,7 @@ class Admin_controller extends Oa_controller {
   public function __construct () {
     parent::__construct ();
 
-    if (!(User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'admins')))) {
+    if (!(User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'members')))) {
       Session::setData ('_flash_message', '', true);
       return redirect_message (array ('login'), array (
           '_flash_message' => '請先登入，或者您沒有後台權限！'

@@ -1,6 +1,6 @@
 <div class='login'>
 <?php 
-  if (User::current () && !in_array (User::current ()->role, Cfg::setting ('role', 'admins'))) { ?>
+  if (User::current () && !in_array (User::current ()->role, Cfg::setting ('role', 'members'))) { ?>
     <div class='m'>您已經登入成功，<br/>請管理員為您確認權限！</div>
 <?php 
   } else if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
