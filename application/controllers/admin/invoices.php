@@ -70,19 +70,30 @@ class Invoices extends Admin_controller {
     }
     return $excel;
   }
+   function x () {
+    // for ($i=1; $i < 100; $i++) { 
+    //   $j = ($j = (ceil ($i / 3) - 1) * 7 + 1);
+    //   echo (($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D') . $j) . "<br/>";
+    // }
+    foreach (Invoice::all () as $i) {
+      $i->cover->put_url ($i->cover->url ());
+      foreach ($i->pictures as $p)
+        $p->name->put_url ($p->name->url ());
+    }
+   }
   private function _excel_add_image ($sheet, $image, $i) {
+    download_web_file ($image->url ('350x230p'), $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$image))));
+
     $objDrawing = new PHPExcel_Worksheet_Drawing ();
-    
-    download_web_file (
-      $image->url ('280x190p'),
-      $filepath = FCPATH . implode (DIRECTORY_SEPARATOR, array_merge (Cfg::system ('orm_uploader', 'uploader', 'temp_directory'), array ((string)$image))));
-    
     $objDrawing->setPath ($filepath);
 
-    $j = ($j = (round ($i / 2) - 1) * 12 + 2) + (int)(($j + 1) / 49);
-    $objDrawing->setCoordinates (($i % 2 ? 'A' : 'E') . $j);
-    $objDrawing->setOffsetX ($i % 2 ? 25 : 50);
-    $objDrawing->setOffsetY (5);
+    $j = ($j = (ceil ($i / 3) - 1) * 7 + 1);
+    $i = ($i % 3 < 2 ? $i % 3 < 1 ? 'G' : 'A' : 'D');
+    $objDrawing->setCoordinates ($i . $j);
+    $objDrawing->setOffsetX (20);
+    $objDrawing->setOffsetY (8);
+    $objDrawing->setWidth (175);
+
     $objDrawing->setWorksheet ($sheet); 
 
     return $filepath;
@@ -134,7 +145,7 @@ class Invoices extends Admin_controller {
           return $that->_excel_add_image ($excel->getActiveSheet (), $picture->name, ++$i);
         }, $invoice->pictures));
     }, $invoices));
-    
+
     $excel->setActiveSheetIndex (0);
 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf8');

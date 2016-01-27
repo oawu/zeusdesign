@@ -11,7 +11,7 @@ class InvoiceCoverImageUploader extends OrmImageUploader {
     return array (
         '' => array (),
         '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
-        '280x190p' => array ('pad', 280, 190, '#ffffff'),
+        '350x230p' => array ('pad', 350, 230, '#ffffff'),
       );
   }
 }
