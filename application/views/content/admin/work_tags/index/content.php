@@ -7,7 +7,7 @@
           <select name='<?php echo $column['key'];?>'>
             <option value=''>請選擇 <?php echo $column['title'];?>..</option>
       <?php foreach ($column['select'] as $option) { ?>
-              <option value='<?php echo $option['value'];?>'<?php echo $option['value'] == $column['value'] ? ' selected' : '';?>><?php echo $option['text'];?></option>
+              <option value='<?php echo $option['value'];?>'<?php echo $option['value'] === $column['value'] ? ' selected' : '';?>><?php echo $option['text'];?></option>
       <?php } ?>
           </select>
   <?php } else { ?>

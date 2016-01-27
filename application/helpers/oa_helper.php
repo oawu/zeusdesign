@@ -39,7 +39,7 @@ if (!function_exists ('conditions')) {
     $qs = $conditions = array ();
 
     foreach ($columns as &$column)
-      if ((isset ($inputs[$column['key']]) && ($inputs[$column['key']] !== '') && ($column['value'] = $inputs[$column['key']])) || ($column['value'] = ''))
+      if ((isset ($inputs[$column['key']]) && ($inputs[$column['key']] !== '') && (($column['value'] = $inputs[$column['key']]) || (is_numeric ($column['value']) ? ($column['value'] = (int)$column['value']) || true : true))) || ($column['value'] = ''))
         if (array_push ($qs, array ($column['key'], $column['value'])))
           OaModel::addConditions ($conditions, $column['sql'], strpos (strtolower ($column['sql']), ' like ') !== false ? '%' . $column['value'] . '%' : $inputs[$column['key']]);
 
