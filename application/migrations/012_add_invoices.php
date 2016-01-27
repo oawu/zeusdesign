@@ -17,7 +17,7 @@ class Migration_Add_invoices extends CI_Migration {
         `money` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '金額',
         `memo` text NOT NULL COMMENT '備註',
         `cover` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '圖檔',
-        `is_finished` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否完成，1 是，0 否',
+        `is_finished` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否請款，1 是，0 否',
         `closing_at` date NOT NULL DEFAULT '" . date ('Y-m-d') . "' COMMENT '結案日期',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',

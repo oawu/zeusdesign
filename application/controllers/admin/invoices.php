@@ -92,15 +92,17 @@ class Invoices extends Admin_controller {
     foreach ($a as $b) foreach ($b as $c) array_push($o, $c);
     return $o;
   }
-
+  private function _search_columns () {
+    return array (array ('key' => 'user_id',     'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
+                  array ('key' => 'is_finished', 'title' => '是否請款', 'sql' => 'is_finished = ?', 'select' => array_map (function ($key) { return array ('value' => $key, 'text' => Invoice::$finishName[$key]);}, array_keys (Invoice::$finishName))),
+                  array ('key' => 'name',        'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
+                  array ('key' => 'contact',     'title' => '窗口',    'sql' => 'contact LIKE ?'),
+                  array ('key' => 'memo',        'title' => '備註',    'sql' => 'memo LIKE ?'),
+                  array ('key' => 'start',       'title' => '開始時間', 'sql' => 'closing_at >= ?'),
+                  array ('key' => 'end',         'title' => '結束時間', 'sql' => 'closing_at <= ?'));
+  }
   public function export () {
-    $columns = array (array ('key' => 'name',    'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
-                      array ('key' => 'user_id', 'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
-                      array ('key' => 'contact', 'title' => '窗口',    'sql' => 'contact LIKE ?'),
-                      array ('key' => 'memo',    'title' => '備註',    'sql' => 'memo LIKE ?'),
-                      array ('key' => 'start',   'title' => '開始時間', 'sql' => 'closing_at >= ?'),
-                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'));
-    
+    $columns = $this->_search_columns ();
     $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
     $invoices = Invoice::find ('all', array (
@@ -144,13 +146,7 @@ class Invoices extends Admin_controller {
     array_map (function ($filepath) {return @unlink ($filepath); }, $filepaths);
   }
   public function index ($offset = 0) {
-    $columns = array (array ('key' => 'name',    'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
-                      array ('key' => 'user_id', 'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
-                      array ('key' => 'contact', 'title' => '窗口',    'sql' => 'contact LIKE ?'),
-                      array ('key' => 'memo',    'title' => '備註',    'sql' => 'memo LIKE ?'),
-                      array ('key' => 'start',   'title' => '開始時間', 'sql' => 'closing_at >= ?'),
-                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'));
-    
+    $columns = $this->_search_columns ();
     $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
     $limit = 25;
