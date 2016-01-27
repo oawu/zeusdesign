@@ -38,6 +38,7 @@ class Invoices extends Admin_controller {
     $excel->getActiveSheet ()->getColumnDimension ('F')->setWidth (11);
     $excel->getActiveSheet ()->getColumnDimension ('G')->setWidth (15);
     $excel->getActiveSheet ()->freezePaneByColumnAndRow (0, 2);
+    $excel->getActiveSheet ()->getStyle ('G')->getAlignment ()->setWrapText (true); 
 
     $excel->getActiveSheet ()->getStyle ('A1:G1')->applyFromArray (array (
       'fill' => array (
@@ -53,14 +54,14 @@ class Invoices extends Admin_controller {
       $j = 0;
       foreach ($infos as $info) {
         if ($i == 0) {
-          $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
+          $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_TOP);
           $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
           $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 1))->getFont ()->setName ('新細明體');
           $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 1), $info['title']);
         }
         eval ('$val = ' . $info['exp'] . ';');
         
-        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_CENTER);
+        $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setVertical (PHPExcel_Style_Alignment::VERTICAL_TOP);
         $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getAlignment ()->setHorizontal (PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $excel->getActiveSheet ()->getStyle (chr (65 + $j) . ($i + 2))->getFont ()->setName ("新細明體");
         $excel->getActiveSheet ()->SetCellValue (chr (65 + $j) . ($i + 2), $val);
@@ -106,8 +107,7 @@ class Invoices extends Admin_controller {
                       array ('key' => 'contact', 'title' => '窗口',    'sql' => 'contact LIKE ?'),
                       array ('key' => 'memo',    'title' => '備註',    'sql' => 'memo LIKE ?'),
                       array ('key' => 'start',   'title' => '開始時間', 'sql' => 'closing_at >= ?'),
-                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'),
-                      );
+                      array ('key' => 'end',     'title' => '結束時間', 'sql' => 'closing_at <= ?'));
     
     $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
 
@@ -140,6 +140,8 @@ class Invoices extends Admin_controller {
           return $that->_excel_add_image ($excel->getActiveSheet (), $picture->name, ++$i);
         }, $invoice->pictures));
     }, $invoices));
+    
+    $excel->setActiveSheetIndex (0);
 
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf8');
     header('Content-Disposition: attachment; filename=dasda.xlsx');
