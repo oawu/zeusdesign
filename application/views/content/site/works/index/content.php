@@ -1,6 +1,6 @@
-<div class='_t'>
+<h1 class='_t'>
   <span>設計作品</span>
-</div>
+</h1>
 
 <div class='b1'>
   <article>

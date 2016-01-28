@@ -12,6 +12,7 @@ class WorkCoverImageUploader extends OrmImageUploader {
         '' => array (),
         '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
         '300w' => array ('resize', 300, 300, 'width'),
+        '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 'c'),
       );
   }
 }

@@ -1,6 +1,6 @@
-<div class='_t'>
+<h1 class='_t'>
   <span><a href='<?php echo base_url ('works');?>'>設計作品</a> » <?php echo $work->title;?></span>
-</div>
+</h1>
 
 <div class='b1'>
   <article>
@@ -8,7 +8,7 @@
     <div>
 <?php foreach ($work->blocks as $block) { ?>
         <section>
-          <h3><?php echo $block->title;?></h3>
+          <h2><?php echo $block->title;?></h2>
     <?php foreach ($block->items as $item) { ?>
             <p>
         <?php if ($item->link) { ?>

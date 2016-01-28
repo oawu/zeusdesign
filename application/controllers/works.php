@@ -18,7 +18,19 @@ class Works extends Site_controller {
           '_flash_message' => '找不到該筆資料。'
         ));
 
-    $this->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
+    $this
+         ->set_title ($work->title . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_meta (array ('name' => 'keywords', 'content' => $work->title . ',' . Cfg::setting ('site', 'site', 'keywords')))
+         ->add_meta (array ('name' => 'description', 'content' => $work->mini_content () . ', ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('property' => 'og:title', 'content' => $work->title . ' - ' . Cfg::setting ('site', 'site', 'title')))
+         ->add_meta (array ('property' => 'og:description', 'content' => Cfg::setting ('site', 'site', 'description') . ', ' . $work->mini_content ()))
+
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $work->cover->url ('1200x630c'), 'alt' => Cfg::setting ('site', 'site', 'title')))
+         ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($og_img, PATHINFO_EXTENSION)))
+         ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+         ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+          
+         ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
          ->load_view (array (
             'work' => $work
           ));

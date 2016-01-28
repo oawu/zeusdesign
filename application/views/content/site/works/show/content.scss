@@ -30,7 +30,7 @@
       margin: 0;
       margin-bottom: 30px;
 
-      h3 {
+      h2 {
         margin: 0;
         font-size: 13px;
       }
@@ -53,6 +53,8 @@
           &:before {
             content: '-';
             margin-right: 3px;
+            margin-top: 1px;
+            display: inline-block;
           }
         }
       }
@@ -123,7 +125,7 @@
           width: 201px;
         }
 
-        h3 {
+        h2 {
           margin: 0;
           font-size: 13px;
         }
@@ -146,6 +148,8 @@
             &:before {
               content: '-';
               margin-right: 3px;
+              margin-top: 3px;
+              display: inline-block;
             }
           }
         }

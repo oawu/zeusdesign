@@ -1,6 +1,6 @@
-<div class='_t'>
+<h1 class='_t'>
   <span>關於宙思</span>
-</div>
+</h1>
 
 <div class='b1'>
   <aside>

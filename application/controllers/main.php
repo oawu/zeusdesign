@@ -8,13 +8,16 @@
 class Main extends Site_controller {
 
   public function x () {
-    $this->load->library ('OAMail');
+    foreach (Work::all () as $w)
+      $w->cover->put_url ($w->cover->url ());
+
+    // $this->load->library ('OAMail');
     
-    OAMail::create ()->addTo ('comdan66@gmail.com', 'OA')
-                     ->setSubject ('11111')
-                     ->setBody ('222222')
-                     // ->addFile (FCPATH . 'temp/01.jpg', '3333333')
-                     ->send ();
+    // OAMail::create ()->addTo ('comdan66@gmail.com', 'OA')
+    //                  ->setSubject ('11111')
+    //                  ->setBody ('222222')
+    //                  // ->addFile (FCPATH . 'temp/01.jpg', '3333333')
+    //                  ->send ();
 
     // OAMail::sendMail (array (
     //     'mail' => 'comdan66@gmail.com',

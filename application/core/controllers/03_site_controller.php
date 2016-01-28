@@ -25,7 +25,25 @@ class Site_controller extends Oa_controller {
   }
 
   private function _add_meta () {
-    return $this;
+    return $this->add_meta (array ('name' => 'robots', 'content' => 'index,follow'))
+                ->add_meta (array ('name' => 'author', 'content' => 'Sylvain Lafitte, Web Designer, sylvainlafitte.com'))
+                ->add_meta (array ('name' => 'keywords', 'content' => Cfg::setting ('site', 'site', 'keywords')))
+                ->add_meta (array ('name' => 'description', 'content' => Cfg::setting ('site', 'site', 'description')))
+
+                ->add_meta (array ('property' => 'og:site_name', 'content' => Cfg::setting ('site', 'site', 'title')))
+                ->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
+                
+                ->add_meta (array ('property' => 'og:title', 'content' => Cfg::setting ('site', 'site', 'title')))
+                ->add_meta (array ('property' => 'og:description', 'content' => Cfg::setting ('site', 'site', 'description')))
+                
+                ->add_meta (array ('property' => 'fb:admins', 'content' => Cfg::setting ('facebook', 'admins')))
+                ->add_meta (array ('property' => 'fb:app_id', 'content' => Cfg::setting ('facebook', 'appId')))
+
+                ->add_meta (array ('property' => 'og:locale', 'content' => 'zh_TW'))
+                ->add_meta (array ('property' => 'og:locale:alternate', 'content' => 'en_US'))
+                ->add_meta (array ('property' => 'og:type', 'content' => 'website'))
+
+                ;
   }
 
   private function _add_css () {

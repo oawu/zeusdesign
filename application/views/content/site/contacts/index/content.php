@@ -1,6 +1,6 @@
-<div class='_t'>
+<h1 class='_t'>
   <span>聯絡我們</span>
-</div>
+</h1>
 
 <?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
         <div class='<?php echo $posts ? 'd' : 'i';?>'><?php echo $_flash_message;?></div>
