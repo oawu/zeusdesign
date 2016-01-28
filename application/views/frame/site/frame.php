@@ -5,6 +5,8 @@
 
     <title><?php echo isset ($title) ? $title : ''; ?></title>
 
+    <link rel="alternate" href="<?php echo current_url ();?>" hreflang="zh-Hant" />
+
 <?php echo isset ($css_list) ? $css_list : ''; ?>
 
 <?php echo isset ($js_list) ? $js_list : ''; ?>
