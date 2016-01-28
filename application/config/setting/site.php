@@ -5,7 +5,7 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-$site['site']['title'] = 'ZEUS // Designa Studio';
+$site['site']['title'] = 'ZEUS // Design Studio';
 $site['site']['keywords'] = '宙思,品牌,設計,平面,包裝,台北,RWD,網頁設計,app,開發,ZEUS,zeus,zeusdesign';
 $site['site']['description'] = '宙思設計, Designa Studio, a HTML5 / CSS3 template.';
 
