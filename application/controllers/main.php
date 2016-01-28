@@ -7,9 +7,9 @@
 
 class Main extends Site_controller {
 
-  public function x () {
-    foreach (Work::all () as $w)
-      $w->cover->put_url ($w->cover->url ());
+  // public function x () {
+    // foreach (Work::all () as $w)
+    //   $w->cover->put_url ($w->cover->url ());
 
     // $this->load->library ('OAMail');
     
@@ -23,7 +23,7 @@ class Main extends Site_controller {
     //     'mail' => 'comdan66@gmail.com',
     //     'name' => 'COMDAN66'
     //   ), 'xxxxxx', '222222', array ('oa_wu@hiiir.com'));
-  }
+  // }
 
   public function abouts () {
     $this->add_param ('_method', $this->get_method ())
