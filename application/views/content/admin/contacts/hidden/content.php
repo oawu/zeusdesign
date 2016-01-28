@@ -41,7 +41,7 @@
             <td data-title='留言內容'><?php echo $contact->message;?></td>
             <td data-title='IP' width='150'><?php echo $contact->ip;?></td>
 
-            <td data-title='留言時間' width='100' class='timeago' data-time='<?php echo $contact->created_at->format ('Y-m-d H:i:s');?>'><?php echo $contact->created_at->format ('Y-m-d H:i:s');?></td>
+            <td data-title='留言時間' width='130' class='timeago' data-time='<?php echo $contact->created_at->format ('Y-m-d H:i:s');?>'><?php echo $contact->created_at->format ('Y-m-d H:i:s');?></td>
 
             <td data-title='顯示' width='50'>
               <a href='<?php echo base_url ('admin', 'contacts', 'is_visibled', $contact->id);?>' data-method='post' class='icon-eye'></a>

@@ -25,6 +25,7 @@ class Contacts extends Admin_controller {
     $columns = array (array ('key' => 'name',   'title' => '稱呼', 'sql' => 'name LIKE ?'), 
                       array ('key' => 'email', 'title' => 'E-Mail', 'sql' => 'email LIKE ?'), 
                       array ('key' => 'message', 'title' => '留言', 'sql' => 'message LIKE ?'), 
+                      array ('key' => 'ip', 'title' => 'IP', 'sql' => 'ip LIKE ?'), 
                       );
     
     $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
