@@ -23,7 +23,7 @@ class Works extends Site_controller {
          ->add_meta (array ('name' => 'keywords', 'content' => $work->title . ',' . Cfg::setting ('site', 'site', 'keywords')))
          ->add_meta (array ('name' => 'description', 'content' => $work->mini_content () . ', ' . Cfg::setting ('site', 'site', 'description')))
          ->add_meta (array ('property' => 'og:title', 'content' => $work->title . ' - ' . Cfg::setting ('site', 'site', 'title')))
-         ->add_meta (array ('property' => 'og:description', 'content' => Cfg::setting ('site', 'site', 'description') . ', ' . $work->mini_content ()))
+         ->add_meta (array ('property' => 'og:description', 'content' => $work->mini_content () . ' - ' . Cfg::setting ('site', 'site', 'description')))
 
          ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $work->cover->url ('1200x630c'), 'alt' => Cfg::setting ('site', 'site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
