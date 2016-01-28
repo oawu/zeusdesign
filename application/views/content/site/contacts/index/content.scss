@@ -5,6 +5,19 @@
 
 @import "_oa";
 
+.d { @include alert('danger', false); }
+.i { @include alert('info', false); }
+.d, .i {
+  display: inline-block;
+  margin-bottom: 30px;
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    width: 100%
+  }
+  @media screen and (min-width: $changeWidth) {
+    width: calc(100% - 20px);
+    margin: 0 10px;
+  }
+}
 .b1 {
   @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
     margin-bottom: 20px;
