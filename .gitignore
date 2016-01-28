@@ -27,6 +27,7 @@ assets/*
 vendor/*
 
 /cmd
+/env.php
 
 system/cmd/.sass-cache/*
 system/cmd/node_modules/*

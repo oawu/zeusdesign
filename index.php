@@ -22,7 +22,8 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define ('ENVIRONMENT', 'development');
+	require_once 'env.php';
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
