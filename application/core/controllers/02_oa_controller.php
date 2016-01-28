@@ -173,11 +173,13 @@ class Oa_controller extends Root_controller {
       foreach ($temp as $key => $value)
         $data .= (($file = preg_replace("/^$bom/", '', read_file ($path = FCPATH . preg_replace ("|^(" . preg_quote (base_url ('')) . ")|", '', $value)))) ? Cfg::system ('static', 'minify') ? $this->minify->$format->min ($file) : $file : '') . "\n";
       write_file ($folder_path . $file_name, $data, 'w+');
+ 
     }
+        
     return base_url (array_merge (Cfg::system ('static', 'assets_folder'), array ($file_name)));
   }
   private function _combine_static_files () {
-    if ((ENVIRONMENT !== 'workion') && Cfg::system ('static', 'enable'))
+    if ((ENVIRONMENT !== 'production') && Cfg::system ('static', 'enable'))
       return $this;
 
     if (!is_writable ($folder_path = FCPATH . implode (DIRECTORY_SEPARATOR, Cfg::system ('static', 'assets_folder')) . DIRECTORY_SEPARATOR))
