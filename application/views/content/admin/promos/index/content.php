@@ -1,4 +1,4 @@
-<form action='<?php echo base_url ('admin', 'promos');?>' method='get' class="search<?php echo $has_search = array_filter ($columns) ? ' show' : '';?>">
+<form action='<?php echo base_url ('admin', 'promos');?>' method='get' class="search<?php echo $has_search = array_filter (column_array ($columns, 'value')) ? ' show' : '';?>">
 <?php 
   if ($columns) { ?>
     <div class='l i<?php echo count ($columns);?> n1'>
