@@ -1,0 +1,22 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.checkbox {
+  @include checkbox('green');
+
+  input {
+    &[disabled] {
+      ~ div {
+        cursor: not-allowed;
+      } 
+    }
+  }
+  > div {
+    display: inline-block;
+    margin-left: 3px;
+  }
+}

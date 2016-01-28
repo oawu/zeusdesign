@@ -6,8 +6,9 @@
  */
 
 $menu['admin'] = array (
-    '權限' => array (
+    '管理後台' => array (
         '首頁' => array ('role' => 'members', 'icon' => 'icon-home', 'href' => base_url ('admin'), 'class' => 'main', 'method' => 'index', 'target' => '_self'),
+        '訪客留言' => array ('role' => 'members', 'icon' => 'icon-comment', 'href' => base_url ('admin', 'contacts'), 'class' => 'contacts', 'method' => '', 'target' => '_self'),
         '使用者設定' => array ('role' => 'admins', 'icon' => 'icon-user2', 'href' => base_url ('admin', 'users'), 'class' => 'users', 'method' => '', 'target' => '_self'),
       ),
     '官網上搞' => array (

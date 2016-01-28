@@ -16,13 +16,15 @@ class Migration_Add_contacts extends CI_Migration {
         `message` text NOT NULL COMMENT '留言',
         `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0.0.0.0' COMMENT 'IP',
 
-        `is_viewed` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否看過，1 是，0 否',
-        `is_mailed` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否寄送 E-Mail，1 是，0 否',
+        `is_visibled` tinyint(1) unsigned NOT NULL DEFAULT 1 COMMENT '是否顯示，1 是，0 否',
+        `is_mailed` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否寄送 E-Mail 通知管理員，1 是，0 否',
         `is_replied` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '是否回覆，1 是，0 否',
 
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '新增時間',
-        PRIMARY KEY (`id`)
+        PRIMARY KEY (`id`),
+        KEY `is_mailed_index` (`is_mailed`),
+        KEY `is_visibled_index` (`is_visibled`)
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;"
     );
   }

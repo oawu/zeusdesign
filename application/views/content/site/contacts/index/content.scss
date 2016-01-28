@@ -9,13 +9,14 @@
 .i { @include alert('info', false); }
 .d, .i {
   display: inline-block;
-  margin-bottom: 30px;
   @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
-    width: 100%
+    width: 100%;
+    margin-bottom: 30px;
   }
   @media screen and (min-width: $changeWidth) {
     width: calc(100% - 20px);
     margin: 0 10px;
+    margin-bottom: 30px;
   }
 }
 .b1 {
