@@ -11,9 +11,14 @@ class Admin_frame_cell extends Cell_Controller {
   // public function _cache_wrapper_left ($menus_list) {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
-  public function wrapper_left ($menus_list) {
+  public function wrapper_left ($menus_list, $class, $metohd) {
+    $class = $class ? $class : $this->CI->router->fetch_class ();
+    $metohd = $metohd ? $metohd : $this->CI->router->fetch_method ();
+
     return $this->load_view (array (
-        'menus_list' => $menus_list
+        'menus_list' => $menus_list,
+        'class' => $class,
+        'metohd' => $metohd,
       ));
   }
 

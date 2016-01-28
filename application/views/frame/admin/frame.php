@@ -17,7 +17,7 @@
 
     <div id='container'>
       <div>
-        <?php echo render_cell ('admin_frame_cell', 'wrapper_left', $_menus_list);?>
+        <?php echo render_cell ('admin_frame_cell', 'wrapper_left', $_menus_list, isset ($class) && $class ? $class : null, isset ($metohd) && $metohd ? $metohd : null);?>
         <div>
           <?php echo render_cell ('admin_frame_cell', 'tabs', isset ($tabs) ? $tabs : array (), isset ($tab_index) ? $tab_index : null);?>
 

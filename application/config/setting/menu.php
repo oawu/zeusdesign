@@ -13,6 +13,7 @@ $menu['admin'] = array (
       ),
     '官網上搞' => array (
         '作品分類' => array ('role' => 'members', 'icon' => 'icon-tags', 'href' => base_url ('admin', 'work_tags'), 'class' => 'work_tags', 'method' => '', 'target' => '_self'),
+        '作品分類2' => array ('role' => 'members', 'icon' => 'icon-tags', 'href' => base_url ('admin', 'work_tags'), 'class' => 'work_tag_tags', 'method' => '', 'target' => '_self', 'no_show' => true),
         '作品管理' => array ('role' => 'members', 'icon' => 'icon-images', 'href' => base_url ('admin', 'works'), 'class' => 'works', 'method' => '', 'target' => '_self'),
         'Banner管理' => array ('role' => 'members', 'icon' => 'icon-images', 'href' => base_url ('admin', 'banners'), 'class' => 'banners', 'method' => '', 'target' => '_self'),
         'Promo管理' => array ('role' => 'members', 'icon' => 'icon-images', 'href' => base_url ('admin', 'promos'), 'class' => 'promos', 'method' => '', 'target' => '_self'),
