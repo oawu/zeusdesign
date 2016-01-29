@@ -21,7 +21,7 @@ class Banner extends OaModel {
   const ENABLE_NO  = 0;
   const ENABLE_YES = 1;
 
-  static $enableName = array(
+  static $enableNames = array(
     self::ENABLE_NO  => '停用',
     self::ENABLE_YES => '啟用',
   );
@@ -29,7 +29,7 @@ class Banner extends OaModel {
   const TARGET_BLANK = 0;
   const TARGET_SELF  = 1;
 
-  static $targetName = array(
+  static $targetNames = array(
     self::TARGET_BLANK => '分頁',
     self::TARGET_SELF  => '本頁',
   );

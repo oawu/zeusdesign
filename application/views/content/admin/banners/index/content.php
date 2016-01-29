@@ -33,9 +33,9 @@
             <td data-title='標題' width='150'><?php echo $banner->title;?></td>
             <td data-title='內容' ><?php echo $banner->mini_content ();?></td>
             <td data-title='封面' width='50'><?php echo img ($banner->cover->url ('100x100c'), false, 'class="i_30"');?></td>
-            <td data-title='開啟方式' width='80'><?php echo Banner::$targetName[$banner->target];?></td>
+            <td data-title='開啟方式' width='80'><?php echo Banner::$targetNames[$banner->target];?></td>
             <td data-title='鏈結' width='250'><?php echo $banner->link;?></td>
-            <td data-title='狀態' width='50'<?php echo !$banner->is_enabled ? 'class="red"' : '';?>><?php echo Banner::$enableName[$banner->is_enabled];?></td>
+            <td data-title='狀態' width='50'<?php echo !$banner->is_enabled ? 'class="red"' : '';?>><?php echo Banner::$enableNames[$banner->is_enabled];?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'banners', $banner->id, 'edit');?>' class='icon-pencil2'></a>
               <a href='<?php echo base_url ('admin', 'banners', $banner->id);?>' data-method='delete' class='icon-bin destroy'></a>

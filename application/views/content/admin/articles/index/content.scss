@@ -4,3 +4,30 @@
  */
 
 @import "_oa";
+
+.pics {
+  @include clearfix();
+  img {
+    float: right;
+    margin: 0 3px;
+    margin-bottom: 3px;
+  }
+}
+.red {
+  color: red;
+}
+.checkbox {
+  @include checkbox('green');
+
+  input {
+    &[disabled] {
+      ~ div {
+        cursor: not-allowed;
+      } 
+    }
+  }
+  > div {
+    display: inline-block;
+    margin-left: 3px;
+  }
+}

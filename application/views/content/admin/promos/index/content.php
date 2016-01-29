@@ -33,7 +33,7 @@
             <td data-title='標題' width='150'><?php echo $promo->title;?></td>
             <td data-title='內容' ><?php echo $promo->mini_content ();?></td>
             <td data-title='封面' width='50'><?php echo img ($promo->cover->url ('100x100c'), false, 'class="i_30"');?></td>
-            <td data-title='開啟方式' width='80'><?php echo Promo::$targetName[$promo->target];?></td>
+            <td data-title='開啟方式' width='80'><?php echo Promo::$targetNames[$promo->target];?></td>
             <td data-title='鏈結' width='250'><?php echo $promo->link;?></td>
             <td data-title='編輯' width='80'>
               <a href='<?php echo base_url ('admin', 'promos', $promo->id, 'edit');?>' class='icon-pencil2'></a>

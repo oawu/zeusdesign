@@ -21,7 +21,7 @@ class Contact extends OaModel {
   const NO_VISIBLED = 0;
   const IS_VISIBLED = 1;
 
-  static $visibledName = array(
+  static $visibleNames = array(
     self::NO_VISIBLED => '隱藏',
     self::IS_VISIBLED => '顯示',
   );
@@ -29,7 +29,7 @@ class Contact extends OaModel {
   const NO_MAILED = 0;
   const IS_MAILED = 1;
 
-  static $mailName = array(
+  static $mailNames = array(
     self::NO_MAILED => '未通知管理員',
     self::IS_MAILED => '已通知管理員',
   );
@@ -37,7 +37,7 @@ class Contact extends OaModel {
   const NO_REPLIED = 0;
   const IS_REPLIED = 1;
 
-  static $replyName = array(
+  static $replyNames = array(
     self::NO_REPLIED => '未回覆',
     self::IS_REPLIED => '已回覆',
   );

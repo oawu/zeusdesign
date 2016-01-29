@@ -14,6 +14,7 @@ $menu['admin'] = array (
     '部落格' => array (
         '文章分類' => array ('role' => 'members', 'icon' => 'icon-tags', 'href' => base_url ('admin', 'article_tags'), 'class' => 'article_tags', 'method' => '', 'target' => '_self'),
         '文章管理' => array ('role' => 'members', 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'articles'), 'class' => 'articles', 'method' => '', 'target' => '_self'),
+          '上傳工具' => array ('role' => 'members', 'icon' => 'icon-file-text2', 'href' => base_url ('admin', 'articles'), 'class' => 'tools', 'method' => '', 'target' => '_self', 'no_show' => true),
       ),
     '官網上搞' => array (
         '作品分類' => array ('role' => 'members', 'icon' => 'icon-tags', 'href' => base_url ('admin', 'work_tags'), 'class' => 'work_tags', 'method' => '', 'target' => '_self'),

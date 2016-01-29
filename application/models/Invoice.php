@@ -24,7 +24,7 @@ class Invoice extends OaModel {
   const NO_FINISHED = 0;
   const IS_FINISHED = 1;
 
-  static $finishName = array(
+  static $finishNames = array(
     self::NO_FINISHED => '未請款',
     self::IS_FINISHED => '已請款',
   );

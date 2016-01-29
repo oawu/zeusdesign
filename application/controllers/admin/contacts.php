@@ -137,7 +137,7 @@ class Contacts extends Admin_controller {
     $posts = OAInput::post ();
 
     if ($msg = $this->_validation_is_replied_posts ($posts))
-      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Contact::$replyName[$contact->is_replied]));
+      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Contact::$replyNames[$contact->is_replied]));
 
     if ($columns = array_intersect_key ($posts, $contact->table ()->columns))
       foreach ($columns as $column => $value)
@@ -145,11 +145,11 @@ class Contacts extends Admin_controller {
 
     $update = Contact::transaction (function () use ($contact) { return $contact->save (); });
 
-    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Contact::$replyName[$contact->is_replied]));
-    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Contact::$replyName[$contact->is_replied]));
+    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Contact::$replyNames[$contact->is_replied]));
+    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Contact::$replyNames[$contact->is_replied]));
   }
   private function _validation_is_replied_posts (&$posts) {
-    if (!(isset ($posts['is_replied']) && is_numeric ($posts['is_replied']) && in_array ($posts['is_replied'], array_keys (Contact::$replyName)))) return '參數錯誤！';
+    if (!(isset ($posts['is_replied']) && is_numeric ($posts['is_replied']) && in_array ($posts['is_replied'], array_keys (Contact::$replyNames)))) return '參數錯誤！';
     return '';
   }
 }

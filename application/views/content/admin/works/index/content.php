@@ -35,7 +35,7 @@
             <td data-title='封面' width='50'><?php echo img ($work->cover->url ('100x100c'), false, 'class="i_30"');?></td>
             <td data-title='圖片' width='140' class='pics'><?php echo $work->pictures ? implode ('', array_map (function ($picture) { return img ($picture->name->url ('100x100c'), false, 'class="i_30"'); }, $work->pictures)) : '-';?></td>
             <td data-title='分類' width='230'><?php echo implode ('<br/>', column_array ($work->tags, 'name'));?></td>
-            <td data-title='狀態' width='50'<?php echo !$work->is_enabled ? 'class="red"' : '';?>><?php echo Work::$enableName[$work->is_enabled];?></td>
+            <td data-title='狀態' width='50'<?php echo !$work->is_enabled ? 'class="red"' : '';?>><?php echo Work::$enableNames[$work->is_enabled];?></td>
 
             <td data-title='編輯' width='80'>
               <!-- <a href='<?php echo base_url ('admin', 'works', $work->id, 'works');?>' class='icon-images'></a> -->

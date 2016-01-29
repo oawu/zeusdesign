@@ -299,11 +299,11 @@ table.table-form {
     textarea.pure {
       @include material-textarea;
     }
-    textarea.ckeditor {
-      ~ [class*="cke"] {
-          &, &:after, &:before, *, *:after, *:before {
-              @include box-sizing(content-box);
-          }
+    textarea {
+      &[class*="cke"] {
+        &, &:after, &:before, *, *:after, *:before {
+          @include box-sizing(content-box);
+        }
       }
     }
 
@@ -440,4 +440,7 @@ table.table-form {
     90% { top: 0; @include opacity(1); }
     100% { top: -$msgHeight; @include opacity(0); }
   }
+}
+.cke_combo__fontsize .cke_combo_text {
+  width: auto !important;
 }

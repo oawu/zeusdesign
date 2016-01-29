@@ -32,7 +32,7 @@
             <td data-title='是否回覆' width='90'>
               <label class='checkbox'>
                 <input type='checkbox' data-id='<?php echo $contact->id;?>'<?php echo $contact->is_replied ? ' checked' : '';?>>
-                <span></span><div><?php echo Contact::$replyName[$contact->is_replied];?></div>
+                <span></span><div><?php echo Contact::$replyNames[$contact->is_replied];?></div>
               </label>
             </td>
 

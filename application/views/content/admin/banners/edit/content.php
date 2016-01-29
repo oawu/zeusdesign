@@ -36,7 +36,7 @@
         <th>開啟方式：</th>
         <td>
           <select name='target'>
-      <?php foreach (Banner::$targetName as $key => $name) { ?>
+      <?php foreach (Banner::$targetNames as $key => $name) { ?>
               <option value='<?php echo $key;?>'<?php echo (isset ($posts['target']) ? $posts['target'] : $banner->target) == $key ? ' selected': '';?>><?php echo $name;?></option>
       <?php } ?>
           </select>
@@ -47,7 +47,7 @@
         <th>狀 態：</th>
         <td>
           <select name='is_enabled'>
-      <?php foreach (Banner::$enableName as $key => $name) { ?>
+      <?php foreach (Banner::$enableNames as $key => $name) { ?>
               <option value='<?php echo $key;?>'<?php echo (isset ($posts['is_enabled']) ? $posts['is_enabled'] : $banner->is_enabled) == $key ? ' selected': '';?>><?php echo $name;?></option>
       <?php } ?>
           </select>

@@ -36,7 +36,7 @@
         <th>開啟方式：</th>
         <td>
           <select name='target'>
-      <?php foreach (Promo::$targetName as $key => $name) { ?>
+      <?php foreach (Promo::$targetNames as $key => $name) { ?>
               <option value='<?php echo $key;?>'<?php echo (isset ($posts['target']) ? $posts['target'] : $promo->target) == $key ? ' selected': '';?>><?php echo $name;?></option>
       <?php } ?>
           </select>

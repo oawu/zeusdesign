@@ -25,7 +25,7 @@ class Work extends OaModel {
   const ENABLE_NO  = 0;
   const ENABLE_YES = 1;
 
-  static $enableName = array(
+  static $enableNames = array(
     self::ENABLE_NO  => '停用',
     self::ENABLE_YES => '啟用',
   );

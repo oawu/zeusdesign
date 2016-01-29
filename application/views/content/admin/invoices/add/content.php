@@ -32,7 +32,7 @@
       <tr>
         <th>名 稱：</th>
         <td>
-          <input type='text' name='name' value='<?php echo isset ($posts['name']) ? $posts['name'] : '';?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入標題!' autofocus />
+          <input type='text' name='name' value='<?php echo isset ($posts['name']) ? $posts['name'] : '';?>' placeholder='請輸入名稱..' maxlength='200' pattern='.{1,200}' required title='輸入名稱!' autofocus />
         </td>
       </tr>
 
@@ -77,8 +77,8 @@
         <th>是否完成：</th>
         <td>
           <div class='checkbox'>
-            <input type='checkbox' id='is_finished' name='is_finished'<?php echo isset ($posts['is_finished']) && $posts['is_finished'] ? ' checked' : '';?> data-is_finished_name='<?php echo Invoice::$finishName[Invoice::IS_FINISHED];?>' data-no_finished_name='<?php echo Invoice::$finishName[Invoice::NO_FINISHED];?>'><span></span>
-            <label for='is_finished'><?php echo Invoice::$finishName[isset ($posts['is_finished']) && $posts['is_finished'] ? Invoice::IS_FINISHED : Invoice::NO_FINISHED];?></label>
+            <input type='checkbox' id='is_finished' name='is_finished'<?php echo isset ($posts['is_finished']) && $posts['is_finished'] ? ' checked' : '';?> data-is_finished_name='<?php echo Invoice::$finishNames[Invoice::IS_FINISHED];?>' data-no_finished_name='<?php echo Invoice::$finishNames[Invoice::NO_FINISHED];?>'><span></span>
+            <label for='is_finished'><?php echo Invoice::$finishNames[isset ($posts['is_finished']) && $posts['is_finished'] ? Invoice::IS_FINISHED : Invoice::NO_FINISHED];?></label>
           </div>
         </td>
       </tr>

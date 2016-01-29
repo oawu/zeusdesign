@@ -214,7 +214,7 @@ class Promos extends Admin_controller {
     if (!(isset ($posts['link']) && ($posts['link'] = trim ($posts['link']))))
       return '沒有填寫鏈結！';
 
-    if (!(isset ($posts['target']) && is_numeric ($posts['target'] = trim ($posts['target'])) && in_array ($posts['target'], array_keys (Promo::$targetName))))
+    if (!(isset ($posts['target']) && is_numeric ($posts['target'] = trim ($posts['target'])) && in_array ($posts['target'], array_keys (Promo::$targetNames))))
       return '選擇鏈結開啟方式錯誤！';
 
     return '';

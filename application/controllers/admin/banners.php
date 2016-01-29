@@ -214,10 +214,10 @@ class Banners extends Admin_controller {
     if (!(isset ($posts['link']) && ($posts['link'] = trim ($posts['link']))))
       return '沒有填寫鏈結！';
 
-    if (!(isset ($posts['is_enabled']) && is_numeric ($posts['is_enabled'] = trim ($posts['is_enabled'])) && in_array ($posts['is_enabled'], array_keys (Banner::$enableName))))
+    if (!(isset ($posts['is_enabled']) && is_numeric ($posts['is_enabled'] = trim ($posts['is_enabled'])) && in_array ($posts['is_enabled'], array_keys (Banner::$enableNames))))
       return '選擇是否上下架錯誤！';
 
-    if (!(isset ($posts['target']) && is_numeric ($posts['target'] = trim ($posts['target'])) && in_array ($posts['target'], array_keys (Banner::$targetName))))
+    if (!(isset ($posts['target']) && is_numeric ($posts['target'] = trim ($posts['target'])) && in_array ($posts['target'], array_keys (Banner::$targetNames))))
       return '選擇鏈結開啟方式錯誤！';
 
     return '';

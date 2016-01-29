@@ -43,7 +43,7 @@
             <td data-title='是否請款' width='90'>
               <label class='checkbox'>
                 <input type='checkbox' data-id='<?php echo $invoice->id;?>'<?php echo $invoice->is_finished ? ' checked' : '';?>>
-                <span></span><div><?php echo Invoice::$finishName[$invoice->is_finished];?></div>
+                <span></span><div><?php echo Invoice::$finishNames[$invoice->is_finished];?></div>
               </label>
             </td>
 

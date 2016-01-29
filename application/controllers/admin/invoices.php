@@ -106,7 +106,7 @@ class Invoices extends Admin_controller {
   }
   private function _search_columns () {
     return array (array ('key' => 'user_id',     'title' => '負責人',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
-                  array ('key' => 'is_finished', 'title' => '是否請款', 'sql' => 'is_finished = ?', 'select' => array_map (function ($key) { return array ('value' => $key, 'text' => Invoice::$finishName[$key]);}, array_keys (Invoice::$finishName))),
+                  array ('key' => 'is_finished', 'title' => '是否請款', 'sql' => 'is_finished = ?', 'select' => array_map (function ($key) { return array ('value' => $key, 'text' => Invoice::$finishNames[$key]);}, array_keys (Invoice::$finishNames))),
                   array ('key' => 'name',        'title' => '專案名稱', 'sql' => 'name LIKE ?'), 
                   array ('key' => 'contact',     'title' => '窗口',    'sql' => 'contact LIKE ?'),
                   array ('key' => 'memo',        'title' => '備註',    'sql' => 'memo LIKE ?'),
@@ -335,7 +335,7 @@ class Invoices extends Admin_controller {
     $posts = OAInput::post ();
 
     if ($msg = $this->_validation_is_finished_posts ($posts))
-      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Invoice::$finishName[$invoice->is_finished]));
+      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Invoice::$finishNames[$invoice->is_finished]));
 
     if ($columns = array_intersect_key ($posts, $invoice->table ()->columns))
       foreach ($columns as $column => $value)
@@ -343,8 +343,8 @@ class Invoices extends Admin_controller {
 
     $update = Invoice::transaction (function () use ($invoice) { return $invoice->save (); });
 
-    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Invoice::$finishName[$invoice->is_finished]));
-    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Invoice::$finishName[$invoice->is_finished]));
+    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Invoice::$finishNames[$invoice->is_finished]));
+    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Invoice::$finishNames[$invoice->is_finished]));
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['invoice_tag_id']) && is_numeric ($posts['invoice_tag_id'] = trim ($posts['invoice_tag_id'])) && ($posts['invoice_tag_id'] >= 0) && (!$posts['invoice_tag_id'] || InvoiceTag::find_by_id ($posts['invoice_tag_id']))))
@@ -375,7 +375,7 @@ class Invoices extends Admin_controller {
     return '';
   }
   private function _validation_is_finished_posts (&$posts) {
-    if (!(isset ($posts['is_finished']) && is_numeric ($posts['is_finished']) && in_array ($posts['is_finished'], array_keys (Invoice::$finishName)))) return '參數錯誤！';
+    if (!(isset ($posts['is_finished']) && is_numeric ($posts['is_finished']) && in_array ($posts['is_finished'], array_keys (Invoice::$finishNames)))) return '參數錯誤！';
     return '';
   }
 }

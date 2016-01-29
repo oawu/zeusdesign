@@ -41,7 +41,7 @@
         <th>狀 態：</th>
         <td>
           <select name='is_enabled'>
-      <?php foreach (Work::$enableName as $key => $name) { ?>
+      <?php foreach (Work::$enableNames as $key => $name) { ?>
               <option value='<?php echo $key;?>'<?php echo (isset ($posts['is_enabled']) ? $posts['is_enabled'] : 1) == $key ? ' selected': '';?>><?php echo $name;?></option>
       <?php } ?>
           </select>
