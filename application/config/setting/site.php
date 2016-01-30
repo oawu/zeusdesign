@@ -6,7 +6,7 @@
  */
 
 $site['site']['title'] = 'ZEUS // Design Studio';
-$site['site']['keywords'] = '宙思,品牌,設計,平面,包裝,台北,RWD,網頁設計,app,開發,ZEUS,zeus,zeusdesign';
+$site['site']['keywords'] = array ('宙思設計', '宙思', '設計', '網頁設計', '品牌', '平面', '包裝', '台北', 'RWD', 'app', '開發', 'ZEUS', 'zeus', 'zeusdesign');
 $site['site']['description'] = '宙思設計, Designa Studio, a HTML5 / CSS3 template.';
 
 $site['admin']['title'] = '管理後台 - ZEUS // Designa Studio';

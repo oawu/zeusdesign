@@ -13,6 +13,8 @@ class ArticleTagMapping extends OaModel {
   );
 
   static $has_many = array (
+    array ('tags', 'class_name' => 'ArticleTag'),
+    array ('articles', 'class_name' => 'Article'),
   );
 
   static $belongs_to = array (

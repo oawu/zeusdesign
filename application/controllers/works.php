@@ -18,9 +18,9 @@ class Works extends Site_controller {
           '_flash_message' => '找不到該筆資料。'
         ));
 
-    $this
-         ->set_title ($work->title . ' - ' . Cfg::setting ('site', 'site', 'title'))
-         ->add_meta (array ('name' => 'keywords', 'content' => $work->title . ',' . Cfg::setting ('site', 'site', 'keywords')))
+    $this->set_title ($work->title . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
+         ->add_meta (array ('name' => 'keywords', 'content' => $work->title . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
          ->add_meta (array ('name' => 'description', 'content' => $work->mini_content () . ', ' . Cfg::setting ('site', 'site', 'description')))
          ->add_meta (array ('property' => 'og:title', 'content' => $work->title . ' - ' . Cfg::setting ('site', 'site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $work->mini_content () . ' - ' . Cfg::setting ('site', 'site', 'description')))
@@ -34,12 +34,22 @@ class Works extends Site_controller {
          ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          ->add_meta (array ('name' => 'lastmod', 'property' => 'article:modified_time', 'content' => $work->updated_at->format ('c')))
-         ->add_meta (array ('name' => 'pubdate', 'property' => 'article:published_time', 'content' => $work->created_at->format ('c')))
-         ->add_meta (array ('name' => 'section', 'property' => 'article:section', 'content' => $work->tags ? $work->tags[0]->name : '宙思設計'))
-         ->add_meta (array ('name' => 'tags', 'property' => 'article:tag', 'content' => $work->tags ? implode(',', column_array ($work->tags, 'name')) : '網頁設計,宙思,設計'))
-         
-         ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
-         ->load_view (array (
+         ->add_meta (array ('name' => 'pubdate', 'property' => 'article:published_time', 'content' => $work->created_at->format ('c')));
+    
+    if ($tags = column_array ($work->tags, 'name'))
+      foreach ($tags as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+    else
+      foreach (Cfg::setting ('site', 'site', 'keywords') as $i => $tag)
+        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+
+    if ($others = render_cell ('site_cache_cell', 'work_other', $work))
+      foreach ($others as $other)
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('work', $other->site_show_page_last_uri ())));
+
+    $this->load_view (array (
             'work' => $work
           ));
   }

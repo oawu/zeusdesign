@@ -7,7 +7,7 @@
   <article> 
     <!-- <section><p><?php echo $work->content;?></p></section> -->
     <div>
-<?php foreach ($work->blocks as $block) { ?>
+<?php foreach (WorkBlock::find ('all', array ('include' => array ('items'), 'conditions' => array ('work_id = ?', $work->id))) as $block) { ?>
         <section>
           <h2><?php echo $block->title;?></h2>
     <?php foreach ($block->items as $item) { ?>

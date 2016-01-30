@@ -76,7 +76,7 @@ class Oa_controller extends Root_controller {
     if (isset ($attributes['name']))
       $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['name']) || ($meta['name'] != $attributes['name']);});
 
-    if (isset ($attributes['property']))
+    if (isset ($attributes['property']) && !in_array($attributes['property'], array ('article:author', 'article:tag', 'og:see_also')))
       $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['property']) || ($meta['property'] != $attributes['property']) || isset ($meta['tag']) && ($meta['tag'] != $attributes['tag']);});
 
     array_push ($this->meta_list, $attributes);
