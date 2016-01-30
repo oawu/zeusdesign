@@ -40,7 +40,7 @@ class Articles extends Site_controller {
          ->add_meta (array ('name' => 'tags', 'property' => 'article:tag', 'itemprop' => 'articleTag', 'content' => $article->tags ? implode(',', column_array ($article->tags, 'name')) : '網頁設計,宙思,設計'))
          ->add_meta (array ('property' => 'article:author', 'tag' => 'author', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
-         ->add_meta (array ('property' => 'article:author', 'tag' => 'admin', 'content' => $article->user->facebook_link ()))
+         ->add_meta (array ('property' => 'article:author', 'tag' => 'admin', 'content' => 'https://www.facebook.com/comdan66'))
 
 
          ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
