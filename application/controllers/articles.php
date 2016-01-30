@@ -38,7 +38,7 @@ class Articles extends Site_controller {
          ->add_meta (array ('name' => 'pubdate', 'property' => 'article:published_time', 'itemprop' => 'datePublished', 'content' => $article->created_at->format ('c')))
          ->add_meta (array ('name' => 'section', 'property' => 'article:section', 'itemprop' => 'articleSection', 'content' => $article->tags ? $article->tags[0]->name : '宙思設計'))
          ->add_meta (array ('name' => 'tags', 'property' => 'article:tag', 'itemprop' => 'articleTag', 'content' => $article->tags ? implode(',', column_array ($article->tags, 'name')) : '網頁設計,宙思,設計'))
-         ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'id') . ',' . Cfg::setting ('facebook', 'admins')))
+         ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'id')))
          ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
 
 
