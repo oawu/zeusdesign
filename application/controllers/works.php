@@ -31,8 +31,8 @@ class Works extends Site_controller {
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
           
          ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
-         ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'id')))
-         ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'id')))
+         ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'link')))
+         ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          ->add_meta (array ('name' => 'lastmod', 'property' => 'article:modified_time', 'itemprop' => 'dateModified', 'content' => $work->updated_at->format ('c')))
          ->add_meta (array ('name' => 'pubdate', 'property' => 'article:published_time', 'itemprop' => 'datePublished', 'content' => $work->created_at->format ('c')))
          ->add_meta (array ('name' => 'section', 'property' => 'article:section', 'itemprop' => 'articleSection', 'content' => $work->tags ? $work->tags[0]->name : '宙思設計'))
