@@ -115,7 +115,8 @@ class Invoices extends Admin_controller {
   }
   public function export () {
     $columns = $this->_search_columns ();
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $invoices = Invoice::find ('all', array (
         'order' => 'id DESC',
@@ -160,7 +161,8 @@ class Invoices extends Admin_controller {
   }
   public function index ($offset = 0) {
     $columns = $this->_search_columns ();
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Invoice::count (array ('conditions' => $conditions));

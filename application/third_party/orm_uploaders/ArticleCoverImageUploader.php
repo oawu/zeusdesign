@@ -11,6 +11,7 @@ class ArticleCoverImageUploader extends OrmImageUploader {
     return array (
         '' => array (),
         '100x100c' => array ('adaptiveResizeQuadrant', 100, 100, 'c'),
+        '450x180c' => array ('adaptiveResizeQuadrant', 450, 180, 'c'),
         '1200x630c' => array ('adaptiveResizeQuadrant', 1200, 630, 't'),
       );
   }

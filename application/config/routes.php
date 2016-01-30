@@ -3,6 +3,7 @@
 Route::root ('main');
 Route::get ('/abouts', 'main@abouts');
 Route::resource (array ('contacts'), 'contacts');
+
 Route::get ('/works', 'works@index');
 Route::get ('/works/(:id)', 'works@index($1)');
 Route::get ('/works/(:id)-', 'works@index($1)');
@@ -14,6 +15,18 @@ Route::get ('/work/(:id)-(:any)', 'works@show($1)');
 Route::get ('/login', 'platform@login');
 Route::get ('/platform/index', 'platform@login');
 Route::get ('/platform', 'platform@login');
+
+Route::resourcePagination (array ('articles'), 'articles');
+Route::get ('/articles/(:id)-', 'articles@show($1)');
+Route::get ('/articles/(:id)-(:any)', 'articles@show($1)');
+Route::get ('/article/', 'articles@index(0)');
+Route::get ('/article/(:id)', 'articles@show($1)');
+Route::get ('/article/(:id)-', 'articles@show($1)');
+Route::get ('/article/(:id)-(:any)', 'articles@show($1)');
+
+Route::resourcePagination (array ('article-tags', 'articles'), 'article_tag_articles');
+Route::get ('article-tags/(:any)/articles/', 'article_tag_articles@index($1, 0)');
+Route::get ('article-tags/(:any)/articles/(:num)/', 'article_tag_articles@index($1, $2)');
 
 Route::group ('admin', function () {
   Route::get ('/', 'main');

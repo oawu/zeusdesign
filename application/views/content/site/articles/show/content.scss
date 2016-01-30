@@ -1,0 +1,182 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+.b1 {
+  @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    margin-bottom: 20px;
+  }
+  @media screen and (min-width: $changeWidth) {
+    padding: 0 10px;
+    @include split-left(20%, '> section', '> article');
+  }
+
+  > aside {
+    @media screen and (min-width: $changeWidth) {
+      display: none;
+    }
+    margin-bottom: 40px;
+    ul {
+      padding-left: 0 !important;
+      @include clearfix();
+      li {
+        // width: 100% !important;
+        max-width: 100% !important;
+        float: left;
+        margin: 3px;
+      }
+    }
+  }
+  aside {
+    + aside {
+      margin-top: 30px;
+    }
+
+    &.f {
+      @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+        display: none;
+      }
+      ul {
+        padding-left: 0;
+        @include clearfix();
+        
+        li {
+          float: left;
+          margin: 3px;
+          max-width: 100%;
+        }
+      }
+    }
+    h2 {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 8px;
+      margin: 5px;
+      @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+        padding-left: 0;
+        @include clearfix();
+
+        li {
+          float: left;
+          @media screen and (min-width: 0) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+            max-width: 100%;
+          }
+          @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$mediaMobileWidth - 1px}) {
+            margin: 3px 10px;
+            max-width: calc(100% / 2 - 10px * 2);
+          }
+          @media screen and (min-width: $mediaMobileWidth) and (max-width: #{$changeWidth - 1px}) {
+            margin: 3px 10px;
+            max-width: calc(100% / 3 - 10px * 2);
+          }
+        }
+      }
+
+      li {
+        a {
+          @include a;
+          @include overflow-docx3();
+          max-width: 100%;
+          cursor: pointer;
+          color: rgba(117, 117, 117, .8);
+          font-size: 13px;
+          margin: 0;
+          padding: 0;
+
+          &.a {
+            color: rgba(100, 100, 100, 1);
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  article {
+    @media screen and (min-width: $changeWidth) {
+      padding-left: 65px;
+    }
+    header {
+      @include split-right(140px, 'h2', '> div');
+      padding: 0 5px;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      margin-bottom: 10px;
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+
+        a {
+          @include a;
+          color: rgba(85, 85, 85, 1);
+          font-weight: bold;
+          padding: 0;
+        }
+      }
+      > div {
+        text-align: right;
+        height: 23px;
+      }
+    }
+    footer {
+      margin: 0;
+
+      padding: 0 5px;
+      border-top: 1px solid rgba(0, 0, 0, .1);
+      margin-top: 10px;
+      padding-top: 5px;
+      @include split-right(120px, 'div:first-child', 'div:last-child');
+      
+      div {
+        font-size: 13px;
+        span {
+          @media screen and (min-width: 0) and (max-width: #{500px - 1px}) {
+            display: none;
+          }
+        }
+        time {
+          text-align: right;
+        }
+        a {
+          @include a;
+          padding: 0 3px;
+          @media screen and (min-width: 0) and (max-width: #{500px - 1px}) {
+            padding: 0;
+            padding-right: 3px;
+          }
+        }
+        time {
+          padding: 0 3px;
+          color: rgba(75, 75, 75, 1);
+          font-weight: bold;
+        }
+        &:last-child {
+          text-align: right;
+        }
+      }
+    }
+    > section {
+      padding: 5px 10px;
+
+      p {
+        margin: 5px 0;
+      }
+    }
+  }
+  section {
+    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+      margin-top: 50px;
+    }
+    @media screen and (min-width: $changeWidth) {
+      padding-top: 10px;
+    }
+  }
+}

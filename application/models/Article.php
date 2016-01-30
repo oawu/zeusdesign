@@ -38,4 +38,7 @@ class Article extends OaModel {
     if (!isset ($this->content)) return '';
     return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
   }
+  public function site_show_page_last_uri () {
+    return $this->id . '-' . oa_url_encode ($this->title);
+  }
 }

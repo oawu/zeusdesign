@@ -27,8 +27,9 @@ class Contacts extends Admin_controller {
                       array ('key' => 'message', 'title' => '留言', 'sql' => 'message LIKE ?'), 
                       array ('key' => 'ip', 'title' => 'IP', 'sql' => 'ip LIKE ?'), 
                       );
-    
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
+
     Contact::addConditions ($conditions, 'is_visibled = ?', $is_visibled);
 
     $limit = 25;

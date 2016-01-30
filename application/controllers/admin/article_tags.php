@@ -24,8 +24,8 @@ class Article_tags extends Admin_controller {
   public function index ($offset = 0) {
     $columns = array (array ('key' => 'name', 'title' => '名稱', 'sql' => 'name LIKE ?'), 
                   );
-    
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = ArticleTag::count (array ('conditions' => $conditions));

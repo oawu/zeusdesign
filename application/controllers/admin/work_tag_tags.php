@@ -32,8 +32,8 @@ class Work_tag_tags extends Admin_controller {
   public function index  ($id, $offset = 0) {
     $columns = array (array ('key' => 'title', 'title' => '名稱', 'sql' => 'title LIKE ?'), 
                       );
-    
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), $this->tag->id, 'tags', '%s');
+    $conditions = conditions ($columns, $configs);
 
     WorkTag::addConditions ($conditions, 'work_tag_id = ?', $this->parent_tag->id);
 

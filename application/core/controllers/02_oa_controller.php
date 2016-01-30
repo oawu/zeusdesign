@@ -26,7 +26,10 @@ class Oa_controller extends Root_controller {
     parent::__construct ();
     $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'))
          ->add_meta (array ('name' => 'viewport', 'content' => 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui'))
-         ->add_hidden (array ('id' => 'ajax_navbar_url', 'value' => base_url ('ajax', 'navbar')));
+         ->add_hidden (array ('id' => 'ajax_navbar_url', 'value' => base_url ('ajax', 'navbar')))
+         ->add_hidden (array ('id' => 'facebook_appId', 'value' => Cfg::setting ('facebook', 'appId')))
+         ->add_hidden (array ('id' => 'facebook_version', 'value' => Cfg::setting ('facebook', 'version')))
+         ;
     ;
   }
 

@@ -27,11 +27,12 @@ class Articles extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array (array ('key' => 'user_id',     'title' => '作者',   'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
-                      array ('key' => 'is_visibled', 'title' => '是否公開', 'sql' => 'is_visibled = ?', 'select' => array_map (function ($key) { return array ('value' => $key, 'text' => Article::$visibleNames[$key]);}, array_keys (Article::$visibleNames))),
-                      array ('key' => 'title',        'title' => '標題', 'sql' => 'title LIKE ?'), 
-                      array ('key' => 'content',     'title' => '內容',    'sql' => 'content LIKE ?'));
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $columns = array (array ('key' => 'user_id',      'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
+                      array ('key' => 'is_visibled',  'title' => '是否公開',  'sql' => 'is_visibled = ?', 'select' => array_map (function ($key) { return array ('value' => $key, 'text' => Article::$visibleNames[$key]);}, array_keys (Article::$visibleNames))),
+                      array ('key' => 'title',        'title' => '標題',     'sql' => 'title LIKE ?'), 
+                      array ('key' => 'content',      'title' => '內容',     'sql' => 'content LIKE ?'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Article::count (array ('conditions' => $conditions));

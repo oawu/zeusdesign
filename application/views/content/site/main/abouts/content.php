@@ -10,7 +10,7 @@
   </aside>
 
   <section>
-    <img alt='' src='<?php echo resource_url ('resource', 'image', 'team.jpg');?>' alt='<?php echo Cfg::setting ('site', 'site', 'title');?>' />
+    <img alt='' src='<?php echo resource_url ('resource', 'image', 'logo', 'banner-compressor.jpg');?>' alt='<?php echo Cfg::setting ('site', 'site', 'title');?>' />
 
     <article>
       <h2>關於宙思</h2>

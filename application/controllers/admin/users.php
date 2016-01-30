@@ -87,8 +87,8 @@ class Users extends Admin_controller {
                       array ('key' => 'name',  'title' => '名稱', 'sql' => 'name LIKE ?'), 
                       array ('key' => 'email', 'title' => '信箱', 'sql' => 'email LIKE ?'), 
                       );
-    
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = User::count (array ('conditions' => $conditions));

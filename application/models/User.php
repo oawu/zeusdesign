@@ -28,6 +28,10 @@ class User extends OaModel {
     if (self::$current !== '') return self::$current;
     return self::$current = ($id = Session::getData ('user_id')) ? User::find_by_id ($id) : null;
   }
+  public function facebook_link () {
+    if (!isset ($this->uid)) return '';
+    return 'https://www.facebook.com/' . $this->uid;
+  }
   public function avatar ($w = 100, $h = 100) {
     $size = array ();
     array_push ($size, isset ($w) && $w ? 'width=' . $w : '');

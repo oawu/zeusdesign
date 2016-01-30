@@ -31,4 +31,7 @@ class ArticleTag extends OaModel {
 
     return $this->delete ();
   }
+  public function site_show_page_last_uri () {
+    return oa_url_encode ($this->name);
+  }
 }

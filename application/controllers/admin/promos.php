@@ -24,8 +24,8 @@ class Promos extends Admin_controller {
     $columns = array (array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
                       array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'), 
                       );
-    
-    $conditions = conditions ($columns, $configs = array ('admin', $this->get_class (), '%s'));
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
 
     $limit = 25;
     $total = Promo::count (array ('conditions' => $conditions));
