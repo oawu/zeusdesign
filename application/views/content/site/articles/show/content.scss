@@ -168,6 +168,36 @@
 
       p {
         margin: 5px 0;
+        margin: 15.5px auto;
+        color: rgba(100, 100, 100, 1);
+        
+        a {
+          @include a(1px);
+          padding-bottom: 0;
+        }
+        img {
+          width: auto !important;
+          height: auto !important;
+
+          max-width: 100% !important;
+          max-height: 350px !important;
+
+          @include border-radius(2px);
+          margin-bottom: 15px;
+        }
+      }
+      ul {
+        margin: 15.5px auto;
+        margin-bottom: 20px;
+        padding-left: 30px;
+
+        li {
+          color: rgba(100, 100, 100, 1);
+
+          + li {
+            margin-top: 5px;
+          }
+        }
       }
     }
   }
