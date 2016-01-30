@@ -19,9 +19,6 @@ class Articles extends Admin_controller {
 
     $this->add_tab ('文章列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增文章', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2))
-         ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'ckeditor.js'), false)
-         ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'config.js'), false)
-         ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'adapters', 'jquery.js'), false)
          ->add_hidden (array ('id' => 'tools_ckeditors_upload_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_upload_image')))
          ;
   }
@@ -62,6 +59,9 @@ class Articles extends Admin_controller {
 
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增文章')
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'ckeditor.js'), false)
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'config.js'), false)
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'adapters', 'jquery.js'), false)
                 ->load_view (array (
                     'posts' => $posts
                   ));
@@ -122,6 +122,9 @@ class Articles extends Admin_controller {
     return $this->add_tab ('編輯文章', array ('href' => base_url ('admin', $this->get_class (), $this->article->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
                 ->set_subtitle ('編輯文章')
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'ckeditor.js'), false)
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'config.js'), false)
+                ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'adapters', 'jquery.js'), false)
                 ->load_view (array (
                     'posts' => $posts,
                     'article' => $this->article
