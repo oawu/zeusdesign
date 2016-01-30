@@ -30,6 +30,7 @@ class Site_cache_cell extends Cell_Controller {
     return array ('time' => 60 * 60, 'key' => $article->id);
   }
   public function article_other ($article) {
+    Article::trace ('--------------');
     if ($article->tags)
       usort ($article->tags, function ($a, $b) {
         return count ($a->mappings) < count ($b->mappings);
@@ -40,6 +41,7 @@ class Site_cache_cell extends Cell_Controller {
     else
        Article::addConditions ($conditions, 'id != ?', $article->id);
 
+    Article::trace ('--------------');
     return Article::find ('all', array ('select' => 'id, title', 'limit' => 5, 'conditions' => $conditions));
   }
 }
