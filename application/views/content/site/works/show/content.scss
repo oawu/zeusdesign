@@ -8,7 +8,7 @@
 .b1 {
   @media screen and (min-width: $changeWidth) {
     padding: 0 10px;
-    @include split-left(260px, 'article:first-child', 'article:last-child');
+    @include split-left(20%, 'article:first-child', 'article:last-child');
   }
 
   article:first-child, article:last-child {
@@ -18,6 +18,7 @@
 
     @media screen and (min-width: $changeWidth) {
       padding-right: 10px;
+      margin-top: 7px;
     }
     div {
       @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
@@ -65,9 +66,9 @@
       margin-top: 20px;
     }
     @media screen and (min-width: $changeWidth) {
-      padding-left: 20px;
+      padding-left: 65px;
     }
-    div {
+    > div {
       @media screen and (min-width: $changeWidth) {
         display: none;
       }
@@ -155,10 +156,36 @@
         }
       }
     }
+    header {
+      @include split-right(140px, 'h2', '> div');
+      padding: 0 5px;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      margin-bottom: 10px;
+
+      h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+
+        a {
+          @include a;
+          color: rgba(85, 85, 85, 1);
+          font-weight: bold;
+          padding: 0;
+        }
+      }
+      > div {
+        text-align: right;
+        height: 23px;
+      }
+    }
+    section {
+      padding: 0 5px;
+    }
     figure {
-      margin: 0;
+      margin: 0 5px;
       padding: 0;
-      width: 100%;
+      width: calc(100% - 5px * 2);
       img {
         width: 100%;
       }
