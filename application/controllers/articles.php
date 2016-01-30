@@ -12,7 +12,7 @@ class Articles extends Site_controller {
     $this->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
          ;
-              
+
   }
   
   public function show ($id = 0) {
@@ -32,7 +32,16 @@ class Articles extends Site_controller {
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-          
+         
+         ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
+         ->add_meta (array ('name' => 'lastmod', 'property' => 'article:modified_time', 'itemprop' => 'dateModified', 'content' => $article->updated_at->format ('c')))
+         ->add_meta (array ('name' => 'pubdate', 'property' => 'article:published_time', 'itemprop' => 'datePublished', 'content' => $article->created_at->format ('c')))
+         ->add_meta (array ('name' => 'section', 'property' => 'article:section', 'itemprop' => 'articleSection', 'content' => $article->tags ? $article->tags[0]->name : '宙思設計'))
+         ->add_meta (array ('name' => 'tags', 'property' => 'article:tag', 'itemprop' => 'articleTag', 'content' => $article->tags ? implode(',', column_array ($article->tags, 'name')) : '網頁設計,宙思,設計'))
+         ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'id') . ',' . Cfg::setting ('facebook', 'admins')))
+         ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
+
+
          ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
          ->load_view (array (
             'article' => $article
