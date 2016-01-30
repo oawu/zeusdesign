@@ -337,12 +337,14 @@ table.table-form {
         &[type='checkbox'] {
           &:checked {
             + * {
+              display: inline-block;
               &:before {
                 color: rgba(203, 78, 64, 1);
               }
             }
           }
           + * {
+            display: inline-block;
             &:before {
               content: "\e624";
               color: rgba(255, 255, 255, 1);
