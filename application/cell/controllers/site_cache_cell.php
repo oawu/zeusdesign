@@ -13,9 +13,7 @@ class Site_cache_cell extends Cell_Controller {
   }
   public function work_other ($work) {
     if ($work->tags)
-      usort ($work->tags, function ($a, $b) {
-        return count ($a->mappings) < count ($b->mappings);
-      });
+      usort ($work->tags, function ($a, $b) { return count ($a->mappings) < count ($b->mappings); });
 
     if ($work->tags && ($work_ids = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'order' => 'RAND()', 'limit' => 5, 'conditions' => array ('work_id != ? AND work_tag_id = ?', $work->id, $work->tags[0]->id))), 'work_id')))
        Work::addConditions ($conditions, 'id IN (?)', $work_ids);
@@ -30,18 +28,14 @@ class Site_cache_cell extends Cell_Controller {
     return array ('time' => 60 * 60, 'key' => $article->id);
   }
   public function article_other ($article) {
-    Article::trace ('--------------');
     if ($article->tags)
-      usort ($article->tags, function ($a, $b) {
-        return count ($a->mappings) < count ($b->mappings);
-      });
+      usort ($article->tags, function ($a, $b) { return count ($a->mappings) < count ($b->mappings); });
 
     if ($article->tags && ($article_ids = column_array (ArticleTagMapping::find ('all', array ('select' => 'article_id', 'order' => 'RAND()', 'limit' => 5, 'conditions' => array ('article_id != ? AND article_tag_id = ?', $article->id, $article->tags[0]->id))), 'article_id')))
        Article::addConditions ($conditions, 'id IN (?)', $article_ids);
     else
        Article::addConditions ($conditions, 'id != ?', $article->id);
 
-    Article::trace ('--------------');
     return Article::find ('all', array ('select' => 'id, title', 'limit' => 5, 'conditions' => $conditions));
   }
 }
