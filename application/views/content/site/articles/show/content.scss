@@ -124,6 +124,7 @@
       > div {
         text-align: right;
         height: 23px;
+        overflow: hidden;
       }
     }
     footer {
@@ -203,7 +204,7 @@
   }
   section {
     @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
-      margin-top: 50px;
+      margin-top: 10px;
     }
     @media screen and (min-width: $changeWidth) {
       padding-top: 10px;
