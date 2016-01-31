@@ -34,6 +34,14 @@ class Article extends OaModel {
     OrmImageUploader::bind ('cover', 'ArticleCoverImageUploader');
   }
   
+  public function destroy () {
+    if ($this->mappings)
+      foreach ($this->mappings as $mapping)
+        if (!$mapping->destroy ())
+          return false;
+
+    return $this->cover->cleanAllFiles () && $this->delete ();
+  }
   public function mini_content ($length = 100) {
     if (!isset ($this->content)) return '';
     return $length ? mb_strimwidth (remove_ckedit_tag ($this->content), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
