@@ -5,15 +5,15 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Migration_Add_add_article_destroy_user_id extends CI_Migration {
+class Migration_Add_works_pv extends CI_Migration {
   public function up () {
     $this->db->query (
-      "ALTER TABLE `articles` ADD `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID(作者)' AFTER `pv`;"
+      "ALTER TABLE `works` ADD `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page view' AFTER `is_enabled`;"
     );
   }
   public function down () {
     $this->db->query (
-      "ALTER TABLE `articles` DROP COLUMN `destroy_user_id`;"
+      "ALTER TABLE `works` DROP COLUMN `pv`;"
     );
   }
 }

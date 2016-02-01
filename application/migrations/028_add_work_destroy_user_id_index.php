@@ -5,15 +5,15 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Migration_Add_add_works_pv extends CI_Migration {
+class Migration_Add_work_destroy_user_id_index extends CI_Migration {
   public function up () {
     $this->db->query (
-      "ALTER TABLE `works` ADD `pv` int(11) unsigned NOT NULL DEFAULT 0 COMMENT 'Page view' AFTER `is_enabled`;"
+      "ALTER TABLE `works` ADD INDEX `is_enabled_destroy_user_id_index`(`is_enabled`, `destroy_user_id`);"
     );
   }
   public function down () {
     $this->db->query (
-      "ALTER TABLE `works` DROP COLUMN `pv`;"
+      "DROP INDEX `is_enabled_destroy_user_id_index` ON `works`;"
     );
   }
 }

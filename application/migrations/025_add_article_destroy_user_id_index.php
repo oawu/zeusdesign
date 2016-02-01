@@ -5,7 +5,7 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Migration_Add_add_article_destroy_user_id_index extends CI_Migration {
+class Migration_Add_article_destroy_user_id_index extends CI_Migration {
   public function up () {
     $this->db->query (
       "ALTER TABLE `articles` ADD INDEX `is_visibled_destroy_user_id_index`(`is_visibled`, `destroy_user_id`);"

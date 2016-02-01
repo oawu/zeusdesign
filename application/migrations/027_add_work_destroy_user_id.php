@@ -5,15 +5,15 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Migration_Add_add_works_user_id_index extends CI_Migration {
+class Migration_Add_work_destroy_user_id extends CI_Migration {
   public function up () {
     $this->db->query (
-      "ALTER TABLE `works` ADD INDEX `user_id_index`(`user_id`);"
+      "ALTER TABLE `works` ADD `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID(作者)' AFTER `pv`;"
     );
   }
   public function down () {
     $this->db->query (
-      "DROP INDEX `user_id_index` ON `works`;"
+      "ALTER TABLE `works` DROP COLUMN `destroy_user_id`;"
     );
   }
 }

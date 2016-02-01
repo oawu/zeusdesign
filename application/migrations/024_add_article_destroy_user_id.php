@@ -5,15 +5,15 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Migration_Add_add_works_user_id_foreign_key extends CI_Migration {
+class Migration_Add_article_destroy_user_id extends CI_Migration {
   public function up () {
     $this->db->query (
-      "ALTER TABLE `works` ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE"
+      "ALTER TABLE `articles` ADD `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID(作者)' AFTER `pv`;"
     );
   }
   public function down () {
     $this->db->query (
-      "ALTER TABLE `works` DROP FOREIGN KEY `fk_user_id`"
+      "ALTER TABLE `articles` DROP COLUMN `destroy_user_id`;"
     );
   }
 }
