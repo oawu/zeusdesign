@@ -64,7 +64,7 @@ class Articles extends Site_controller {
     $columns = array ();
     $configs = array ($this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
-    Article::addConditions ($conditions, 'is_visibled = ?', Article::IS_VISIBLED);
+    Article::addConditions ($conditions, 'is_visibled = ? AND destroy_user_id = ?', Article::IS_VISIBLED, 0);
 
     $limit = 7;
     $total = Article::count (array ('conditions' => $conditions));

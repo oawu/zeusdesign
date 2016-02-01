@@ -12,7 +12,7 @@ class Articles extends Admin_controller {
     parent::__construct ();
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find_by_id ($id))))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find_by_id ($id, array ('conditions' => array ('destroy_user_id = ?', 0))))))
         return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
@@ -30,6 +30,7 @@ class Articles extends Admin_controller {
                       array ('key' => 'content',      'title' => '內容',     'sql' => 'content LIKE ?'));
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
+    Article::addConditions ($conditions, 'destroy_user_id = ?', 0);
 
     $limit = 25;
     $total = Article::count (array ('conditions' => $conditions));
@@ -227,10 +228,21 @@ class Articles extends Admin_controller {
       ));
   }
   public function destroy () {
+    if (!User::current ()->id)
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '刪除失敗！',
+        ));
+
+    $posts = array (
+        'destroy_user_id' => User::current ()->id
+      );
+
     $article = $this->article;
-    $delete = Article::transaction (function () use ($article) {
-      return $article->destroy ();
-    });
+    if ($columns = array_intersect_key ($posts, $article->table ()->columns))
+      foreach ($columns as $column => $value)
+        $article->$column = $value;
+
+    $delete = Article::transaction (function () use ($article) { return $article->save (); });
 
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class ()), array (
