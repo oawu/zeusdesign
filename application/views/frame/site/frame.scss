@@ -32,7 +32,10 @@ html {
       width: 260px - 5px;
     }
 
-    @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+    @media screen and (min-width: 0px) and (max-width: #{$mediaMiniMobileWidth - 1px}) {
+      padding: 10px;
+    }
+    @media screen and (min-width: $mediaMiniMobileWidth) and (max-width: #{$changeWidth - 1px}) {
       padding: 15px;
       padding-top: 20px;
 
