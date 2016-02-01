@@ -57,6 +57,10 @@ class Articles extends Admin_controller {
   public function add () {
     $posts = Session::getData ('posts', true);
 
+    $posts['sources'] = isset ($posts['sources']) && $posts['sources'] ? array_slice (array_filter ($posts['sources'], function ($source) {
+      return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
+    }), 0) : array ();
+
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增文章')
                 ->add_js (resource_url ('resource', 'javascript', 'ckeditor_d2015_05_18', 'ckeditor.js'), false)
@@ -100,17 +104,26 @@ class Articles extends Admin_controller {
       return true;
     });
 
+    if (!($create && $article))
+      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
+          '_flash_message' => '新增失敗！',
+          'posts' => $posts
+        ));
+
     if ($posts['tag_ids'] && ($tag_ids = column_array (ArticleTag::find ('all', array ('select' => 'id', 'conditions' => array ('id IN (?)', $posts['tag_ids']))), 'id')))
       foreach ($tag_ids as $tag_id)
         ArticleTagMapping::transaction (function () use ($tag_id, $article) {
           return verifyCreateOrm (ArticleTagMapping::create (array_intersect_key (array ('article_tag_id' => $tag_id, 'article_id' => $article->id), ArticleTagMapping::table ()->columns)));
         });
 
-    if (!($create && $article))
-      return redirect_message (array ('admin', $this->get_class (), 'add'), array (
-          '_flash_message' => '新增失敗！',
-          'posts' => $posts
-        ));
+    if ($posts['sources'])
+      foreach ($posts['sources'] as $i => $source)
+        ArticleSource::transaction (function () use ($i, $source, $article) {
+          return verifyCreateOrm (ArticleSource::create (array_intersect_key (array_merge ($source, array (
+            'article_id' => $article->id,
+            'sort' => $i
+            )), ArticleSource::table ()->columns)));
+        });
 
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '新增成功！'
@@ -118,6 +131,12 @@ class Articles extends Admin_controller {
   }
   public function edit () {
     $posts = Session::getData ('posts', true);
+    
+    $posts['sources'] = isset ($posts['sources']) && $posts['sources'] ? array_slice (array_filter ($posts['sources'], function ($source) {
+      return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
+    }), 0) : ($this->article->sources ? array_filter (array_map (function ($source) {return array ('title' => $source->title, 'href' => $source->href);}, $this->article->sources), function ($source) {
+      return (isset ($source['title']) && $source['title']) || (isset ($source['href']) && $source['href']);
+    }) : array ());
 
     return $this->add_tab ('編輯文章', array ('href' => base_url ('admin', $this->get_class (), $this->article->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
@@ -173,7 +192,6 @@ class Articles extends Admin_controller {
           'posts' => $posts
         ));
 
-      
     $ori_ids = column_array ($article->mappings, 'article_tag_id');
 
     if (($del_ids = array_diff ($ori_ids, $posts['tag_ids'])) && ($mappings = ArticleTagMapping::find ('all', array ('select' => 'id, article_tag_id', 'conditions' => array ('article_id = ? AND article_tag_id IN (?)', $article->id, $del_ids)))))
@@ -186,6 +204,21 @@ class Articles extends Admin_controller {
       foreach ($tags as $tag)
         ArticleTagMapping::transaction (function () use ($tag, $article) {
           return verifyCreateOrm (ArticleTagMapping::create (Array_intersect_key (array ('article_tag_id' => $tag->id, 'article_id' => $article->id), ArticleTagMapping::table ()->columns)));
+        });
+
+    if ($article->sources)
+      foreach ($article->sources as $source)
+        ArticleSource::transaction (function () use ($source) {
+          return $source->destroy ();
+        });
+
+    if ($posts['sources'])
+      foreach ($posts['sources'] as $i => $source)
+        ArticleSource::transaction (function () use ($i, $source, $article) {
+          return verifyCreateOrm (ArticleSource::create (array_intersect_key (array_merge ($source, array (
+            'article_id' => $article->id,
+            'sort' => $i
+            )), ArticleSource::table ()->columns)));
         });
 
     return redirect_message (array ('admin', $this->get_class ()), array (
@@ -243,6 +276,13 @@ class Articles extends Admin_controller {
 
     if (!isset ($posts['tag_ids']))
       $posts['tag_ids'] = array ();
+
+    $posts['sources'] = isset ($posts['sources']) && ($posts['sources'] = array_filter (array_map (function ($source) {
+          $return = array (
+              'title' => trim ($source['title']),
+              'href' => trim ($source['href']));
+          return $return['href'] ? $return : null;
+        }, $posts['sources']))) ? $posts['sources'] : array ();
 
     return '';
   }

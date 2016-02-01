@@ -62,6 +62,15 @@
           </select>
         </td>
       </tr>
+      
+      <tr>
+        <th>參 考：</th>
+        <td class='s' data-i='0' data-ms='<?php echo json_encode ($posts['sources']);?>'>
+          <div class='ma'>
+            <button type='button' class='icon-plus'></button>
+          </div>
+        </td>
+      </tr>
 
       <tr>
         <td colspan='2'>

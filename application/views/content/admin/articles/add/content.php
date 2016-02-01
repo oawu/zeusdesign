@@ -33,8 +33,9 @@
         <tr>
           <th>標 籤：</th>
           <td>
-      <?php foreach ($tags as $tag) { ?>
-              <label><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>' /><div><?php echo $tag->name;?></div></label>
+      <?php $tag_ids = isset ($posts['tag_ids']) ? $posts['tag_ids'] : array ();
+            foreach ($tags as $tag) { ?>
+              <label><input type='checkbox' name='tag_ids[]' value='<?php echo $tag->id;?>'<?php echo $tag_ids && in_array ($tag->id, $tag_ids) ? ' checked' : '';?> /><div><?php echo $tag->name;?></div></label>
       <?php } ?>
           </td>
         </tr>
@@ -58,6 +59,15 @@
         <?php }
             }?>
           </select>
+        </td>
+      </tr>
+
+      <tr>
+        <th>參 考：</th>
+        <td class='s' data-i='0' data-ms='<?php echo json_encode ($posts['sources']);?>'>
+          <div class='ma'>
+            <button type='button' class='icon-plus'></button>
+          </div>
         </td>
       </tr>
 
