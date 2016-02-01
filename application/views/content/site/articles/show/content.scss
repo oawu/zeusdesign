@@ -128,11 +128,13 @@
       }
     }
     footer {
+      display: inline-block;
+      width: 100%;
       margin: 0;
+      margin-top: 20px;
 
       padding: 0 5px;
       border-top: 1px solid rgba(0, 0, 0, .1);
-      margin-top: 10px;
       padding-top: 5px;
       @include split-right(120px, 'div:first-child', 'div:last-child');
       
@@ -164,8 +166,9 @@
         }
       }
     }
-    > section {
-      padding: 5px 10px;
+    section {
+      padding: 5px;
+      font-size: 15px;
 
       p {
         margin: 5px 0;
@@ -197,6 +200,45 @@
 
           + li {
             margin-top: 5px;
+          }
+        }
+      }
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 5px;
+      margin-bottom: 20px;
+      display: block;
+
+      li {
+        font-size: 0;
+
+        + li {
+          margin-top: 15px;
+        }
+        a {
+          @include a;
+          padding: 0;
+          font-size: 13px;
+        }
+        span {
+          display: inline-block;
+          font-size: 10px;
+          color: rgba(85, 85, 85, .6);
+          font-style: oblique;
+          @include overflow-docx3();
+          @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+            max-width: 100%;
+            width: 100%;
+          }
+
+          &:before {
+            content: '-';
+            margin-right: 5px;
+            margin-left: 5px;
+            // @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+            //   margin-left: 10px;
+            // }
           }
         }
       }

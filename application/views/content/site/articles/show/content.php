@@ -12,6 +12,22 @@
     <section>
       <?php echo $article->content;?>
     </section>
+    
+    <?php
+    if ($article->sources) { ?>
+      <ul>
+  <?php foreach ($article->sources as $source) { ?>
+          <li>
+        <?php if ($source->title) { ?>
+                <a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->title;?></a><span><?php echo $source->mini_href ();?></span>
+        <?php } else { ?>
+                <a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->mini_href ();?></a>
+        <?php } ?>
+          </li>
+  <?php } ?>
+      </ul>
+    <?php
+    } ?>
 
     <footer>
       <div><span>張貼者：</span><a href='<?php echo $article->user->facebook_link ();?>' target='_blank'><?php echo $article->user->name;?></a>於<time datetime='<?php echo $article->created_at->format ('Y-m-d H:i:s');?>'><?php echo $article->created_at->format ('Y-m-d H:i:s');?></time>發佈。</div>
