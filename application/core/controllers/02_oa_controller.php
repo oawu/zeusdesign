@@ -67,12 +67,12 @@ class Oa_controller extends Root_controller {
     return $this;
   }
 
-  protected function set_title ($title) {
+  public function set_title ($title) {
     $this->title = $title;
     return $this;
   }
 
-  protected function add_meta ($attributes) {
+  public function add_meta ($attributes) {
     if (isset ($attributes['name']))
       $this->meta_list = array_filter ($this->meta_list, function ($meta) use ($attributes) { return !isset ($meta['name']) || ($meta['name'] != $attributes['name']);});
 
@@ -83,7 +83,7 @@ class Oa_controller extends Root_controller {
     return $this;
   }
 
-  protected function add_hidden ($attributes) {
+  public function add_hidden ($attributes) {
     array_push ($this->hidden_list, $attributes);
     return $this;
   }

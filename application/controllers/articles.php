@@ -16,44 +16,47 @@ class Articles extends Site_controller {
   }
   
   public function show ($id = 0) {
-    if (!($id && ($article = Article::find_by_id ($id, array ('conditions' => array ('is_visibled = ?', Article::IS_VISIBLED))))))
+    if (!($id && ($article_info = render_cell ('site_cache_cell', 'article', $id))))
       return redirect_message (array ('articles'), array (
           '_flash_message' => '找不到該筆資料。'
         ));
 
-    $this->set_title ($article->title . ' - ' . Cfg::setting ('site', 'site', 'title'))
-         ->add_meta (array ('name' => 'keywords', 'content' => $article->title . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
-         ->add_meta (array ('name' => 'description', 'content' => $article->mini_content () . ', ' . Cfg::setting ('site', 'site', 'description')))
-         ->add_meta (array ('property' => 'og:title', 'content' => $article->title . ' - ' . Cfg::setting ('site', 'site', 'title')))
-         ->add_meta (array ('property' => 'og:description', 'content' => $article->mini_content () . ' - ' . Cfg::setting ('site', 'site', 'description')))
+    $article = $article_info['article'];
+    $tags    = $article_info['tags'];
+    $others  = $article_info['others'];
+    $user    = $article_info['user'];
+    $sources = $article_info['sources'];
 
-         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $article->cover->url ('1200x630c'), 'alt' => Cfg::setting ('site', 'site', 'title')))
+    $this->set_title ($article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_meta (array ('name' => 'keywords', 'content' => $article['title'] . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
+         ->add_meta (array ('name' => 'description', 'content' => $article['mini_content']['300'] . ', ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('property' => 'og:title', 'content' => $article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))
+         ->add_meta (array ('property' => 'og:description', 'content' => $article['mini_content']['300'] . ' - ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $article['cover_url']['1200x630c'], 'alt' => $article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-         
          ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
          ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
-         ->add_meta (array ('property' => 'article:modified_time', 'content' => $article->updated_at->format ('c')))
-         ->add_meta (array ('property' => 'article:published_time', 'content' => $article->created_at->format ('c')))
+         ->add_meta (array ('property' => 'article:modified_time', 'content' => $article['updated_at']['c']))
+         ->add_meta (array ('property' => 'article:published_time', 'content' => $article['created_at']['c']))
          ;
 
-    if ($tags = column_array ($article->tags, 'name'))
+    if (($tags = column_array ($tags, 'name')) || ($tags = Cfg::setting ('site', 'site', 'keywords')))
       foreach ($tags as $i => $tag)
         if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
         else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
-    else
-      foreach (Cfg::setting ('site', 'site', 'keywords') as $i => $tag)
-        if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
-        else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
 
-    if ($others = render_cell ('site_cache_cell', 'article_other', $article))
+    if ($others)
       foreach ($others as $other)
-        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('article', $other->site_show_page_last_uri ())));
+        $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('article', $other['site_show_page_last_uri'])));
 
     $this->load_view (array (
-            'article' => $article
+            'article' => $article,
+            'tags' => $tags,
+            'sources' => $sources,
+            'user' => $user
           ));
   }
   public function index ($offset = 0) {
