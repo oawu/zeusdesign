@@ -31,6 +31,7 @@
         foreach ($works as $work) { ?>
           <tr>
             <td data-title='標題' width='150'><?php echo $work->title;?></td>
+            <td data-title='作者' width='100'><?php echo $work->user->name;?></td>
             <td data-title='內容' ><?php echo $work->mini_content ();?></td>
             <td data-title='封面' width='50'><?php echo img ($work->cover->url ('100x100c'), false, 'class="i_30"');?></td>
             <td data-title='圖片' width='140' class='pics'><?php echo $work->pictures ? implode ('', array_map (function ($picture) { return img ($picture->name->url ('100x100c'), false, 'class="i_30"'); }, $work->pictures)) : '-';?></td>

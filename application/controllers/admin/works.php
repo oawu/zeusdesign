@@ -22,7 +22,8 @@ class Works extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array (array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
+    $columns = array (array ('key' => 'user_id', 'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
+                      array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
                       array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
                       );
     $configs = array ('admin', $this->get_class (), '%s');
@@ -38,7 +39,7 @@ class Works extends Admin_controller {
         'offset' => $offset,
         'limit' => $limit,
         'order' => 'id DESC',
-        'include' => array ('pictures'),
+        'include' => array ('user', 'pictures'),
         'conditions' => $conditions
       ));
 
@@ -231,6 +232,9 @@ class Works extends Admin_controller {
   }
 
   private function _validation_posts (&$posts) {
+    if (!(isset ($posts['user_id']) && is_numeric ($posts['user_id'] = trim ($posts['user_id'])) && ($posts['user_id'] >= 0) && (!$posts['user_id'] || User::find_by_id ($posts['user_id']))))
+      return '沒有選擇作者 或 作者錯誤！';
+
     if (!(isset ($posts['title']) && ($posts['title'] = trim ($posts['title']))))
       return '沒有填寫標題！';
 

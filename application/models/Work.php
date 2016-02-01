@@ -20,6 +20,7 @@ class Work extends OaModel {
   );
 
   static $belongs_to = array (
+    array ('user', 'class_name' => 'User'),
   );
 
   const ENABLE_NO  = 0;
