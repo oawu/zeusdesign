@@ -12,7 +12,7 @@ class Works extends Admin_controller {
     parent::__construct ();
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy', 'sort')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->work = Work::find_by_id ($id))))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->work = Work::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL', $id))))))
         return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
@@ -28,6 +28,7 @@ class Works extends Admin_controller {
                       );
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
+    Work::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     $limit = 25;
     $total = Work::count (array ('conditions' => $conditions));
@@ -217,10 +218,21 @@ class Works extends Admin_controller {
       ));
   }
   public function destroy () {
+    if (!User::current ()->id)
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '刪除失敗！',
+        ));
+
+    $posts = array (
+        'destroy_user_id' => User::current ()->id
+      );
+
     $work = $this->work;
-    $delete = Work::transaction (function () use ($work) {
-      return $work->destroy ();
-    });
+    if ($columns = array_intersect_key ($posts, $work->table ()->columns))
+      foreach ($columns as $column => $value)
+        $work->$column = $value;
+
+    $delete = Work::transaction (function () use ($work) { return $work->save (); });
 
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class ()), array (

@@ -12,7 +12,7 @@ class Site_cache_cell extends Cell_Controller {
     return array ('time' => 10 * 60, 'key' => $id);
   }
   public function work ($id) {
-    if (!($id && ($work = Work::find_by_id ($id, array ('conditions' => array ('is_enabled = ?', Work::ENABLE_YES))))))
+    if (!($id && ($work = Work::find ('one', array ('conditions' => array ('id = ? AND is_enabled = ? AND destroy_user_id IS NULL', $id, Work::ENABLE_YES))))))
       return array ();
 
     if ($work->tags)

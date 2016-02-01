@@ -60,7 +60,7 @@ class Works extends Site_controller {
           ));
   }
   public function index ($id = 0) {
-    Work::addConditions ($conditions, 'is_enabled = ?', Work::ENABLE_YES);
+    Work::addConditions ($conditions, 'is_enabled = ? AND destroy_user_id IS NULL', Work::ENABLE_YES);
     if ($id && ($tag = WorkTag::find_by_id ($id)) && ($work_id = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $tag->id))), 'work_id')))
       Work::addConditions ($conditions, 'id IN (?)', $work_id);
 

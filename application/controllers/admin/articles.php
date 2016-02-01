@@ -12,7 +12,7 @@ class Articles extends Admin_controller {
     parent::__construct ();
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find_by_id ($id, array ('conditions' => array ('destroy_user_id IS NULL'))))))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL', $id))))))
         return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
