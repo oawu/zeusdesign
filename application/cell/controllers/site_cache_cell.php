@@ -8,9 +8,9 @@
 class Site_cache_cell extends Cell_Controller {
   
   /* render_cell ('site_cache_cell', 'work', $id); */
-  // public function _cache_work ($id) {
-  //   return array ('time' => 10 * 60, 'key' => $id);
-  // }
+  public function _cache_work ($id) {
+    return array ('time' => 10 * 60, 'key' => $id);
+  }
   public function work ($id) {
     if (!($id && ($work = Work::find_by_id ($id, array ('conditions' => array ('is_enabled = ?', Work::ENABLE_YES))))))
       return array ();
@@ -77,9 +77,9 @@ class Site_cache_cell extends Cell_Controller {
   }
 
   /* render_cell ('site_cache_cell', 'article', $id); */
-  // public function _cache_article ($id) {
-  //   return array ('time' => 10 * 60, 'key' => $id);
-  // }
+  public function _cache_article ($id) {
+    return array ('time' => 10 * 60, 'key' => $id);
+  }
   public function article ($id) {
     if (!($id && ($article = Article::find_by_id ($id, array ('include' => array ('sources'), 'conditions' => array ('is_visibled = ?', Article::IS_VISIBLED))))))
       return array ();

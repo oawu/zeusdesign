@@ -211,6 +211,7 @@ class Works extends Admin_controller {
                 return verifyCreateOrm (WorkBlockItem::create (array_intersect_key (array_merge ($item, array ('work_block_id' => $b->id)), WorkBlockItem::table ()->columns)));
               });
 
+    $this->_clean_cell ($work);
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '更新成功！'
       ));
@@ -226,11 +227,15 @@ class Works extends Admin_controller {
           '_flash_message' => '刪除失敗！',
         ));
 
+    $this->_clean_cell ($work);
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '刪除成功！'
       ));
   }
 
+  private function _clean_cell ($work) {
+    if (isset ($work->id)) clean_cell ('site_cache_cell', 'work', $work->id);
+  }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['user_id']) && is_numeric ($posts['user_id'] = trim ($posts['user_id'])) && ($posts['user_id'] >= 0) && (!$posts['user_id'] || User::find_by_id ($posts['user_id']))))
       return '沒有選擇作者 或 作者錯誤！';

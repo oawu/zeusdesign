@@ -221,6 +221,7 @@ class Articles extends Admin_controller {
             )), ArticleSource::table ()->columns)));
         });
 
+    $this->_clean_cell ($article);
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '更新成功！'
       ));
@@ -236,6 +237,7 @@ class Articles extends Admin_controller {
           '_flash_message' => '刪除失敗！',
         ));
 
+    $this->_clean_cell ($article);
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '刪除成功！'
       ));
@@ -256,8 +258,15 @@ class Articles extends Admin_controller {
 
     $update = Article::transaction (function () use ($article) { return $article->save (); });
 
-    if ($update) return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Article::$visibleNames[$article->is_visibled]));
-    else return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Article::$visibleNames[$article->is_visibled]));
+    if (!$update)
+      return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Article::$visibleNames[$article->is_visibled]));
+
+    $this->_clean_cell ($article);
+    return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Article::$visibleNames[$article->is_visibled]));
+  }
+  private function _clean_cell ($article) {
+    if (isset ($article->id)) clean_cell ('site_cache_cell', 'article', $article->id);
+    clean_cell ('site_article_asides_cell', 'news');
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['user_id']) && is_numeric ($posts['user_id'] = trim ($posts['user_id'])) && ($posts['user_id'] >= 0) && (!$posts['user_id'] || User::find_by_id ($posts['user_id']))))
