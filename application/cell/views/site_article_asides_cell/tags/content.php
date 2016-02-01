@@ -2,7 +2,7 @@
   if (!$tags) return;
 ?>
 <aside class='f'>
-  <h2>標籤分類</h2>
+  <h3>標籤分類</h3>
   <ul>
 <?php 
     foreach ($tags as $tag) { ?>

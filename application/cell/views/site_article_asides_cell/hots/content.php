@@ -2,7 +2,7 @@
   if (!$articles) return;
 ?>
 <aside>
-  <h2>熱門文章</h2>
+  <h3>熱門文章</h3>
   <ul>
 <?php 
     foreach ($articles as $article) { ?>

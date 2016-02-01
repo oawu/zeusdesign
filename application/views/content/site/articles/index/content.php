@@ -1,19 +1,19 @@
-<h1 class='_t'>
+<nav>
   <?php
   if (isset ($tag)) {?>
     <span><a href='<?php echo base_url ('articles');?>'>知識文章</a> » <?php echo $tag->name;?></span>
   <?php
   } else { ?>
-    <span>知識文章</span>
+    <h1>知識文章</h1>
   <?php
   } ?>
-</h1>
+</nav>
 
 <div class='b1'>
   <section>
 <?php
     if (isset ($tag)) { ?>
-      <h2><a href='<?php echo base_url ('article-tags', $tag->id, 'articles');?>'>#<?php echo $tag->name;?></a></h2>
+      <h1><a href='<?php echo base_url ('article-tags', $tag->id, 'articles');?>'><?php echo $tag->name;?></a></h1>
 <?php
     }
     if ($articles) {

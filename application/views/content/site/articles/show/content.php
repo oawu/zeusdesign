@@ -1,11 +1,11 @@
-<h1 class='_t'>
+<nav>
   <span><a href='<?php echo base_url ('articles');?>'>知識文章</a> » <?php echo $article->title;?></span>
-</h1>
+</nav>
 
 <div class='b1'>
   <article>
     <header>
-      <h2><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><?php echo $article->title;?></a></h2>
+      <h1><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><?php echo $article->title;?></a></h1>
       <div class="fb-like" data-href="<?php echo base_url ('article', $article->id);?>" data-send="false" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
     </header>        
     

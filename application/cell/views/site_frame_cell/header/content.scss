@@ -5,7 +5,7 @@
 
 @import "_oa";
 
-nav {
+header._h {
   @include clearfix();
   padding-bottom: 40px;
   @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
@@ -20,7 +20,7 @@ nav {
       margin-top: 10px;
     }
   }
-  div {
+  nav {
     @media screen and (min-width: $changeWidth) {
       padding-top: 20px;
     }

@@ -18,7 +18,7 @@
 
     @media screen and (min-width: $changeWidth) {
       padding-right: 10px;
-      margin-top: 7px;
+      margin-top: 5px;
     }
     div {
       @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
@@ -41,7 +41,6 @@
         &:not(:first-child) {
           padding-left: 5px;
         }
-        // @include overflow-docx3();
 
         a {
           @include a;
@@ -157,12 +156,12 @@
       }
     }
     header {
-      @include split-right(140px, 'h2', '> div');
+      @include split-right(140px, 'h1', '> div');
       padding: 0 5px;
       border-bottom: 1px solid rgba(0, 0, 0, .1);
       margin-bottom: 10px;
 
-      h2 {
+      h1 {
         margin-top: 0;
         margin-bottom: 10px;
         font-size: 18px;

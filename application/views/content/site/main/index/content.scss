@@ -70,7 +70,7 @@ article {
             @media screen and (min-width: 450px) and (max-width: #{850px - 1px}) {
               width: 300px;
             }
-            h4 {
+            h3 {
               font-size: 15.21px;
               line-height: 24.336px;
               margin: 0;
@@ -194,7 +194,7 @@ article {
           display: none;
         }
       }
-      h3 {
+      h2 {
         font-size: 15px;
         margin-top: 0;
         margin-bottom: 0;
@@ -215,7 +215,7 @@ article {
           background-color: rgba(221, 221, 221, 1);
         }
       }
-      h4 {
+      h3 {
         position: relative;
         font-size: 15px;
         font-weight: normal;

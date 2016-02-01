@@ -50,7 +50,7 @@
         }
       }
     }
-    h2 {
+    h3 {
       margin: 0;
       padding: 0;
       font-size: 13px;
@@ -104,12 +104,12 @@
       padding-left: 65px;
     }
     header {
-      @include split-right(140px, 'h2', '> div');
+      @include split-right(140px, 'h1', '> div');
       padding: 0 5px;
       border-bottom: 1px solid rgba(0, 0, 0, .1);
       margin-bottom: 10px;
 
-      h2 {
+      h1 {
         margin-top: 0;
         margin-bottom: 10px;
         font-size: 18px;

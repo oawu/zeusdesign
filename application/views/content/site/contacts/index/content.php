@@ -1,6 +1,6 @@
-<h1 class='_t'>
-  <span>聯絡我們</span>
-</h1>
+<nav>
+  <h1>聯絡我們</h1>
+</nav>
 
 <?php if ($_flash_message = Session::getData ('_flash_message', true)) { ?>
         <div class='<?php echo $posts ? 'd' : 'i';?>'><?php echo $_flash_message;?></div>
@@ -11,15 +11,15 @@
     <p>有設計相關問題嗎?</p>
     <p>歡迎聯繫我們。</p>
 <br/>
-    <h3>公司地址</h3>
+    <h2>公司地址</h2>
     <p>235 新北市中和區興南路一段85巷43號7樓</p>
     <p>7F., No.43, Ln. 85, Sec. 1, Xingnan Rd., Zhonghe Dist., New Taipei City 235, Taiwan(R.O.C.)</p>
 <br/>
-    <h3>聯絡電話</h3>
+    <h2>聯絡電話</h2>
     <p>TEL 02 2941 6737</p>
     <p>FAX 02 2941 6737</p>
 <br/>
-    <h3>營業時間</h3>
+    <h2>營業時間</h2>
     <p>週ㄧ 至 週五</p>
     <p>10:00 ~ 18:00</p>
   </aside>

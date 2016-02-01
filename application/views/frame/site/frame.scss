@@ -56,7 +56,7 @@ html {
   max-width: $mainWidth;
   text-align: left;
   
-  ._t {
+  > nav {
     display: inline-block;
     width: 100%;
     margin-top: 20px;
@@ -68,10 +68,14 @@ html {
     font-size: 13px;
     font-weight: normal;
     @include clearfix();
-    
-    span {
+    h1, h2 {
+      margin: 0;
+    }
+    h1, h2, span {
       float: left;
       color: rgba(85, 85, 85, 1);
+      font-size: 13px;
+
       a {
         @include a;
       }
