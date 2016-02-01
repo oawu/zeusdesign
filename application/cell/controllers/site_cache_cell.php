@@ -81,7 +81,7 @@ class Site_cache_cell extends Cell_Controller {
   //   return array ('time' => 10 * 60, 'key' => $id);
   // }
   public function article ($id) {
-    if (!($id && ($article = Article::find ('one', array ('include' => array ('sources'), 'conditions' => array ('id = ? AND is_visibled = ? AND destroy_user_id = ?', $id, Article::IS_VISIBLED, 0))))))
+    if (!($id && ($article = Article::find ('one', array ('include' => array ('sources'), 'conditions' => array ('id = ? AND is_visibled = ? AND destroy_user_id IS NULL', $id, Article::IS_VISIBLED))))))
       return array ();
 
     if ($article->tags)

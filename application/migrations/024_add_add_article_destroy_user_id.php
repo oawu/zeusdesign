@@ -8,7 +8,7 @@
 class Migration_Add_add_article_destroy_user_id extends CI_Migration {
   public function up () {
     $this->db->query (
-      "ALTER TABLE `articles` ADD `destroy_user_id` int(11) unsigned NOT NULL DEFAULT 0 COMMENT '刪除此筆的 User ID(作者)' AFTER `pv`;"
+      "ALTER TABLE `articles` ADD `destroy_user_id` int(11) unsigned DEFAULT NULL COMMENT '刪除此筆的 User ID(作者)' AFTER `pv`;"
     );
   }
   public function down () {

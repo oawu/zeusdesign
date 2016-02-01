@@ -12,7 +12,7 @@ class Articles extends Admin_controller {
     parent::__construct ();
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find_by_id ($id, array ('conditions' => array ('destroy_user_id = ?', 0))))))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->article = Article::find_by_id ($id, array ('conditions' => array ('destroy_user_id IS NULL'))))))
         return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
@@ -30,7 +30,7 @@ class Articles extends Admin_controller {
                       array ('key' => 'content',      'title' => '內容',     'sql' => 'content LIKE ?'));
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
-    Article::addConditions ($conditions, 'destroy_user_id = ?', 0);
+    Article::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     $limit = 25;
     $total = Article::count (array ('conditions' => $conditions));
