@@ -8,9 +8,9 @@
 class Site_cache_cell extends Cell_Controller {
   
   /* render_cell ('site_cache_cell', 'work', $id); */
-  public function _cache_work ($id) {
-    return array ('time' => 10 * 60, 'key' => $id);
-  }
+  // public function _cache_work ($id) {
+  //   return array ('time' => 10 * 60, 'key' => $id);
+  // }
   public function work ($id) {
     if (!($id && ($work = Work::find ('one', array ('conditions' => array ('id = ? AND is_enabled = ? AND destroy_user_id IS NULL', $id, Work::ENABLE_YES))))))
       return array ();
