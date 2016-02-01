@@ -19,7 +19,7 @@
   <?php foreach ($article->sources as $source) { ?>
           <li>
         <?php if ($source->title) { ?>
-                <a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->title;?></a><span><?php echo $source->mini_href ();?></span>
+                <a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->title;?></a><span><a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->mini_href ();?></a></span>
         <?php } else { ?>
                 <a href='<?php echo $source->href;?>' target='_blank'><?php echo $source->mini_href ();?></a>
         <?php } ?>

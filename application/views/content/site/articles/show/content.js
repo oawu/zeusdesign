@@ -4,6 +4,9 @@
  */
 
 $(function () {
+  $('.b1 article section a').each (function () {
+    $(this).attr ('target', '_blank');
+  });
+
   $('time').timeago ();
-  // $('figure a').imgLiquid ({verticalAlign: 'center'});
 });

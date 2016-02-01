@@ -176,8 +176,9 @@
         color: rgba(100, 100, 100, 1);
         
         a {
-          @include a(1px);
+          @include a(1px, true);
           padding-bottom: 0;
+          border-bottom-color: rgba(42, 90, 149, 0.25);
         }
         img {
           width: auto !important;
@@ -185,7 +186,9 @@
 
           max-width: 100% !important;
           max-height: 350px !important;
-
+          @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
+            width: 100% !important;
+          }
           @include border-radius(2px);
           margin-bottom: 15px;
         }
@@ -205,10 +208,23 @@
       }
     }
     ul {
+      position: relative;
       list-style-type: none;
       padding-left: 5px;
       margin-bottom: 20px;
       display: block;
+      padding-top: 30px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        width: 100%;
+        height: 1px;
+        border-top: 1px dashed rgba(220, 220, 220, 1);
+      }
 
       li {
         font-size: 0;
@@ -220,6 +236,8 @@
           @include a;
           padding: 0;
           font-size: 13px;
+          @include overflow-docx3();
+          max-width: 100%;
         }
         span {
           display: inline-block;
@@ -230,6 +248,10 @@
           @media screen and (min-width: 0px) and (max-width: #{$changeWidth - 1px}) {
             max-width: 100%;
             width: 100%;
+          }
+          a {
+            color: rgba(85, 85, 85, .6);
+            font-size: 10px;
           }
 
           &:before {
