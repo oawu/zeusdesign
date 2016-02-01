@@ -4,6 +4,8 @@
  */
 
 $(function () {
+  window.addPv ('Article', $('#id').val ());
+
   $('.b1 article section a').each (function () {
     $(this).attr ('target', '_blank');
   });

@@ -25,4 +25,22 @@ class Ajax extends Site_controller {
 
     return $this->output_json (array ('status' => true, 'content' => $content));
   }
+  public function pv () {
+    if (!(($id = OAInput::post ('id')) && ($class = OAInput::post ('class')) && class_exists ($class) && in_array ($class, array ('Work', 'Article'))))
+      return show_404 ();
+
+    if (!($obj = $class::find_by_id ($id, array ('select' => 'id, pv'))))
+      return $this->output_json (array ('status' => false));
+
+    $obj->pv += 1;
+
+    $update = $class::transaction (function () use ($obj) {
+      return $obj->save ();
+    });
+
+    if (!$update)
+      return $this->output_json (array ('status' => true, 'pv' => $obj->pv - 1));
+
+    return $this->output_json (array ('status' => true, 'pv' => $obj->pv));
+  }
 }

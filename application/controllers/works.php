@@ -25,6 +25,7 @@ class Works extends Site_controller {
     $pictures  = $work_info['pictures'];
 
     $this->set_title ($work['title'] . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_hidden (array ('id' => 'id', 'value' => $work['id']))
          ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
          ->add_meta (array ('name' => 'keywords', 'content' => $work['title'] . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
          ->add_meta (array ('name' => 'description', 'content' => $work['mini_content']['300'] . ', ' . Cfg::setting ('site', 'site', 'description')))
