@@ -36,7 +36,6 @@ class Articles extends Site_controller {
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
          ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
-         ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
          ->add_meta (array ('property' => 'article:modified_time', 'content' => $article['updated_at']['c']))
          ->add_meta (array ('property' => 'article:published_time', 'content' => $article['created_at']['c']))
          ;

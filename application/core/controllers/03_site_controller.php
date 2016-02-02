@@ -42,7 +42,7 @@ class Site_controller extends Oa_controller {
 
                 ->add_meta (array ('property' => 'og:locale', 'content' => 'zh_TW'))
                 ->add_meta (array ('property' => 'og:locale:alternate', 'content' => 'en_US'))
-                ->add_meta (array ('property' => 'og:type', 'content' => 'website'))
+                ->add_meta (array ('property' => 'og:type', 'content' => 'article'))
                 ->add_meta (array ('property' => 'article:author', 'content' => Cfg::setting ('facebook', 'page', 'link')))
                 ->add_meta (array ('property' => 'article:publisher', 'content' => Cfg::setting ('facebook', 'page', 'link')))
          
