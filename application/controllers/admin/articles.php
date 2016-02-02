@@ -291,7 +291,7 @@ class Articles extends Admin_controller {
     if (!(isset ($posts['content']) && ($posts['content'] = trim ($posts['content']))))
       return '沒有填寫內容！';
 
-    $posts['content'] = str_replace ('alt=""', 'alt="' . str_replace ('"', '', $posts['title']) . ' - 宙思設計"', $posts['content']);
+    $posts['content'] = str_replace ('alt=""', 'alt="' . str_replace ('"', '', $posts['title']) . ' - ' . Cfg::setting ('site', 'name') . '"', $posts['content']);
     
     if (!(isset ($posts['is_visibled']) && ($posts['is_visibled'] = trim ($posts['is_visibled']))))
       $posts['is_finished'] = 0;

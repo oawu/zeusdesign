@@ -28,9 +28,9 @@ class Works extends Site_controller {
          ->add_hidden (array ('id' => 'id', 'value' => $work['id']))
          ->add_js (resource_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
          ->add_meta (array ('name' => 'keywords', 'content' => $work['title'] . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
-         ->add_meta (array ('name' => 'description', 'content' => $work['mini_content']['120'] . ', ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('name' => 'description', 'content' => $work['mini_content']['150']))
          ->add_meta (array ('property' => 'og:title', 'content' => $work['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))
-         ->add_meta (array ('property' => 'og:description', 'content' => $work['mini_content']['300'] . ' - ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('property' => 'og:description', 'content' => $work['mini_content']['300']))
 
          ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $work['cover_url']['1200x630c'], 'alt' => $work['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))
          ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
