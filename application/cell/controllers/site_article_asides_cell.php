@@ -28,6 +28,7 @@ class Site_article_asides_cell extends Cell_Controller {
         'select' => 'id, title',
         'limit' => 10,
         'order' => 'pv DESC',
+        'conditions' => array ('is_visibled = ? AND destroy_user_id IS NULL', Article::IS_VISIBLED)
       ));
 
     return $this->setUseCssList (true)
@@ -45,6 +46,7 @@ class Site_article_asides_cell extends Cell_Controller {
         'select' => 'id, title',
         'limit' => 10,
         'order' => 'id DESC',
+        'conditions' => array ('is_visibled = ? AND destroy_user_id IS NULL', Article::IS_VISIBLED)
       ));
 
     return $this->setUseCssList (true)
