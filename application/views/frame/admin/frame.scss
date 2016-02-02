@@ -446,3 +446,7 @@ table.table-form {
 .cke_combo__fontsize .cke_combo_text {
   width: auto !important;
 }
+
+.cke_maximized {
+  z-index: 99999 !important;
+}

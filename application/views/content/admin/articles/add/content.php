@@ -45,7 +45,7 @@
       <tr>
         <th>內 容：</th>
         <td>
-          <textarea name='content' class='cke' placeholder='請輸入內容..'><?php echo isset ($posts['content']) ? $posts['content'] : '';?></textarea>
+          <textarea name='content' class='cke' placeholder='請輸入內容..'><?php echo htmlspecialchars (isset ($posts['content']) ? $posts['content'] : '');?></textarea>
         </td>
       </tr>
 

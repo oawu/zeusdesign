@@ -198,6 +198,19 @@
           margin-bottom: 15px;
         }
       }
+      pre {
+        line-height: 14px;
+        font-size: 13px;
+        border: 1px solid rgba(137, 137, 137, .2);
+        padding: 10px;
+        @include border-radius(2px);
+        word-break: break-all;
+         white-space: pre-wrap;       /* css-3 */
+         white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+         white-space: -pre-wrap;      /* Opera 4-6 */
+         white-space: -o-pre-wrap;    /* Opera 7 */
+         word-wrap: break-word;       /* Internet Explorer 5.5+ */
+      }
       ul {
         margin: 15.5px auto;
         margin-bottom: 20px;
