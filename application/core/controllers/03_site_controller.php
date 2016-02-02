@@ -28,6 +28,7 @@ class Site_controller extends Oa_controller {
   private function _add_meta () {
     return $this->add_meta (array ('name' => 'robots', 'content' => 'index,follow'))
                 ->add_meta (array ('name' => 'author', 'content' => Cfg::setting ('site', 'name')))
+                ->add_meta (array ('property' => 'author', 'content' => Cfg::setting ('site', 'name')))
                 ->add_meta (array ('name' => 'keywords', 'content' => implode (',', Cfg::setting ('site', 'site', 'keywords'))))
                 ->add_meta (array ('name' => 'description', 'content' => Cfg::setting ('site', 'site', 'description')))
 
