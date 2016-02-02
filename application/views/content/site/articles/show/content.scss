@@ -225,7 +225,41 @@
         }
       }
     }
-    ul {
+    ul.t {
+      position: relative;
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      margin-top: 20px;
+      @include clearfix();
+      + ul {
+        margin-top: 10px;
+      }
+      li {
+        float: left;
+        display: inline-block;
+        padding: 0;
+        font-size: 0;
+        margin: 2px 4px;
+
+        a {
+          @include a;
+          padding: 0 5px;
+          font-size: 10px;
+          color: rgba(130, 130, 130, 1);
+          border: 1px solid rgba(170, 170, 170, 1);
+          @include border-radius(2px);
+
+          &:hover {
+            background-color: rgba(170, 170, 170, 1);
+            border: 1px solid rgba(170, 170, 170, 1);
+            // border: 1px solid rgba(255, 255, 255, 1);
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+    ul.s {
       position: relative;
       list-style-type: none;
       padding-left: 5px;

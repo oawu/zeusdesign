@@ -13,14 +13,14 @@
   <section>
 <?php
     if (isset ($tag)) { ?>
-      <h1><a href='<?php echo base_url ('article-tag', $tag->id, 'articles');?>'><?php echo $tag->name;?></a></h1>
+      <h1><a data-id='<?php echo $tag->id;?>' href='<?php echo base_url ('article-tag', $tag->id, 'articles');?>'><?php echo $tag->name;?></a></h1>
 <?php
     }
     if ($articles) {
       foreach ($articles as $article) {?>
         <article>
           <header><h2><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><?php echo $article->title;?></a></h2></header>
-          <div><figure><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><img src='<?php echo $article->cover->url ('450x180c');?>' alt='<?php echo $article->title;?>'></a><figcaption><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><?php echo $article->title;?></a><p><?php echo $article->mini_content ();?></p></figcaption></figure><div><p><?php echo $article->mini_content ();?></p><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'>閱讀更多</a><time datetime='<?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?>' data-time='<?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?>'><?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?></time></div></div>
+          <div><figure><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><img src='<?php echo $article->cover->url ('450x180c');?>' alt='<?php echo $article->title;?>'></a><figcaption><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'><?php echo $article->title;?></a><p><?php echo $article->mini_content (150);?></p></figcaption></figure><div><p><?php echo $article->mini_content (150);?></p><a href='<?php echo base_url ('article', $article->site_show_page_last_uri ());?>'>閱讀更多</a><time datetime='<?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?>' data-time='<?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?>'><?php echo $article->created_at ? $article->created_at->format ('Y-m-d H:i:s') : date ('Y-m-d H:i:s');?></time></div></div>
         </article>        
 <?php }
     } else { ?>

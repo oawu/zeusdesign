@@ -38,6 +38,7 @@ class Articles extends Site_controller {
          ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
          ->add_meta (array ('property' => 'article:modified_time', 'content' => $article['updated_at']['c']))
          ->add_meta (array ('property' => 'article:published_time', 'content' => $article['created_at']['c']))
+         ->add_param ('tags', $tags)
          ;
 
     if (($tags = column_array ($tags, 'name')) || ($tags = Cfg::setting ('site', 'site', 'keywords')))
@@ -51,7 +52,6 @@ class Articles extends Site_controller {
 
     $this->load_view (array (
             'article' => $article,
-            'tags' => $tags,
             'sources' => $sources,
             'user' => $user
           ));

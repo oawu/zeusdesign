@@ -13,9 +13,17 @@
 <?php echo $article['content'];?>
     </section>
     
-    <?php
+<?php
+    if ($tags) { ?>
+      <ul class='t'>
+  <?php foreach ($tags as $tag) { ?>
+          <li><a data-id='<?php echo $tag['id'];?>' href='<?php echo base_url ('article-tag', $tag['id'], 'articles');?>' target='_blank'><?php echo $tag['name'];?></a></li>
+  <?php } ?>
+      </ul>
+<?php 
+    }
     if ($sources) { ?>
-      <ul>
+      <ul class='s'>
   <?php foreach ($sources as $source) { ?>
           <li>
         <?php if ($source['title']) { ?>
