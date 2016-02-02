@@ -29,7 +29,7 @@ class Articles extends Site_controller {
     $this->set_title ($article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title'))
          ->add_hidden (array ('id' => 'id', 'value' => $article['id']))
          ->add_meta (array ('name' => 'keywords', 'content' => $article['title'] . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
-         ->add_meta (array ('name' => 'description', 'content' => $article['mini_content']['300'] . ', ' . Cfg::setting ('site', 'site', 'description')))
+         ->add_meta (array ('name' => 'description', 'content' => $article['mini_content']['120'] . ', ' . Cfg::setting ('site', 'site', 'description')))
          ->add_meta (array ('property' => 'og:title', 'content' => $article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))
          ->add_meta (array ('property' => 'og:description', 'content' => $article['mini_content']['300'] . ' - ' . Cfg::setting ('site', 'site', 'description')))
          ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $article['cover_url']['1200x630c'], 'alt' => $article['title'] . ' - ' . Cfg::setting ('site', 'site', 'title')))

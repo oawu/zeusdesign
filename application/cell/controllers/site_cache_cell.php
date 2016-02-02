@@ -32,6 +32,7 @@ class Site_cache_cell extends Cell_Controller {
           'methods' => array ('site_show_page_last_uri'),
           )), array (
           'mini_content' => array (
+              '120' => $work->mini_content (120),
               '300' => $work->mini_content (300),
             ),
           'cover_url' => array (
@@ -102,6 +103,7 @@ class Site_cache_cell extends Cell_Controller {
           'methods' => array ('site_show_page_last_uri'),
           )), array (
           'mini_content' => array (
+              '120' => $article->mini_content (120),
               '300' => $article->mini_content (300),
             ),
           'cover_url' => array (
