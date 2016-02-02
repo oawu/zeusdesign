@@ -22,6 +22,7 @@ class Site_cache_cell extends Cell_Controller {
        Work::addConditions ($conditions, 'id IN (?)', $work_ids);
     else
        Work::addConditions ($conditions, 'id != ?', $work->id);
+    Work::addConditions ($conditions, 'is_enabled = ? AND destroy_user_id IS NULL', Work::ENABLE_YES);
     
     $others = Work::find ('all', array ('select' => 'id, title', 'limit' => 5, 'conditions' => $conditions));
 
@@ -91,7 +92,8 @@ class Site_cache_cell extends Cell_Controller {
        Article::addConditions ($conditions, 'id IN (?)', $article_ids);
     else
        Article::addConditions ($conditions, 'id != ?', $article->id);
-    
+    Article::addConditions ($conditions, 'is_visibled = ? AND destroy_user_id IS NULL', Article::IS_VISIBLED);
+
     $others = Article::find ('all', array ('select' => 'id, title', 'limit' => 5, 'conditions' => $conditions));
 
     return array (
