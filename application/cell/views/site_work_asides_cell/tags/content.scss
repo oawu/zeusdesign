@@ -1,0 +1,64 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+aside {
+  @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+    @include clearfix();
+    &:before {
+      content: '作品分類';
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px;
+      color: rgba(138, 138, 138, 1);
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+  @media screen and (min-width: $changeWidth) {
+    padding-top: 10px;
+  }
+
+  a {
+    @include a;
+    width: 100%;
+    font-size: 13px;
+    color: rgba(153, 153, 153, 1);
+    cursor: pointer;
+    &.a {
+      color: rgba(12, 65, 109, .85);
+    }
+    @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
+      float: left;
+      width: auto;
+      border: 1px solid rgba(175, 175, 175, .4);
+      @include border-radius(3px);
+      margin: 3px;
+
+      &.m {
+        font-weight: bold;
+      }
+    }
+    @media screen and (min-width: $changeWidth) {
+      margin-left: 10px;
+      &.m {
+        margin-left: 0;
+        font-weight: bold;
+      }
+      &:not(.m) {
+        &:before {
+          content: '-';
+          margin-right: 5px;
+        }
+      }
+      + a {
+        margin-top: 5px;
+        &.m {
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}

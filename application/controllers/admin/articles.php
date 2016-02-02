@@ -279,6 +279,7 @@ class Articles extends Admin_controller {
   private function _clean_cell ($article) {
     if (isset ($article->id)) clean_cell ('site_cache_cell', 'article', $article->id);
     clean_cell ('site_article_asides_cell', 'news');
+    clean_cell ('site_article_asides_cell', 'hots');
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['user_id']) && is_numeric ($posts['user_id'] = trim ($posts['user_id'])) && ($posts['user_id'] >= 0) && (!$posts['user_id'] || User::find_by_id ($posts['user_id']))))

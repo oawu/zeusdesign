@@ -26,6 +26,8 @@ assets/*
 
 vendor/*
 
+sitemap/*
+
 /cmd
 /env.php
 

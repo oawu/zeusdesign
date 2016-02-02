@@ -5,7 +5,7 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
-class Article_tag_articles extends Site_controller {
+class Tag_articles extends Site_controller {
 private $tag = null;
   private $article = null;
 
@@ -31,7 +31,7 @@ private $tag = null;
 
   public function index ($tag_id, $offset = 0) {
     $columns = array ();
-    $configs = array ('article-tags', $this->tag->id, 'articles', '%s');
+    $configs = array ('article-tag', $this->tag->id, 'articles', '%s');
     $conditions = conditions ($columns, $configs);
     ArticleTagMapping::addConditions ($conditions, 'article_tag_id = ?', $this->tag->id);
 

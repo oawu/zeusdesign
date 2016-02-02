@@ -80,6 +80,8 @@ class Article_tags extends Admin_controller {
           '_flash_message' => '新增失敗！',
           'posts' => $posts
         ));
+
+    $this->_clean_cell ();
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '新增成功！'
       ));
@@ -123,6 +125,8 @@ class Article_tags extends Admin_controller {
           '_flash_message' => '更新失敗！',
           'posts' => $posts
         ));
+
+    $this->_clean_cell ();
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '更新成功！'
       ));
@@ -139,9 +143,14 @@ class Article_tags extends Admin_controller {
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '刪除失敗！',
         ));
+
+    $this->_clean_cell ();
     return redirect_message (array ('admin', $this->get_class ()), array (
         '_flash_message' => '刪除成功！'
       ));
+  }
+  private function _clean_cell () {
+    clean_cell ('site_article_asides_cell', 'tags');
   }
   private function _validation_posts (&$posts) {
     if (!(isset ($posts['name']) && ($posts['name'] = trim ($posts['name']))))

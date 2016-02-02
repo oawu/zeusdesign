@@ -13,7 +13,7 @@
   <section>
 <?php
     if (isset ($tag)) { ?>
-      <h1><a href='<?php echo base_url ('article-tags', $tag->id, 'articles');?>'><?php echo $tag->name;?></a></h1>
+      <h1><a href='<?php echo base_url ('article-tag', $tag->id, 'articles');?>'><?php echo $tag->name;?></a></h1>
 <?php
     }
     if ($articles) {
@@ -31,12 +31,11 @@
   </section>
   
   <section>
-
 <?php 
-  echo render_cell ('site_article_asides_cell', 'tags');
-  echo render_cell ('site_article_asides_cell', 'hots');
-  echo render_cell ('site_article_asides_cell', 'news');
-  echo render_cell ('site_frame_cell', 'pagination', $pagination);?>
+    echo render_cell ('site_article_asides_cell', 'tags');
+    echo render_cell ('site_article_asides_cell', 'hots');
+    echo render_cell ('site_article_asides_cell', 'news');
+    echo render_cell ('site_frame_cell', 'pagination', $pagination);?>
   </section>
 
 </div>
