@@ -7,7 +7,6 @@ $(function () {
   $('time').timeago ();
   $('figure a').imgLiquid ({verticalAlign: 'center'});
 
-
   var tagIds = $.makeArray ($('.b1 section h1 a').map (function () {
       return $(this).data ('id');
     }));
