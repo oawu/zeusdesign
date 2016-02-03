@@ -29,7 +29,7 @@ header._h {
 
     a {
       position: relative;
-      margin: 0 20px;
+      margin: 0 30px;
       color: rgba(85, 85, 85, 1);
       font-size: 13px;
       &.a {
@@ -38,13 +38,19 @@ header._h {
       &:before {
         content: '';
         position: absolute;
-        left: -20px;
+        left: -30px;
         top: -5px;
         display: inline-block;
         width: 1px;
         height: calc(100% + 10px);
         background-color: rgba(221, 221, 221, 1);
         cursor: default;
+      }
+      @media screen and (min-width: $changeWidth) and (max-width: #{850px - 1px}) {
+        margin: 0 20px;
+        &:before {
+          left: -20px;
+        }
       }
     }
     @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
