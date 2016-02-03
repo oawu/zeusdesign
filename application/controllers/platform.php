@@ -26,7 +26,7 @@ class Platform extends Site_controller {
           ));
 
     $user->name = $name;
-    $user->email = $email;
+    // $user->email = $email;
     $user->login_count += 1;
     $user->logined_at = date ('Y-m-d H:i:s');
 
