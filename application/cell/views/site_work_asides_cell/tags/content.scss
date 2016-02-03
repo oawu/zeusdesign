@@ -27,18 +27,22 @@ aside {
     font-size: 13px;
     color: rgba(153, 153, 153, 1);
     cursor: pointer;
-    &.a {
-      color: rgba(12, 65, 109, .85);
-    }
+
     @media screen and (min-width: 0) and (max-width: #{$changeWidth - 1px}) {
       float: left;
       width: auto;
-      border: 1px solid rgba(175, 175, 175, .4);
+      border: 1px solid rgba(153, 153, 153, 1);
       @include border-radius(3px);
       margin: 3px;
+      padding: 0 5px;
 
       &.m {
+        font-weight: normal;
+      }
+      &.a {
+        color: rgba(255, 255, 255, 1);
         font-weight: bold;
+        background-color: rgba(153, 153, 153, 1);
       }
     }
     @media screen and (min-width: $changeWidth) {
@@ -46,6 +50,10 @@ aside {
       &.m {
         margin-left: 0;
         font-weight: bold;
+      }
+      &.a {
+        font-weight: bold;
+        color: rgba(39, 40, 34, .85);
       }
       &:not(.m) {
         &:before {

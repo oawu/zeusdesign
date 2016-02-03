@@ -14,7 +14,7 @@
   <article>
 <?php
     if (isset ($tag)) { ?>
-      <h1><a href='<?php echo base_url ('work-tag', $tag->id, 'works');?>'><?php echo $tag->name;?></a></h1>
+      <h1><a data-id='<?php echo $tag->id;?>' href='<?php echo base_url ('work-tag', $tag->id, 'works');?>'><?php echo $tag->name;?></a></h1>
 <?php
     } ?>
     <div>

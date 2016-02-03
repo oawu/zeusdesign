@@ -20,7 +20,15 @@
             </p>
     <?php } ?>
         </section>
-<?php } ?>
+<?php }
+      if ($tags) { ?>
+        <section class='t'>
+          <h2>標籤</h2>
+    <?php foreach ($tags as $tag) { ?>
+            <p><a href='<?php echo base_url ('work-tag', $tag['id'], 'works');?>'><?php echo $tag['name'];?></a></p>
+    <?php } ?>
+        </section>
+<?php }?>
     </div>
   </article>
 
