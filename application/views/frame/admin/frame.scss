@@ -452,5 +452,10 @@ table.table-form {
 }
 
 .cke_dialog_background_cover {
-  z-index: 999999 !important;
+  z-index: 999995 !important;
+}
+.cke_editor_content_dialog {
+  &, table {
+    z-index: 999999 !important;
+  }
 }
