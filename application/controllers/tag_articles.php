@@ -53,8 +53,28 @@ private $tag = null;
         'order' => 'FIELD(id,' . implode (',', $article_ids) . ')',
         'conditions' => array ('is_visibled = ? AND id IN (?)', Article::IS_VISIBLED, $article_ids)
       )) : array ();
+    
+    if ($articles) {
+      $this->add_meta (array ('name' => 'keywords', 'content' => implode (',', column_array ($articles, 'title')) . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
+           ->add_meta (array ('name' => 'description', 'content' => $articles[0]->mini_content (150)))
+           ->add_meta (array ('property' => 'og:title', 'content' => $this->tag->name . '文章' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => $articles[0]->mini_content (300)))
+           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $articles[0]->cover->url ('1200x630c'), 'alt' => $this->tag->name . '文章' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $articles[0]->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $articles[0]->created_at->format ('c')))
+         ;
 
-    return $this->set_class ('articles')
+      if (($tags = column_array ($articles[0]->tags, 'name')) || ($tags = Cfg::setting ('site', 'site', 'keywords')))
+        foreach ($tags as $i => $tag)
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+    }
+
+    return $this->set_title ($this->tag->name . '文章' . ' - ' . Cfg::setting ('site', 'site', 'title'))
+                ->set_class ('articles')
                 ->set_method ('index')
                 ->load_view (array (
                     'tag' => $this->tag,

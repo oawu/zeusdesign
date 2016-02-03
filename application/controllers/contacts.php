@@ -10,7 +10,8 @@ class Contacts extends Site_controller {
   public function index () {
     $posts = Session::getData ('posts', true);
 
-    $this->add_param ('_method', $this->get_class ())
+    $this->set_title ('聯絡我們' . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_param ('_method', $this->get_class ())
          ->add_js (resource_url ('resource', 'javascript', 'jquery.validate_v1.9.0', 'jquery.validate.min.js'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery.validate_v1.9.0', 'jquery.validate.lang.js'))
          ->load_view (array (

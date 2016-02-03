@@ -54,7 +54,26 @@ private $tag = null;
         'conditions' => array ('is_enabled = ? AND id IN (?)', Work::ENABLE_YES, $work_ids)
       )) : array ();
 
-    return $this->set_class ('works')
+    if ($works) {
+      $this->add_meta (array ('name' => 'keywords', 'content' => implode (',', column_array ($works, 'title')) . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
+           ->add_meta (array ('name' => 'description', 'content' => $works[0]->mini_content (150)))
+           ->add_meta (array ('property' => 'og:title', 'content' => $this->tag->name . '作品' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => $works[0]->mini_content (300)))
+           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $works[0]->cover->url ('1200x630c'), 'alt' => $this->tag->name . '作品' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $works[0]->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $works[0]->created_at->format ('c')))
+         ;
+
+      if (($tags = column_array ($works[0]->tags, 'name')) || ($tags = Cfg::setting ('site', 'site', 'keywords')))
+        foreach ($tags as $i => $tag)
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+    }
+    return $this->set_title ($this->tag->name . '作品' . ' - ' . Cfg::setting ('site', 'site', 'title'))
+                ->set_class ('works')
                 ->set_method ('index')
                 ->load_view (array (
                     'tag' => $this->tag,

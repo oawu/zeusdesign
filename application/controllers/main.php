@@ -26,11 +26,13 @@ class Main extends Site_controller {
   // }
 
   public function abouts () {
-    $this->add_param ('_method', $this->get_method ())
+    $this->set_title ('關於宙思' . ' - ' . Cfg::setting ('site', 'site', 'title'))
+         ->add_param ('_method', $this->get_method ())
          ->load_view ();
   }
   public function index () {
-    $this->add_param ('_method', $this->get_method ())
+    $this->set_title (Cfg::setting ('site', 'site', 'title'))
+         ->add_param ('_method', $this->get_method ())
          ->load_view ();
   }
 }

@@ -76,21 +76,29 @@ class Works extends Site_controller {
         'conditions' => $conditions
       ));
 
-    return $this->load_view (array (
+    if ($works) {
+      $this->add_meta (array ('name' => 'keywords', 'content' => implode (',', column_array ($works, 'title')) . ',' . implode (',', Cfg::setting ('site', 'site', 'keywords'))))
+           ->add_meta (array ('name' => 'description', 'content' => $works[0]->mini_content (150)))
+           ->add_meta (array ('property' => 'og:title', 'content' => '設計作品' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:description', 'content' => $works[0]->mini_content (300)))
+           ->add_meta (array ('property' => 'og:image', 'tag' => 'larger', 'content' => $img = $works[0]->cover->url ('1200x630c'), 'alt' => '設計作品' . ' - ' . Cfg::setting ('site', 'site', 'title')))
+           ->add_meta (array ('property' => 'og:image:type', 'tag' => 'larger', 'content' => 'image/' . pathinfo ($img, PATHINFO_EXTENSION)))
+           ->add_meta (array ('property' => 'og:image:width', 'tag' => 'larger', 'content' => '1200'))
+           ->add_meta (array ('property' => 'og:image:height', 'tag' => 'larger', 'content' => '630'))
+           ->add_meta (array ('property' => 'article:modified_time', 'content' => $works[0]->updated_at->format ('c')))
+           ->add_meta (array ('property' => 'article:published_time', 'content' => $works[0]->created_at->format ('c')))
+         ;
+
+      if (($tags = column_array ($works[0]->tags, 'name')) || ($tags = Cfg::setting ('site', 'site', 'keywords')))
+        foreach ($tags as $i => $tag)
+          if (!$i) $this->add_meta (array ('property' => 'article:section', 'content' => $tag))->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+          else $this->add_meta (array ('property' => 'article:tag', 'content' => $tag));
+    }
+    return $this->set_title ('設計作品' . ' - ' . Cfg::setting ('site', 'site', 'title'))
+                ->load_view (array (
                     'works' => $works,
                     'pagination' => $pagination,
                     'columns' => $columns
                   ));
-
-    // Work::addConditions ($conditions, 'is_enabled = ? AND destroy_user_id IS NULL', Work::ENABLE_YES);
-    // if ($id && ($tag = WorkTag::find_by_id ($id)) && ($work_id = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $tag->id))), 'work_id')))
-    //   Work::addConditions ($conditions, 'id IN (?)', $work_id);
-
-    // $works = Work::all (array ('conditions' => $conditions));
-
-    // $this->load_view (array (
-    //     'id' => $id,
-    //     'works' => $works
-    //   ));
   }
 }
