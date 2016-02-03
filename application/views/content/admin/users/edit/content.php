@@ -17,16 +17,17 @@
         </td>
       </tr>
 
-      <tr>
-        <th>角 色：</th>
-        <td>
-          <select name='role'>
-      <?php foreach (Cfg::setting ('role', 'roles') as $key => $name) { ?>
-              <option value='<?php echo $key;?>'<?php echo (isset ($posts['role']) ? $posts['role'] : $user->role) == $key ? ' selected': '';?>><?php echo $name;?></option>
+<?php if ($roles = Cfg::setting ('role', 'role_names')) { ?>
+        <tr>
+          <th>角 色：</th>
+          <td>
+      <?php $last_roles = isset ($posts['roles']) ? $posts['roles'] : column_array ($user->roles, 'name');
+            foreach ($roles as $key => $name) { ?>
+              <label><input type='checkbox' name='roles[]' value='<?php echo $key;?>'<?php echo $last_roles && in_array ($key, $last_roles) ? ' checked' : '';?>/><div><?php echo $name;?></div></label>
       <?php } ?>
-          </select>
-        </td>
-      </tr>
+          </td>
+        </tr>
+<?php }?>
 
       <tr>
         <td colspan='2'>

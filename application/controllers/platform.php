@@ -8,7 +8,7 @@
 class Platform extends Site_controller {
 
   public function login () {
-    if (User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'members')))
+    if (User::current () && User::current ()->is_login ())
       return redirect_message (array ('admin'), array ());
     else
       $this->load_view ();
@@ -26,7 +26,6 @@ class Platform extends Site_controller {
           ));
 
     $user->name = $name;
-    // $user->email = $email;
     $user->login_count += 1;
     $user->logined_at = date ('Y-m-d H:i:s');
 

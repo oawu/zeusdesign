@@ -10,15 +10,13 @@ class Admin_controller extends Oa_controller {
   public function __construct () {
     parent::__construct ();
 
-    if (!(User::current () && in_array (User::current ()->role, Cfg::setting ('role', 'members')))) {
+    if (!(User::current () && User::current ()->is_login ())) {
       Session::setData ('_flash_message', '', true);
       return redirect_message (array ('login'), array (
           '_flash_message' => '請先登入，或者您沒有後台權限！'
         ));
     }
     
-    // 
-
     $class  = $this->get_class ();
     $method = $this->get_method ();
 
@@ -29,13 +27,13 @@ class Admin_controller extends Oa_controller {
       }, $menus);
     }, array_filter (array_map (function ($group) {
       return array_filter ($group, function ($item) {
-        return isset ($item['role']) && Cfg::setting ('role', $item['role']) &&  in_array (User::current ()->role, Cfg::setting ('role', $item['role']));
+        return User::current ()->in_roles ($item['roles']);
       });
     }, Cfg::setting ('menu', 'admin'))));
 
     if (!$has_active)
       return redirect_message (array ('admin'), array (
-          '_flash_message' => '您沒有管理使用者的權限。'
+          '_flash_message' => '您沒有此頁面的管理權限。'
         ));
 
     $this->set_componemt_path ('component', 'admin')

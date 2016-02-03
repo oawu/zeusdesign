@@ -13,6 +13,7 @@ class User extends OaModel {
   );
 
   static $has_many = array (
+    array ('roles', 'class_name' => 'UserRole'),
   );
 
   static $belongs_to = array (
@@ -27,6 +28,37 @@ class User extends OaModel {
   public static function current () {
     if (self::$current !== '') return self::$current;
     return self::$current = ($id = Session::getData ('user_id')) ? User::find_by_id ($id) : null;
+  }
+  public function is_root () {
+    return $this->roles && in_array ('root', column_array ($this->roles, 'name'));
+  }
+  public function is_login () {
+    if (!$this->roles) return false;
+
+    if ($this->is_root ())
+      return true;
+
+    return in_array (Cfg::setting ('role', 'login_role'), column_array ($this->roles, 'name'));
+  }
+  public function in_roles ($roles = array ()) {
+    if (!$this->roles) return false;
+
+    if ($this->is_root ())
+      return true;
+
+    if (!($roles = array_filter ($roles, function ($role) { return in_array ($role, Cfg::setting ('role', 'roles')); })))
+      return false;
+
+    foreach ($this->roles as $role)
+      if (in_array ($role->name, $roles))
+        return true;
+
+    return false;
+  }
+  public function role_names () {
+    return array_filter (array_map (function ($role) {
+      return Cfg::setting ('role', 'role_names', $role);
+    }, column_array ($this->roles, 'name')));
   }
   public function facebook_link () {
     if (!isset ($this->uid)) return '';

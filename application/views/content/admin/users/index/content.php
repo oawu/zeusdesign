@@ -33,7 +33,7 @@
             <td data-title='頭像' width='50'><?php echo img ($user->avatar (30, 30), false, 'class="i_30"');?></td>
             <td data-title='名稱'><?php echo $user->name;?></td>
             <td data-title='信箱' width='250'><?php echo $user->email;?></td>
-            <td data-title='角色' width='100'><?php echo Cfg::setting ('role', 'roles', $user->role);?></td>
+            <td data-title='角色' width='100'><?php echo $user->roles ? implode ('<br/>', $user->role_names ()) : '-';?></td>
             <td data-title='登入次數' width='80'><?php echo $user->login_count;?>次</td>
             <td data-title='上次登入' width='100' class='timeago' data-time='<?php echo $user->logined_at->format ('Y-m-d H:i:s');?>'><?php echo $user->logined_at->format ('Y-m-d H:i:s');?></td>
             <td data-title='註冊時間' width='100' class='timeago' data-time='<?php echo $user->created_at->format ('Y-m-d H:i:s');?>'><?php echo $user->created_at->format ('Y-m-d H:i:s');?></td>
