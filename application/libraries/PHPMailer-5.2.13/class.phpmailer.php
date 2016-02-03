@@ -1176,6 +1176,9 @@ class PHPMailer
                     return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
             }
         } catch (phpmailerException $exc) {
+            echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+            var_dump ($exc->getMessage());
+            exit ();
             $this->setError($exc->getMessage());
             $this->edebug($exc->getMessage());
             if ($this->exceptions) {
