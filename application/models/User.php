@@ -38,7 +38,7 @@ class User extends OaModel {
     if ($this->is_root ())
       return true;
 
-    return in_array (Cfg::setting ('role', 'login_role'), column_array ($this->roles, 'name'));
+    return in_array ('member', column_array ($this->roles, 'name'));
   }
   public function in_roles ($roles = array ()) {
     if (!$this->roles) return false;

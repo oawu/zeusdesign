@@ -5,6 +5,7 @@
  * @copyright   Copyright (c) 2016 OA Wu Design
  */
 
+// key 不准亂更改！
 $role['role_names'] = array (
     'member' => '登入後台',
     'invoice_generator' => '帳務上稿',
@@ -17,5 +18,3 @@ $role['role_names'] = array (
   );
 
 $role['roles'] = array_keys ($role['role_names']);
-
-$role['login_role'] = 'member';

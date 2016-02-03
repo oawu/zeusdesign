@@ -10,9 +10,9 @@ class Contacts extends Delay_controller {
     if (!(($id = OAInput::post ('id')) && ($contact = Contact::find_by_id ($id, array ('select' => 'name, email, message')))))
       return false;
 
-    if (!(($roles = Cfg::setting ('role', 'admins')) && ($admins = User::find ('all', array ('select' => 'name, email', 'conditions' => array ('role IN (?)', $roles))))))
+    if (!(($admin_ids = array_unique (column_array (UserRole::find ('all', array ('select' => 'user_id', 'conditions' => array ('name IN (?)', array ('root', 'contact_manager')))), 'user_id'))) && ($admins = User::find ('all', array ('select' => 'name, email', 'conditions' => array ('id IN (?)', $admin_ids))))))
       return false;
-    
+
     $this->load->library ('OAMail');
 
     $email = $contact->email;
