@@ -2,6 +2,7 @@
 <html lang="zh">
   <head>
     <?php echo isset ($meta_list) ? $meta_list : ''; ?>
+    <link rel="chitorch icon" href="<?php echo resource_url ('resource', 'image', 'logo', 'favicon.ico');?>">
 
     <title><?php echo isset ($title) ? $title : ''; ?></title>
 
