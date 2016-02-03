@@ -25,9 +25,3 @@ $role['role_names'] = array (
   );
 
 $role['login_role'] = 'member';
-
-// $role['members'] = array ('member', 'manager', 'admin', 'root');
-// $role['admins'] = array ('admin', 'root');
-// $role['blogers'] = array ('admin', 'root');
-
-// $role['group']['members'] = array ('')
