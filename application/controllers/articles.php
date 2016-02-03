@@ -11,7 +11,7 @@ class Articles extends Site_controller {
 
     $this->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
          ->add_js (resource_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
-         ;
+         ->add_param ('_method', $this->get_class ());
   }
   
   public function show ($id = 0) {

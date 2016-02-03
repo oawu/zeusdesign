@@ -7,6 +7,7 @@
       <a href='<?php echo base_url ('abouts');?>'>About ZEUS</a>
       <a href='<?php echo base_url ('works');?>'>Works</a>
       <a href='<?php echo base_url ('contacts');?>'>Contact</a>
+      <a href='<?php echo base_url ('articles');?>'>Articles</a>
     </div>
   </div>
 </footer>

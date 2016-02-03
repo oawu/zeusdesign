@@ -7,23 +7,23 @@
 
 class Main extends Site_controller {
 
-  // public function x () {
+  public function x () {
     // foreach (Work::all () as $w)
     //   $w->cover->put_url ($w->cover->url ());
 
-    // $this->load->library ('OAMail');
+    $this->load->library ('OAMail');
     
-    // OAMail::create ()->addTo ('comdan66@gmail.com', 'OA')
-    //                  ->setSubject ('11111')
-    //                  ->setBody ('222222')
-    //                  // ->addFile (FCPATH . 'temp/01.jpg', '3333333')
-    //                  ->send ();
+    OAMail::create ()->addTo ('comdan66@gmail.com', 'OA')
+                     ->setSubject ('11111')
+                     ->setBody ('222222')
+                     // ->addFile (FCPATH . 'temp/01.jpg', '3333333')
+                     ->send ();
 
     // OAMail::sendMail (array (
     //     'mail' => 'comdan66@gmail.com',
     //     'name' => 'COMDAN66'
     //   ), 'xxxxxx', '222222', array ('oa_wu@hiiir.com'));
-  // }
+  }
 
   public function abouts () {
     $this->set_title ('關於宙思' . ' - ' . Cfg::setting ('site', 'site', 'title'))

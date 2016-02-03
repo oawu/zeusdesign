@@ -6,7 +6,7 @@
  */
 
 class Works extends Site_controller {
-         
+
   public function __construct () {
     parent::__construct ();
     $this->add_param ('_method', $this->get_class ());
