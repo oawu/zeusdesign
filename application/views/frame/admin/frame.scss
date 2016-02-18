@@ -446,16 +446,3 @@ table.table-form {
 .cke_combo__fontsize .cke_combo_text {
   width: auto !important;
 }
-
-.cke_maximized {
-  z-index: 99999 !important;
-}
-
-.cke_dialog_background_cover {
-  z-index: 999995 !important;
-}
-.cke_editor_content_dialog {
-  &, table {
-    z-index: 999999 !important;
-  }
-}

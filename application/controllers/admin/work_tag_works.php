@@ -36,6 +36,7 @@ class Work_tag_works extends Admin_controller {
                       );
     $configs = array ('admin', $this->get_class (), $this->tag->id, 'works', '%s');
     $conditions = conditions ($columns, $configs);
+    Work::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     if ($work_id = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $this->tag->id))), 'work_id'))
       Work::addConditions ($conditions, 'id IN (?)', $work_id);
