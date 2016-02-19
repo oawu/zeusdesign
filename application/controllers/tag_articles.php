@@ -51,7 +51,7 @@ private $tag = null;
 
     $articles = $article_ids ? Article::find ('all', array (
         'order' => 'FIELD(id,' . implode (',', $article_ids) . ')',
-        'conditions' => array ('is_visibled = ? AND id IN (?)', Article::IS_VISIBLED, $article_ids)
+        'conditions' => array ('is_visibled = ? AND id IN (?) AND destroy_user_id IS NULL', Article::IS_VISIBLED, $article_ids)
       )) : array ();
     
     if ($articles) {

@@ -51,7 +51,7 @@ private $tag = null;
 
     $works = $work_ids ? Work::find ('all', array (
         'order' => 'FIELD(id,' . implode (',', $work_ids) . ')',
-        'conditions' => array ('is_enabled = ? AND id IN (?)', Work::ENABLE_YES, $work_ids)
+        'conditions' => array ('is_enabled = ? AND id IN (?) AND destroy_user_id IS NULL', Work::ENABLE_YES, $work_ids)
       )) : array ();
 
     if ($works) {
