@@ -82,17 +82,17 @@ class Works extends Admin_controller {
   }
   public function add () {
     $posts = Session::getData ('posts', true);
-    $blocks = array_map (function ($block) {
-      return  array (
-          'title' => htmlentities ($block['title']),
-          'items' => array_map (function ($item) {
-            return array (
-                'title' => htmlentities ($item['title']),
-                'link' => htmlentities ($item['link'])
-              );
-          }, $block['items'])
-        );
-    }, json_encode (isset ($posts['blocks']) && $posts['blocks'] && is_array ($posts['blocks']) ? $posts['blocks'] : array ()));
+    $blocks = ($blocks = isset ($posts['blocks']) ? $posts['blocks'] : array ()) ? array_map (function ($block) {
+          return  array (
+              'title' => htmlentities ($block['title']),
+              'items' => array_map (function ($item) {
+                return array (
+                    'title' => htmlentities ($item['title']),
+                    'link' => htmlentities ($item['link'])
+                  );
+              }, $block['items'])
+            );
+        }, $blocks) : array ();
 
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增作品')
@@ -161,7 +161,7 @@ class Works extends Admin_controller {
   }
   public function edit () {
     $posts = Session::getData ('posts', true);
-    $blocks = array_map (function ($block) {
+    $blocks = ($blocks = isset ($posts['blocks']) ? $posts['blocks'] : $this->work->blocks ()) ? array_map (function ($block) {
       return  array (
           'title' => htmlentities ($block['title']),
           'items' => array_map (function ($item) {
@@ -171,7 +171,7 @@ class Works extends Admin_controller {
               );
           }, $block['items'])
         );
-    }, isset ($posts['blocks']) && $posts['blocks'] && is_array ($posts['blocks']) ? $posts['blocks'] : $this->work->blocks ());
+    }, $blocks) : array ();
 
     return $this->add_tab ('編輯作品', array ('href' => base_url ('admin', $this->get_class (), $this->work->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
