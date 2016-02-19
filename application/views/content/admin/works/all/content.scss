@@ -43,6 +43,18 @@
           height: auto !important;
           padding: 5px 10px;
           @include border-bottom-left-radius(3px);
+
+          &:before {
+            margin-right: 5px;
+          }
+          &:last-child {
+            right: auto;
+            left: 0;
+
+            @include border-bottom-left-radius(0);
+            @include border-bottom-right-radius(3px);
+
+          }
         }
         div {
           position: absolute;

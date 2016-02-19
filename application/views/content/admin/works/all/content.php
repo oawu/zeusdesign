@@ -9,6 +9,7 @@
             <img src='<?php echo $work->cover->url ();?>' />
             <div>封面</div>
             <a href='<?php echo $work->cover->url ();?>' download='<?php echo $work->cover;?>' class='icon-in'>下載</a>
+            <a href='<?php echo $work->cover->url ();?>' class='icon-link-external'>檢視</a>
           </div>  
   <?php }
         if ($work->pictures) {
@@ -17,6 +18,7 @@
               <img src='<?php echo $picture->name->url ();?>' />
               <!-- <div>封面</div> -->
               <a href='<?php echo $picture->name->url ();?>' download='<?php echo $work->cover;?>' class='icon-in'>下載</a>
+              <a href='<?php echo $picture->name->url ();?>' class='icon-link-external'>檢視</a>
             </div>  
     <?php }
         } ?>
