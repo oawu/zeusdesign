@@ -79,7 +79,7 @@
       <tr>
         <th></th>
         <td>
-          <button type='button' data-i='0' class='icon-plus add_block' data-blocks='<?php echo json_encode (isset ($posts['blocks']) ? $posts['blocks'] : array ());?>'>新增說明</button>
+          <button type='button' data-i='0' class='icon-plus add_block' data-blocks='<?php echo json_encode ($blocks);?>'>新增說明</button>
         </td>
       </tr>
 
