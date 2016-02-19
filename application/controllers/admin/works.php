@@ -92,7 +92,7 @@ class Works extends Admin_controller {
               );
           }, $block['items'])
         );
-    }, json_encode (isset ($posts['blocks']) ? $posts['blocks'] : array ()));
+    }, json_encode (isset ($posts['blocks']) && $posts['blocks'] ? $posts['blocks'] : array ()));
 
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增作品')
