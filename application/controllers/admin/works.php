@@ -21,6 +21,21 @@ class Works extends Admin_controller {
          ->add_tab ('新增作品', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2));
   }
 
+  public function all () {
+    $works = Work::find ('all', array ('conditions' => array ('destroy_user_id IS NOT NULL')));
+
+    return $this->add_tab ('所有刪除作品', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
+                ->set_tab_index (3)
+                ->set_subtitle ('所有刪除作品')
+                ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
+                ->load_view (array (
+                    'works' => $works,
+                  ));
+  }
   public function index ($offset = 0) {
     $columns = array (array ('key' => 'user_id', 'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
                       array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
