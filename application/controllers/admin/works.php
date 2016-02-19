@@ -22,8 +22,7 @@ class Works extends Admin_controller {
   }
 
   public function all () {
-    $columns = array (array ('key' => 'user_id', 'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
-                      array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
+    $columns = array (array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
                       array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
                       );
     $configs = array ('admin', $this->get_class (), '%s');
