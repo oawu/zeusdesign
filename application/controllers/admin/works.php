@@ -92,7 +92,7 @@ class Works extends Admin_controller {
               );
           }, $block['items'])
         );
-    }, json_encode (isset ($posts['blocks']) && $posts['blocks'] ? $posts['blocks'] : array ()));
+    }, json_encode (isset ($posts['blocks']) && $posts['blocks'] && is_array ($posts['blocks']) ? $posts['blocks'] : array ()));
 
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增作品')
@@ -171,7 +171,7 @@ class Works extends Admin_controller {
               );
           }, $block['items'])
         );
-    }, isset ($posts['blocks']) && $posts['blocks'] ? $posts['blocks'] : $this->work->blocks ());
+    }, isset ($posts['blocks']) && $posts['blocks'] && is_array ($posts['blocks']) ? $posts['blocks'] : $this->work->blocks ());
 
     return $this->add_tab ('編輯作品', array ('href' => base_url ('admin', $this->get_class (), $this->work->id, 'edit'), 'index' => 3))
                 ->set_tab_index (3)
