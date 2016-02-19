@@ -1,3 +1,30 @@
+<form action='<?php echo base_url ('admin', 'works', 'all');?>' method='get' class="search<?php echo $has_search = array_filter (column_array ($columns, 'value')) ? ' show' : '';?>">
+<?php 
+  if ($columns) { ?>
+    <div class='l i<?php echo count ($columns);?> n1'>
+<?php foreach ($columns as $column) {
+        if (isset ($column['select']) && $column['select']) { ?>
+          <select name='<?php echo $column['key'];?>'>
+            <option value=''>請選擇 <?php echo $column['title'];?>..</option>
+      <?php foreach ($column['select'] as $option) { ?>
+              <option value='<?php echo $option['value'];?>'<?php echo $option['value'] === $column['value'] ? ' selected' : '';?>><?php echo $option['text'];?></option>
+      <?php } ?>
+          </select>
+  <?php } else { ?>
+          <input type='text' name='<?php echo $column['key'];?>' value='<?php echo $column['value'];?>' placeholder='請輸入 <?php echo $column['title'];?>..' />
+<?php   }
+      }?>
+    </div>
+    <button type='submit'>尋找</button>
+<?php 
+  } else { ?>
+    <div class='l i0 n1'></div>
+<?php 
+  }?>
+  <a href='<?php echo base_url ('admin', 'works', 'add');?>'>新增</a>
+</form>
+<button type='button' onClick="if (!$(this).prev ().is (':visible')) $(this).attr ('class', 'icon-chevron-left').prev ().addClass ('show'); else $(this).attr ('class', 'icon-chevron-right').prev ().removeClass ('show');" class='icon-chevron-<?php echo $has_search ? 'left' : 'right';?>'></button>
+
 <?php
   foreach ($works as $work) { ?>
     <div class='work'>

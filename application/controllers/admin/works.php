@@ -22,7 +22,20 @@ class Works extends Admin_controller {
   }
 
   public function all () {
-    $works = Work::find ('all', array ('conditions' => array ('destroy_user_id IS NOT NULL')));
+    $columns = array (array ('key' => 'user_id', 'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
+                      array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
+                      array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
+                      );
+    $configs = array ('admin', $this->get_class (), '%s');
+    $conditions = conditions ($columns, $configs);
+    Work::addConditions ($conditions, 'destroy_user_id IS NOT NULL');
+
+    $limit = 25;
+    $works = Work::find ('all', array (
+        'order' => 'id DESC',
+        'include' => array ('pictures'),
+        'conditions' => $conditions
+      ));
 
     return $this->add_tab ('所有刪除作品', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 3))
                 ->set_tab_index (3)
@@ -34,6 +47,7 @@ class Works extends Admin_controller {
                 ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
                 ->load_view (array (
                     'works' => $works,
+                    'columns' => $columns
                   ));
   }
   public function index ($offset = 0) {
