@@ -69,8 +69,8 @@ class Works extends Admin_controller {
     return $this->set_tab_index (2)
                 ->set_subtitle ('新增作品')
                 ->load_view (array (
-                    'posts' => $posts
-                    'blocks' => $blocks,
+                    'posts' => $posts,
+                    'blocks' => $blocks
                   ));
   }
   public function create () {
