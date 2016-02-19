@@ -9,7 +9,7 @@
           <select name='user_id'>
       <?php if ($users = User::all (array ('select' => 'id, name'))) {
               foreach ($users as $user) { ?>
-                <option value='<?php echo $user->id;?>'<?php echo (isset ($posts['user_id']) ? $posts['user_id'] : $article->user_id) == $user->id ? ' selected': '';?>><?php echo $user->name;?></option>
+                <option value='<?php echo $user->id;?>'<?php echo (isset ($posts['user_id']) ? $posts['user_id'] : $work->user_id) == $user->id ? ' selected': '';?>><?php echo $user->name;?></option>
         <?php }
             }?>
           </select>

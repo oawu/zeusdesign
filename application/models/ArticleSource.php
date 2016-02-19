@@ -26,6 +26,6 @@ class ArticleSource extends OaModel {
   }
   public function mini_href ($length = 80) {
     if (!isset ($this->href)) return '';
-    return $length ? mb_strimwidth (remove_ckedit_tag ($this->href), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->content);
+    return $length ? mb_strimwidth (remove_ckedit_tag ($this->href), 0, $length, '…','UTF-8') : remove_ckedit_tag ($this->href);
   }
 }
