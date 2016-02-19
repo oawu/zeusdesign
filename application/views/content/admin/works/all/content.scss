@@ -25,11 +25,11 @@
         cursor: pointer;
         @include transition(all .3s);
         z-index: 9;
+        @include box-shadow(0 0 5px rgba(39, 40, 34, .5));
         
         &:hover {
           z-index: 99;
-          @include scale(1.2);
-          @include box-shadow(0 0 5px rgba(39, 40, 34, .5));
+          @include scale(1.1);
         }
         
         a {
@@ -53,7 +53,6 @@
 
             @include border-bottom-left-radius(0);
             @include border-bottom-right-radius(3px);
-
           }
         }
         div {
