@@ -50,7 +50,9 @@ class Articles extends Site_controller {
       foreach ($others as $other)
         $this->add_meta (array ('property' => 'og:see_also', 'content' => base_url ('article', $other['site_show_page_last_uri'])));
 
-    $this->load_view (array (
+    $this->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
+         ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
+         ->load_view (array (
             'article' => $article,
             'sources' => $sources,
             'user' => $user

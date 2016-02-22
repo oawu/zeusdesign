@@ -9,6 +9,20 @@ $(function () {
   $('.b1 article section a').each (function () {
     $(this).attr ('target', '_blank');
   });
+  $('.b1 article section img').each (function () {
+    
+    var src = $(this).attr ('src').replace ('/400h_', '/_');
+
+    $(this).attr ('data-fancybox-group', 'fancybox_group')
+           .attr ('href', src);
+  }).fancybox ({
+    padding: 0,
+    helpers: {
+      overlay: { locked: false },
+      title: { type: 'over' },
+      thumbs: { width: 50, height: 50 }
+    }
+ });
 
   $('time').timeago ();
 

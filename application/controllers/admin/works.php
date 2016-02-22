@@ -40,10 +40,7 @@ class Works extends Admin_controller {
                 ->set_tab_index (3)
                 ->set_subtitle ('所有刪除作品')
                 ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
-                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox.js'))
-                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-buttons.js'))
-                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-thumbs.js'))
-                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'jquery.fancybox-media.js'))
+                ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
                 ->load_view (array (
                     'works' => $works,
                     'columns' => $columns
