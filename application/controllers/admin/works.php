@@ -68,6 +68,8 @@ class Works extends Admin_controller {
         'include' => array ('user', 'pictures'),
         'conditions' => $conditions
       ));
+    
+    Session::setData ('admin_works_index_url', current_url ());
 
     return $this->set_tab_index (1)
                 ->set_subtitle ('作品列表')
@@ -152,7 +154,7 @@ class Works extends Admin_controller {
           return verifyCreateOrm ($pic = WorkPicture::create (array_intersect_key (array_merge ($picture, array ('work_id' => $work->id)), WorkPicture::table ()->columns))) && $pic->name->put ($picture);
         });
 
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (($url = Session::getData ('admin_works_index_url')) ? $url : array ('admin', $this->get_class ()), array (
         '_flash_message' => '新增成功！'
       ));
   }
@@ -262,7 +264,7 @@ class Works extends Admin_controller {
               });
 
     $this->_clean_cell ($work);
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (($url = Session::getData ('admin_works_index_url')) ? $url : array ('admin', $this->get_class ()), array (
         '_flash_message' => '更新成功！'
       ));
   }
