@@ -6,7 +6,7 @@
  */
 
 class Tag_works extends Site_controller {
-private $tag = null;
+  private $tag = null;
   private $work = null;
 
   public function __construct () {
