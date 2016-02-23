@@ -46,6 +46,7 @@ class Articles extends Admin_controller {
         'conditions' => $conditions
       ));
 
+    Session::setData ('admin_articles_index_url', current_url ());
     return $this->set_tab_index (1)
                 ->set_subtitle ('文章列表')
                 ->add_hidden (array ('id' => 'is_visibled_url', 'value' => base_url ('admin', $this->get_class (), 'is_visibled')))
@@ -126,7 +127,7 @@ class Articles extends Admin_controller {
             )), ArticleSource::table ()->columns)));
         });
 
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (($url = Session::getData ('admin_articles_index_url')) ? $url : array ('admin', $this->get_class ()), array (
         '_flash_message' => '新增成功！'
       ));
   }
@@ -223,7 +224,7 @@ class Articles extends Admin_controller {
         });
 
     $this->_clean_cell ($article);
-    return redirect_message (array ('admin', $this->get_class ()), array (
+    return redirect_message (($url = Session::getData ('admin_articles_index_url')) ? $url : array ('admin', $this->get_class ()), array (
         '_flash_message' => '更新成功！'
       ));
   }
