@@ -47,13 +47,17 @@ class Works extends Admin_controller {
                   ));
   }
   public function index ($offset = 0) {
-    $columns = array (array ('key' => 'user_id', 'title' => '作者',     'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
+    $columns = array (array ('key' => 'user_id', 'title' => '作者', 'sql' => 'user_id = ?', 'select' => array_map (function ($user) { return array ('value' => $user->id, 'text' => $user->name);}, User::all (array ('select' => 'id, name')))),
                       array ('key' => 'title',   'title' => '標題', 'sql' => 'title LIKE ?'), 
-                      array ('key' => 'content', 'title' => '內容', 'sql' => 'content LIKE ?'),
+                      array ('key' => 'tag_id',  'title' => '分類', 'sql' => '(id != 0 OR id = ?)', 'select' => array_map (function ($tag) { return array ('value' => $tag->id, 'text' => $tag->name);}, WorkTag::all (array ('select' => 'id, name')))),
                       );
+
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
     Work::addConditions ($conditions, 'destroy_user_id IS NULL');
+    
+    if (($tag_id = OAInput::get ('tag_id')) && ($ids = column_array (WorkTagMapping::find ('all', array ('select' => 'work_id', 'conditions' => array ('work_tag_id = ?', $tag_id))), 'work_id')))
+      Work::addConditions ($conditions, 'id IN (?)', $ids);
 
     $limit = 25;
     $total = Work::count (array ('conditions' => $conditions));
@@ -73,6 +77,7 @@ class Works extends Admin_controller {
 
     return $this->set_tab_index (1)
                 ->set_subtitle ('作品列表')
+                ->add_hidden (array ('id' => 'is_enabled_url', 'value' => base_url ('admin', $this->get_class (), 'is_enabled')))
                 ->load_view (array (
                     'works' => $works,
                     'pagination' => $pagination,
@@ -296,6 +301,27 @@ class Works extends Admin_controller {
       ));
   }
 
+  public function is_enabled ($id = 0) {
+    if (!($id && ($work = Work::find_by_id ($id, array ('select' => 'id, is_enabled, updated_at')))))
+      return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
+
+    $posts = OAInput::post ();
+
+    if ($msg = $this->_validation_is_enabled_posts ($posts))
+      return $this->output_json (array ('status' => false, 'message' => $msg, 'content' => Work::$enableNames[$work->is_enabled]));
+
+    if ($columns = array_intersect_key ($posts, $work->table ()->columns))
+      foreach ($columns as $column => $value)
+        $work->$column = $value;
+
+    $update = Work::transaction (function () use ($work) { return $work->save (); });
+
+    if (!$update)
+      return $this->output_json (array ('status' => false, 'message' => '更新失敗！', 'content' => Work::$enableNames[$work->is_enabled]));
+
+    $this->_clean_cell ($work);
+    return $this->output_json (array ('status' => true, 'message' => '更新成功！', 'content' => Work::$enableNames[$work->is_enabled]));
+  }
   private function _clean_cell ($work) {
     if (isset ($work->id)) clean_cell ('site_cache_cell', 'work', $work->id);
   }
@@ -322,6 +348,11 @@ class Works extends Admin_controller {
     else
       $posts['blocks'] = array ();
 
+    return '';
+  }
+  
+  private function _validation_is_enabled_posts (&$posts) {
+    if (!(isset ($posts['is_enabled']) && is_numeric ($posts['is_enabled']) && in_array ($posts['is_enabled'], array_keys (Work::$enableNames)))) return '參數錯誤！';
     return '';
   }
 }

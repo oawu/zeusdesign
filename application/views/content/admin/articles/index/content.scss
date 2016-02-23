@@ -18,6 +18,7 @@
 }
 .checkbox {
   @include checkbox('green');
+  cursor: pointer;
 
   input {
     &[disabled] {
