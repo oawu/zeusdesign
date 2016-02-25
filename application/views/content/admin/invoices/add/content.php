@@ -44,9 +44,23 @@
       </tr>
 
       <tr>
-        <th>金 額：</th>
+        <th>數 量：</th>
         <td>
-          <input type='number' name='money' value='<?php echo isset ($posts['money']) ? $posts['money'] : '';?>' placeholder='請輸入金額..'/>
+          <input type='number' name='quantity' value='<?php echo isset ($posts['quantity']) ? $posts['quantity'] : '';?>' placeholder='請輸入數量..'/>
+        </td>
+      </tr>
+
+      <tr>
+        <th>單 價：</th>
+        <td>
+          <input type='number' name='single_money' value='<?php echo isset ($posts['single_money']) ? $posts['single_money'] : '';?>' placeholder='請輸入單價..'/>
+        </td>
+      </tr>
+
+      <tr>
+        <th>總金額：</th>
+        <td>
+          <input type='number' name='all_money' value='<?php echo isset ($posts['all_money']) ? $posts['all_money'] : '';?>' placeholder='請輸入總金額..'/>
         </td>
       </tr>
 

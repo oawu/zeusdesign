@@ -35,10 +35,12 @@
             <td data-title='名稱' width='100'><?php echo $invoice->name;?></td>
             <td data-title='負責人' width='100'><?php echo $invoice->user->name;?></td>
             <td data-title='窗口' width='100'><?php echo $invoice->contact;?></td>
-            <td data-title='金額' width='100'>NT$<?php echo $invoice->money;?></td>
+            <td data-title='數量' width='80'><?php echo $invoice->quantity;?></td>
+            <td data-title='單價' width='80'>NT$ <?php echo number_format ($invoice->single_money);?></td>
+            <td data-title='總金額' width='90'>NT$ <?php echo number_format ($invoice->all_money);?></td>
             <td data-title='圖片' width='100' class='pics'><?php echo $invoice->pictures ? implode ('', array_map (function ($picture) { return img ($picture->name->url ('100x100c'), false, 'class="i_30"'); }, $invoice->pictures)) : '-';?></td>
             <td data-title='分類' width='80'><?php echo $invoice->tag ? $invoice->tag->name : '其他';?></td>
-            <td data-title='結案日期' width='125'><?php echo $invoice->closing_at ? $invoice->closing_at->format ('Y-m-d') : '-';?></td>
+            <td data-title='結案日期' width='110'><?php echo $invoice->closing_at ? $invoice->closing_at->format ('Y-m-d') : '-';?></td>
             <td data-title='備註' ><?php echo $invoice->mini_memo ();?></td>
             <td data-title='是否請款' width='90'>
               <label class='checkbox'>

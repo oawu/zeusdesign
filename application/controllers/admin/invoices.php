@@ -12,7 +12,7 @@ class Invoices extends Admin_controller {
     parent::__construct ();
 
     if (in_array ($this->uri->rsegments (2, 0), array ('edit', 'update', 'destroy')))
-      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->invoice = Invoice::find_by_id ($id))))
+      if (!(($id = $this->uri->rsegments (3, 0)) && ($this->invoice = Invoice::find ('one', array ('conditions' => array ('id = ? AND destroy_user_id IS NULL', $id))))))
         return redirect_message (array ('admin', $this->get_class ()), array (
             '_flash_message' => '找不到該筆資料。'
           ));
@@ -34,12 +34,13 @@ class Invoices extends Admin_controller {
     $excel->getActiveSheet ()->getColumnDimension ('C')->setWidth (10);
     $excel->getActiveSheet ()->getColumnDimension ('D')->setWidth (8);
     $excel->getActiveSheet ()->getColumnDimension ('E')->setWidth (8);
-    $excel->getActiveSheet ()->getColumnDimension ('F')->setWidth (11);
-    $excel->getActiveSheet ()->getColumnDimension ('G')->setWidth (15);
+    $excel->getActiveSheet ()->getColumnDimension ('F')->setWidth (8);
+    $excel->getActiveSheet ()->getColumnDimension ('G')->setWidth (11);
+    $excel->getActiveSheet ()->getColumnDimension ('H')->setWidth (15);
     $excel->getActiveSheet ()->freezePaneByColumnAndRow (0, 2);
     $excel->getActiveSheet ()->getStyle ('G')->getAlignment ()->setWrapText (true); 
 
-    $excel->getActiveSheet ()->getStyle ('A1:G1')->applyFromArray (array (
+    $excel->getActiveSheet ()->getStyle ('A1:H1')->applyFromArray (array (
       'fill' => array (
         'type' => PHPExcel_Style_Fill::FILL_SOLID,
         'color' => array('rgb' => 'fff3ca')
@@ -117,6 +118,7 @@ class Invoices extends Admin_controller {
     $columns = $this->_search_columns ();
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
+    Invoice::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     $invoices = Invoice::find ('all', array (
         'order' => 'id DESC',
@@ -127,9 +129,10 @@ class Invoices extends Admin_controller {
     $this->load->library ('OAExcel');
 
     $infos = array (array ('title' => '專案名稱', 'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->name'),
-                    array ('title' => '負責人',   'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->user->name'),
                     array ('title' => '窗口',     'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->contact'),
-                    array ('title' => '金額',     'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER,        'exp' => '$invoice->money'),
+                    array ('title' => '數量',   'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER,        'exp' => '$invoice->quantity'),
+                    array ('title' => '單價',   'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER,        'exp' => '$invoice->single_money'),
+                    array ('title' => '總金額',   'format' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER,        'exp' => '$invoice->all_money'),
                     array ('title' => '分類',     'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,          'exp' => '$invoice->tag ? $invoice->tag->name : "其他"'),
                     array ('title' => '結案日期', 'format' => PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2, 'exp' => '$invoice->closing_at ? $invoice->closing_at->format ("Y-m-d") : ""'),
                     array ('title' => '備註',    'format' => PHPExcel_Style_NumberFormat::FORMAT_TEXT,           'exp' => '$invoice->memo'));
@@ -163,6 +166,7 @@ class Invoices extends Admin_controller {
     $columns = $this->_search_columns ();
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
+    Invoice::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     $limit = 25;
     $total = Invoice::count (array ('conditions' => $conditions));
@@ -315,10 +319,21 @@ class Invoices extends Admin_controller {
       ));
   }
   public function destroy () {
+    if (!User::current ()->id)
+      return redirect_message (array ('admin', $this->get_class ()), array (
+          '_flash_message' => '刪除失敗！',
+        ));
+
+    $posts = array (
+        'destroy_user_id' => User::current ()->id
+      );
+
     $invoice = $this->invoice;
-    $delete = Invoice::transaction (function () use ($invoice) {
-      return $invoice->destroy ();
-    });
+    if ($columns = array_intersect_key ($posts, $invoice->table ()->columns))
+      foreach ($columns as $column => $value)
+        $invoice->$column = $value;
+
+    $delete = Invoice::transaction (function () use ($invoice) { return $invoice->save (); });
 
     if (!$delete)
       return redirect_message (array ('admin', $this->get_class ()), array (
@@ -361,7 +376,13 @@ class Invoices extends Admin_controller {
     if (!(isset ($posts['contact']) && ($posts['contact'] = trim ($posts['contact']))))
       return '沒有填寫窗口！';
     
-    if (!(isset ($posts['money']) && is_numeric ($posts['money'] = trim ($posts['money'])) && ($posts['money'] > 0) && ($posts['money'] < 4294967296)))
+    if (!(isset ($posts['quantity']) && is_numeric ($posts['quantity'] = trim ($posts['quantity'])) && ($posts['quantity'] > 0) && ($posts['quantity'] < 4294967296)))
+      return '沒有填寫數量 或 數量錯誤！';
+    
+    if (!(isset ($posts['single_money']) && is_numeric ($posts['single_money'] = trim ($posts['single_money'])) && ($posts['single_money'] > 0) && ($posts['single_money'] < 4294967296)))
+      return '沒有填寫單價 或 單價錯誤！';
+    
+    if (!(isset ($posts['all_money']) && is_numeric ($posts['all_money'] = trim ($posts['all_money'])) && ($posts['all_money'] > 0) && ($posts['all_money'] < 4294967296)))
       return '沒有填寫金額 或 金額錯誤！';
 
     if (!(isset ($posts['closing_at']) && ($posts['closing_at'] = trim ($posts['closing_at'])) && (DateTime::createFromFormat ('Y-m-d', $posts['closing_at']) !== false)))
