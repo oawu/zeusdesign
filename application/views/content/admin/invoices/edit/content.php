@@ -61,7 +61,7 @@
       <tr>
         <th>總金額：</th>
         <td>
-          <input type='number' name='money' value='<?php echo isset ($posts['money']) ? $posts['money'] : $invoice->money;?>' placeholder='請輸入總金額..'/>
+          <input type='number' name='all_money' value='<?php echo isset ($posts['all_money']) ? $posts['all_money'] : $invoice->all_money;?>' placeholder='請輸入總金額..'/>
         </td>
       </tr>
 
