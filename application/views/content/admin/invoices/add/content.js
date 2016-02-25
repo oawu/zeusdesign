@@ -31,4 +31,19 @@ $(function () {
   $('#is_finished').click (function () {
     $(this).nextAll ('label').text ($(this).prop ('checked') === true ? $(this).data ('is_finished_name') : $(this).data ('no_finished_name'));
   });
+  
+  var $all_money = $('#all_money');
+  var $single_money = $('#single_money');
+
+  var $quantity = $('#quantity').keyup (function () {
+    if (isNaN ($(this).val ()) || isNaN ($single_money.val ()))
+      return;
+
+    $all_money.val ($(this).val () * $single_money.val ());
+  });
+  $single_money.keyup (function () {
+    if (isNaN ($(this).val ()) || isNaN ($quantity.val ()))
+      return;
+    $all_money.val ($(this).val () * $quantity.val ());
+  });
 });
