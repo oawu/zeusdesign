@@ -8,6 +8,7 @@
 class Pokemons extends Site_controller {
 
   public function index () {
+    return;
     $pokmons = Pokemon::find ('all');
     $this->set_frame_path ('frame', 'pure')
          ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
