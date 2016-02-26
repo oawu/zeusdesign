@@ -1,0 +1,21 @@
+/**
+ * @author      OA Wu <comdan66@gmail.com>
+ * @copyright   Copyright (c) 2016 OA Wu Design
+ */
+
+@import "_oa";
+
+html {
+  body {
+    position: relative;
+    background-color: #fff;
+    background-image: none;
+    font-family: "微軟正黑體","Open sans", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    height: auto;
+    color: rgba(85, 85, 85, 1);
+  }
+}
+#container {
+  max-width: $mainWidth;
+  text-align: left;
+}

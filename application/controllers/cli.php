@@ -33,9 +33,9 @@ class Cli extends Site_controller {
           return false;
         echo " create!";
         
-        if (!$pokemon->pic->put_url ($data[2]))
-          return false;
-        echo " Pic!";
+        // if (!$pokemon->pic->put_url ($data[2]))
+          // return false;
+        // echo " Pic!";
 
         return true;
       });
