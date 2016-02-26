@@ -12,6 +12,7 @@ class Pokemons extends Site_controller {
     $this->set_frame_path ('frame', 'pure')
          ->add_css (resource_url ('resource', 'css', 'fancyBox_v2.1.5', 'my.css'))
          ->add_js (resource_url ('resource', 'javascript', 'fancyBox_v2.1.5', 'my.js'))
+         ->add_js (resource_url ('resource', 'javascript', 'lazyload_v1.9.7', 'jquery.lazyload.min.js'))
          ->load_view (array (
         'pokmons' => $pokmons
       ));

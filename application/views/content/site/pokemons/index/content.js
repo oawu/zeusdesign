@@ -9,6 +9,7 @@ $(function () {
     helpers: {
       overlay: { locked: false },
       title: { type: 'over' },
+      thumbs: { width: 50, height: 50 }
     }
   });
 });
