@@ -121,7 +121,7 @@ class Invoices extends Admin_controller {
     Invoice::addConditions ($conditions, 'destroy_user_id IS NULL');
 
     $invoices = Invoice::find ('all', array (
-        'order' => 'id DESC',
+        'order' => 'closing_at DESC',
         'include' => array ('pictures', 'user', 'tag'),
         'conditions' => $conditions
       ));
