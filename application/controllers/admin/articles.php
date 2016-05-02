@@ -20,6 +20,7 @@ class Articles extends Admin_controller {
     $this->add_tab ('文章列表', array ('href' => base_url ('admin', $this->get_class ()), 'index' => 1))
          ->add_tab ('新增文章', array ('href' => base_url ('admin', $this->get_class (), 'add'), 'index' => 2))
          ->add_hidden (array ('id' => 'tools_ckeditors_upload_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_upload_image')))
+         ->add_hidden (array ('id' => 'tools_ckeditors_browser_image_url', 'value' => base_url ('admin', 'tools', 'ckeditors_browser_image')))
          ;
   }
 
