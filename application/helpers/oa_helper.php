@@ -20,7 +20,7 @@ if (!function_exists ('resource_url')) {
 
 if (!function_exists ('remove_ckedit_tag')) {
   function remove_ckedit_tag ($text) {
-    return preg_replace ("/\s+/", " ", preg_replace ("/&#?[a-z0-9]+;/i", "", (trim (strip_tags ($text)))));
+    return preg_replace ("/\s+/", " ", preg_replace ("/&#?[a-z0-9]+;/i", "", str_replace ('▼', '', str_replace ('▲', '', trim (strip_tags ($text))))));
   }
 }
 
