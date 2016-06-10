@@ -1,5 +1,5 @@
 # Welcome to 宙思設計!
-這是一個外包案，主要是 [宙思設計](http://www.zeusdesign.com.tw/) 的前後端設計。
+此專案為 [宙思設計](http://www.zeusdesign.com.tw/) 官方網站的實作，主要是與 [宙思設計](http://www.zeusdesign.com.tw/) 配合完成的外包專案，技術包含網站**前**、**後**、**系統**端..等應用。
 
 ---
 ## 聲明
