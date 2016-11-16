@@ -115,6 +115,10 @@ class Invoices extends Admin_controller {
                   array ('key' => 'end',         'title' => '結束時間', 'sql' => 'closing_at <= ?'));
   }
   public function export () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
+
     $columns = $this->_search_columns ();
     $configs = array ('admin', $this->get_class (), '%s');
     $conditions = conditions ($columns, $configs);
@@ -192,6 +196,9 @@ class Invoices extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->set_tab_index (2)
@@ -201,6 +208,9 @@ class Invoices extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -250,6 +260,9 @@ class Invoices extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->add_tab ('編輯帳務', array ('href' => base_url ('admin', $this->get_class (), $this->invoice->id, 'edit'), 'index' => 3))
@@ -261,6 +274,9 @@ class Invoices extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), $this->invoice->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -319,6 +335,9 @@ class Invoices extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     if (!User::current ()->id)
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '刪除失敗！',
@@ -346,6 +365,9 @@ class Invoices extends Admin_controller {
   }
 
   public function is_finished ($id = 0) {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '新增成功！'
+      ));
     if (!($id && ($invoice = Invoice::find_by_id ($id, array ('select' => 'id, is_finished, updated_at')))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
 
