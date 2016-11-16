@@ -49,6 +49,9 @@ class Invoice_tags extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index (2)
@@ -58,6 +61,9 @@ class Invoice_tags extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -85,6 +91,9 @@ class Invoice_tags extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     
     return $this->add_tab ('編輯類別', array ('href' => base_url ('admin', $this->get_class (), 'edit', $this->tag->id), 'index' => 3))
@@ -96,6 +105,9 @@ class Invoice_tags extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), $this->tag->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -128,6 +140,9 @@ class Invoice_tags extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     
     $tag = $this->tag;
     
