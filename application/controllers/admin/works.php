@@ -85,6 +85,9 @@ class Works extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     $blocks = ($blocks = isset ($posts['blocks']) ? $posts['blocks'] : array ()) ? array_map (function ($block) {
           return  array (
@@ -106,6 +109,9 @@ class Works extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -164,6 +170,9 @@ class Works extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     $blocks = ($blocks = isset ($posts['blocks']) ? $posts['blocks'] : $this->work->blocks ()) ? array_map (function ($block) {
       return  array (
@@ -187,6 +196,9 @@ class Works extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), $this->work->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -274,6 +286,9 @@ class Works extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!User::current ()->id)
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '刪除失敗！',
@@ -302,6 +317,7 @@ class Works extends Admin_controller {
   }
 
   public function is_enabled ($id = 0) {
+      return $this->output_json (array ('status' => false, 'message' => '請至新系統調整。', 'content' => Work::$enableNames[$work->is_enabled]));
     if (!($id && ($work = Work::find_by_id ($id, array ('select' => 'id, is_enabled, updated_at')))))
       return $this->output_json (array ('status' => false, 'message' => '當案不存在，或者您的權限不夠喔！'));
 

@@ -49,6 +49,9 @@ class Banners extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->set_tab_index (2)
@@ -58,6 +61,9 @@ class Banners extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -94,6 +100,9 @@ class Banners extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->add_tab ('編輯Banner', array ('href' => base_url ('admin', $this->get_class (), $this->banner->id, 'edit'), 'index' => 3))
@@ -105,6 +114,9 @@ class Banners extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), $this->banner->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -150,6 +162,9 @@ class Banners extends Admin_controller {
       ));
   }
   public function sort ($id, $sort) {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!in_array ($sort, array ('up', 'down')))
       return redirect_message (array ('admin', $this->get_class ()), array (
           '_flash_message' => '排序失敗！'
@@ -190,6 +205,9 @@ class Banners extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $banner = $this->banner;
     $delete = Banner::transaction (function () use ($banner) {
       return $banner->destroy ();

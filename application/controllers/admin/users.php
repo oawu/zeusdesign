@@ -50,6 +50,9 @@ class Users extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     
     return $this->add_tab ('編輯 ' . $this->user->name . '', array ('href' => base_url ('admin', $this->get_class (), $this->user->id, 'edit'), 'index' => 2))
@@ -61,6 +64,9 @@ class Users extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', $this->get_class (), $this->user->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'

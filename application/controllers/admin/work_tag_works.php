@@ -67,6 +67,9 @@ class Work_tag_works extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->set_tab_index (3)
@@ -77,6 +80,9 @@ class Work_tag_works extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', 'work_tags', $this->tag->id, 'works', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -134,6 +140,9 @@ class Work_tag_works extends Admin_controller {
     ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
 
     return $this->add_tab ('編輯作品', array ('href' => base_url ('admin', 'work_tags', $this->tag->id, 'works', $this->work->id, 'edit'), 'index' => 4))
@@ -146,6 +155,9 @@ class Work_tag_works extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', 'work_tags', $this->tag->id, 'works', $this->work->id, 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -218,6 +230,9 @@ class Work_tag_works extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $work = $this->work;
     $delete = Work::transaction (function () use ($work) {
       return $work->destroy ();

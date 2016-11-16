@@ -62,6 +62,9 @@ class Work_tag_tags extends Admin_controller {
                   ));
   }
   public function add () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     
     return $this->set_tab_index (3)
@@ -72,6 +75,9 @@ class Work_tag_tags extends Admin_controller {
                   ));
   }
   public function create () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', 'work_tags', $this->parent_tag->id, 'tags', 'add'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -104,6 +110,9 @@ class Work_tag_tags extends Admin_controller {
       ));
   }
   public function edit () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $posts = Session::getData ('posts', true);
     
     return $this->add_tab ('編輯標籤', array ('href' => base_url ('admin', 'work_tags', $this->parent_tag->id, 'tags', $this->tag->id, 'edit'), 'index' => 4))
@@ -116,6 +125,9 @@ class Work_tag_tags extends Admin_controller {
                   ));
   }
   public function update () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!$this->has_post ())
       return redirect_message (array ('admin', 'work_tags', $this->parent_tag->id, 'tags', 'edit'), array (
           '_flash_message' => '非 POST 方法，錯誤的頁面請求。'
@@ -150,6 +162,9 @@ class Work_tag_tags extends Admin_controller {
       ));
   }
   public function destroy () {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     $tag = $this->tag;
     $delete = WorkTag::transaction (function () use ($tag) {
       return $tag->destroy ();
@@ -166,6 +181,9 @@ class Work_tag_tags extends Admin_controller {
       ));
   }
   public function sort ($id, $tag_id, $sort) {
+    return redirect_message (array ('admin', $this->get_class ()), array (
+        '_flash_message' => '請至新系統調整。'
+      ));
     if (!in_array ($sort, array ('up', 'down')))
       return redirect_message (array ('admin', 'work_tags', $this->parent_tag->id, 'tags'), array (
           '_flash_message' => '排序失敗！'
